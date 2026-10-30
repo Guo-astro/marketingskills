@@ -33,8 +33,10 @@ Load this pack for hotels, vacation rentals, restaurants and chains, and travel 
 
 | Signal | Where or how | What it shows |
 |---|---|---|
-| ★ Book-direct offers over time | `teardown.mjs history <url>` and `teardown.mjs hero <domain>` for "best rate", member rate, or direct-only perks | When they started pushing direct bookings; each change becomes a move in moves.csv |
-| ★ Rate parity spot checks | Compare the price for the same date on their site, OTAs, and Google Hotels | Whether they undercut OTAs with member rates or keep parity |
+| ★ Book-direct offers over time | `teardown.mjs history <url>` and `teardown.mjs hero <url>` on the homepage and booking page, for "best rate", member rate, or direct-only perks | When they started pushing direct bookings; each change becomes a move in moves.csv |
+| ★ Rate parity spot checks | Compare the price for the same room and date on their site (logged out and logged in), the main OTAs, and Google Hotels | Whether they keep public parity and undercut only with a login-gated member rate, the usual way around parity clauses |
+| ★ Google free booking links and metasearch | Their property in Google Hotels and Google Vacation Rentals; "Reserve with Google" on restaurant listings | Whether their own booking engine shows up next to the OTAs on Google |
+| ★ Delivery app markup | The same menu items on their own ordering site vs the delivery apps | Whether they price delivery apps higher to push first-party ordering |
 | Location and opening history | `teardown.mjs sitemap-growth <domain>` for location pages, plus archived location lists | Openings and closings by date; each opening becomes a move |
 | OTA and delivery app presence | Their listings on the main OTAs, metasearch, and delivery apps | Which intermediaries they rely on, and which they dropped |
 | Review volume and ratings | Travel review platforms and Google ratings through official APIs or manual checks, not Maps scrapers | Demand and guest sentiment per location; review spikes become moves |
@@ -49,14 +51,14 @@ Load this pack for hotels, vacation rentals, restaurants and chains, and travel 
 ## Going Inside
 
 - **Join the loyalty program and email list** with approval, under the user's real identity, and log every message by day and offer for 30 to 60 days.
-- **Walk the booking or ordering flow** to the final confirmation step and stop there. Screenshot fees, add-ons, upsells (room upgrades, add-on tours, desserts), and cancellation terms.
+- **Walk the booking or ordering flow** to the final confirmation step and stop there. Screenshot fees, add-ons, upsells (room upgrades, add-on tours, desserts), and cancellation terms. Compare the total at the first screen with the total at checkout, which is where fee disclosure rules bite.
 - **Install the loyalty or ordering app** and note the first-order offer and push cadence.
 - **Guardrails:** never complete a booking, reservation, or order the user won't use. A no-show costs a small hotel a room and a restaurant a table. Only book if the user genuinely plans to stay or eat, and cancel within the free window if plans change.
 
 ## Rules That Limit Copying
 
-- **Price display and fees:** the FTC's rule on junk fees (US), covering short-term lodging and live events, and similar EU and UK rules require total prices upfront. Resort fees and service fees must be disclosed.
-- **Rate parity clauses:** OTA contracts may limit how a property can price direct bookings; several European countries restrict these clauses. Check the user's own OTA contracts.
+- **Price display and fees:** the FTC's Rule on Unfair or Deceptive Fees, in effect since May 12, 2025, requires hotels, vacation rentals, and the platforms that sell them to show the total price, including mandatory fees such as resort fees, upfront. Some states (California, for example) have broader all-in pricing laws, and the EU and UK have their own price display rules.
+- **Rate parity clauses:** OTA contracts can limit how a property prices direct bookings. In the EU, the Digital Markets Act bans Booking.com's parity clauses (since late 2024), and some countries restricted them earlier; elsewhere they still appear in contracts. Check the user's own OTA contracts before copying a pricing tactic.
 - **Reviews:** platform policies and the FTC's rule on fake reviews bar incentivized or fake reviews, and review gating.
 - **Alcohol and food:** alcohol advertising rules and allergen labeling rules limit menu and promo copy.
 - **Short-term rentals:** many cities require registration and limit listings.

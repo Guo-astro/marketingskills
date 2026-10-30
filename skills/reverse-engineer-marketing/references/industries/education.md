@@ -18,7 +18,7 @@ Load this pack for edtech products, online courses and cohort programs, bootcamp
 - "Apply now", "Request info", "Book an info session", or "Next cohort starts" as the main calls to action.
 - Program pages with start dates, tuition, and financing; syllabus or curriculum downloads behind a form.
 - Enrollment CRM and application tools in the page source or on subdomains (`apply.`, `admissions.`, `learn.`, `courses.`), visible through `teardown.mjs stack` and `teardown.mjs subdomains`.
-- Course platforms behind course pages (Teachable, Thinkific, Kajabi, Podia, Maven), often visible as CNAMEs in `teardown.mjs dns`.
+- Course platforms behind course pages (Teachable, Thinkific, Kajabi, Podia, Maven), visible in page scripts or as raw CNAME targets on subdomains like `learn.` and `academy.` in `teardown.mjs dns`.
 - For schools and colleges: `.edu` domains, accreditation statements, and outcomes or consumer information pages.
 - `teardown.mjs detect <domain>` flags these together as education.
 
@@ -34,8 +34,8 @@ Load this pack for edtech products, online courses and cohort programs, bootcamp
 
 | Signal | Where or how | What it shows |
 |---|---|---|
-| ★ Cohort start dates over time | `teardown.mjs history <url>` on program and calendar pages | How often they launch cohorts and how that cadence grew; each new intake becomes a move in moves.csv |
-| Tuition and financing history | `teardown.mjs history <url>/tuition` and financing pages | Price changes and when payment plans, ISAs, or loan partners appeared |
+| ★ Cohort start dates over time | Wayback captures of program and calendar pages, read by hand (`history` only tracks prices) | How often they launch cohorts and how that cadence grew; each new intake becomes a move in moves.csv |
+| Tuition and financing history | `teardown.mjs history <tuition page url>` and Wayback captures of financing pages | Price changes and when payment plans, ISAs, or loan partners appeared |
 | ★ Outcomes reports | Published placement or outcomes reports, and their archived versions | What they claim, how they measure it, and whether the method changed |
 | Info session and webinar cadence | Event pages, registration pages, and their archives | How often they run the main conversion event |
 | Scholarship and discount campaigns | Archived homepage banners via `teardown.mjs hero` and scholarship pages | Deadline-driven promotions tied to each intake |
@@ -46,6 +46,7 @@ Load this pack for edtech products, online courses and cohort programs, bootcamp
 | ★ Student reviews and community | Review sites for courses and bootcamps, Reddit threads, alumni groups | Real outcomes, complaints, and what drives referrals |
 | Free content and lead magnets | Free courses, mini-courses, challenges, and syllabus downloads | The top of the enrollment funnel |
 | For colleges: public data | Federal data such as the College Scorecard and IPEDS in the US | Enrollment, costs, and completion over years, as real numbers |
+| ★ State disclosures for private schools | State regulator filings, such as California's School Performance Fact Sheets and annual reports for schools approved by the Bureau for Private Postsecondary Education | Completion and placement rates on the regulator's terms, to check against marketing claims |
 
 ## Going Inside
 
@@ -56,11 +57,11 @@ Load this pack for edtech products, online courses and cohort programs, bootcamp
 
 ## Rules That Limit Copying
 
-- **Outcome and earnings claims:** the FTC (US) and similar regulators police job placement and salary claims. Many states regulate private postsecondary schools and bootcamps, including what they can advertise.
+- **Outcome and earnings claims:** the FTC polices job placement and salary claims, and in 2021 it sent for-profit schools a notice of penalty offenses on earnings and job claims, which makes violations finable. Many states regulate private postsecondary schools and bootcamps, including what they can advertise (California's Bureau for Private Postsecondary Education is one).
 - **Accreditation:** only accredited institutions can claim accreditation, and some terms ("degree", "university") are protected in many jurisdictions.
-- **Financing:** loans and income share agreements fall under lending rules (CFPB guidance in the US treats many ISAs as credit). Check with counsel before copying a financing offer.
+- **Financing:** loans and income share agreements fall under lending rules. A 2021 CFPB consent order treated income share agreements as private education loans, which brings disclosure duties. Check with counsel before copying a financing offer.
 - **Student privacy:** FERPA (US) and similar laws protect student records; testimonials need consent.
-- **Recruiting rules:** schools that receive federal aid in the US face incentive compensation rules for recruiters.
+- **Recruiting rules:** schools that take federal student aid (Title IV) can't pay recruiters per enrollment, which shapes their sales team and lead-vendor deals.
 
 ## Plays That Usually Transfer
 

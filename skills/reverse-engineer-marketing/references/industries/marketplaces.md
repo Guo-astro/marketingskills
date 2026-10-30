@@ -58,8 +58,8 @@ Load this pack for two-sided or multi-sided marketplaces and gig platforms. A ma
 
 - **Worker classification:** gig platforms are subject to labor law on contractor vs employee status, which differs by country and state. Copying a supply model can carry classification risk; check with counsel.
 - **Licensing:** many local services and rentals need licenses, and some cities restrict short-term rentals or require registration numbers on listings.
-- **Fee disclosure:** consumer protection rules in many places require total prices, including platform fees, to be shown upfront.
-- **Reviews:** the FTC's rule on fake reviews and testimonials (US) and similar rules elsewhere bar fake or incentivized-without-disclosure reviews to seed new markets.
+- **Fee disclosure:** the FTC's rule on unfair or deceptive fees (effective May 2025) requires upfront total prices for short-term lodging and live-event tickets in the US, California's SB 478 applies more broadly, and the EU requires total prices. Copy the fee structure with all-in pricing.
+- **Reviews:** the FTC's rule on fake reviews and testimonials (in force since October 2024) bars fake reviews and reviews bought on the condition of sentiment. The EU's Digital Services Act and Omnibus Directive add review and ranking transparency duties for platforms. Don't seed new markets with fake reviews.
 - **Platform ToS:** scraping a competitor marketplace's listings or contacting its users through its messaging is usually banned by its terms.
 
 ## Plays That Usually Transfer

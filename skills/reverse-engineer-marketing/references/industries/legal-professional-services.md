@@ -28,6 +28,7 @@ Load this pack when the target sells expertise by the hour, case, or engagement:
 - **Intake is the bottleneck.** Many firms lose cases to slow callbacks. Fast intake (24/7 answering, chat, text-back) is often the real growth move.
 - **Referral networks are channels.** Other professionals refer work. Watch for co-referral partners, bar referral services, and lead-sharing networks.
 - **Rankings and directories carry weight:** Chambers, Legal 500, Best Lawyers, Super Lawyers, Avvo for law; directory and association listings for accountants and advisors.
+- **Ownership rules decide who can scale.** ABA Model Rule 5.4 and most states bar non-lawyer ownership of law firms, which limits outside capital. Arizona's Alternative Business Structures and Utah's regulatory sandbox allow it, so a fast-growing consumer firm may be an outside-funded entity licensed there. Accounting firms have their own private equity wave. Check ownership before assuming growth came from marketing alone.
 
 ## Signals to Collect
 
@@ -43,7 +44,8 @@ Load this pack when the target sells expertise by the hour, case, or engagement:
 | Reviews | Official Places API or manual reads; Avvo and directory reviews | Review velocity and reply style |
 | Intake and chat tools | `teardown.mjs stack <domain>` | After-hours capture and speed to lead |
 | ★ Advisor filings | SEC Investment Adviser Public Disclosure (Form ADV) | Assets under management and client counts over time for advisory firms |
-| Court and bar records | Public court dockets and state bar profiles | Case volume and practice focus; read by hand |
+| Court and bar records | Public court dockets (PACER for federal courts, which charges per page) and state bar profiles | Case volume and practice focus; read by hand |
+| ★ Ownership and licensing | Arizona ABS licensee list, Utah sandbox participants, state bar firm registrations | Outside-funded firms and when they were licensed, a move in moves.csv |
 | Lead generator presence | Lead-gen sites in the practice area, sponsored listings | Whether they buy leads instead of generating them |
 
 ## Going Inside
@@ -56,10 +58,10 @@ Load this pack when the target sells expertise by the hour, case, or engagement:
 ## Rules That Limit Copying
 
 - **Lawyer advertising rules:** ABA Model Rules 7.1 to 7.3 and each state's version govern misleading claims, testimonials, specialization claims, "expert" wording, and solicitation. Some states require "attorney advertising" labels or filing ads with the bar. Check with counsel in each state.
-- **Referral fees:** many states restrict paying for referrals or sharing fees with non-lawyers. A lead-buying play may not be allowed.
-- **Accounting:** AICPA and state board rules cover advertising and independence. Audit firms face extra limits.
+- **Referral fees:** ABA Model Rule 7.2(b) bars giving anything of value for a recommendation, with exceptions for advertising costs, qualified lawyer referral services, and some reciprocal referral agreements. Rule 5.4 bars sharing fees with non-lawyers in most states. Whether a pay-per-lead service counts as a recommendation varies by state, so a lead-buying play may not be allowed.
+- **Accounting and tax:** AICPA and state board rules cover advertising and independence, and audit firms face extra limits. Tax practitioners before the IRS also follow Circular 230, which governs solicitation and advertising.
 - **Financial advisors:** the SEC Marketing Rule governs testimonials, endorsements, and performance advertising for registered investment advisers. FINRA rules apply to broker-dealers.
-- **Platform policies:** Google and Meta have extra rules for legal services and financial services ads in some markets.
+- **Platform policies:** Google restricts some legal ad categories (bail bond ads are prohibited in the US) and requires verification for financial services ads in many countries.
 
 ## Plays That Usually Transfer
 

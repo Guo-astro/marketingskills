@@ -28,22 +28,23 @@ Load this pack when the target sells software by subscription or usage: product-
 - **Sales-led:** pipeline comes from outbound, paid search on high-intent terms, events, partners, and analyst coverage. The sales process and who they target matter more than the homepage.
 - **Dev tools:** adoption starts in docs, GitHub, package registries, and now AI coding assistants. Docs search traffic and package downloads lead revenue.
 - **AI apps:** growth often comes in spikes from launches, founder posts, and creator demos, then depends on retention. Check whether the curve holds after each spike.
-- **Expansion:** in most SaaS, growth after year two comes from existing accounts (seats, usage, upgrades), not new logos. Look for team and enterprise plans added over time.
+- **Expansion:** in mature SaaS, much of the growth comes from existing accounts (seats, usage, upgrades) rather than new logos. Look for team and enterprise plans, usage add-ons, and "Contact sales" thresholds added over time.
 
 ## Signals to Collect
 
 | Signal | Where or how | What it shows |
 |---|---|---|
-| Free plan limits over time | `teardown.mjs history <domain>/pricing` and the archived captures | When they loosened or tightened the free plan, a common growth lever. Each change becomes a move |
+| Free plan limits over time | `teardown.mjs history <domain>/pricing` and the archived captures (open the captures for limits, since the command only diffs prices) | When they loosened or tightened the free plan, a common growth lever. Each change becomes a move |
 | ★ Integration marketplace listings | Zapier, Slack, HubSpot, Salesforce AppExchange, Atlassian Marketplace, Chrome Web Store; Wayback for listing dates | Distribution through other products' users. Each new listing is a dated move |
-| Template gallery size | `teardown.mjs sitemap-growth <domain>` on `/templates` | A search and activation engine; the rollout date and growth rate |
+| Template gallery size | `teardown.mjs sitemap-growth <domain>`, reading the `/templates` family | A search and activation engine; the rollout date and growth rate |
 | Changelog cadence | The changelog page and its archive | Shipping speed, and which launches got announced as marketing moments |
 | ★ Client-side experiments | `teardown.mjs experiments <domain>` | Running A/B tests, often with readable names (pricing defaults, onboarding steps): their test roadmap |
 | Comparison pages | `/vs`, `/alternatives`, `/compare` families from `site` | Which competitors they target, and when they started |
 | Docs search traffic | Ranked keywords on `docs.` or `/docs` from the SEO tool | For dev tools, the main top-of-funnel |
 | Package and repo adoption | GitHub stars and contributors over time, npm, PyPI, or Docker pull counts | Developer adoption that leads revenue for dev tools |
 | ★ AI assistant presence | The prompt tracker, plus asking coding assistants how to do the task the product solves | Whether AI tools recommend or write code for the product |
-| Review site placement | G2 and Capterra category grids and review count over time | Mid-market credibility; review spikes are campaigns and become moves |
+| Review site placement | G2 and Capterra category grids and review count over time | Mid-market credibility; review spikes line up with review campaigns (often timed before a quarterly G2 report) and become moves |
+| ★ Pricing page unit changes | Archived pricing pages: per seat to per usage, credits, or outcome pricing | A packaging shift, often the biggest dated move in AI and usage-based tools |
 | ★ Public company filings | `teardown.mjs filings <company>` for public peers | Real customer counts, sales and marketing spend, and retention disclosures to sanity-check estimates |
 | Sales hiring | Job posts for SDRs, AEs, solutions engineers, by region | A shift to sales-led or a new market, dated by first posting |
 | Partner and affiliate program | `/partners`, `/affiliates`, and `stack` (PartnerStack, Rewardful, Tolt) | Agency and affiliate distribution, and its reward |
@@ -63,8 +64,8 @@ With approval, under the user's real identity:
 - **Terms of service** often bar competitors from signing up or benchmarking. Read them first (see go-inside).
 - **Review platforms:** G2 and Capterra have rules on incentivized reviews. Copy the program structure, not any incentive that breaks their policy.
 - **Comparison pages:** claims about a named competitor must be accurate and current. False comparative claims create legal risk under advertising law (the FTC in the US, and equivalents elsewhere); check with counsel for aggressive comparisons.
-- **Email outreach:** CAN-SPAM in the US, and GDPR and PECR in the EU and UK, limit cold email. Copy the sequence design, not a list.
-- **Trademarks:** bidding on a competitor's brand name is allowed on most ad platforms, but using their trademark in ad copy usually isn't.
+- **Email outreach:** CAN-SPAM sets US rules for commercial email (accurate headers, a physical address, a working opt-out). GDPR and PECR restrict unsolicited email in the EU and UK more tightly. Copy the sequence design, not a list.
+- **Trademarks:** under Google Ads' trademark policy, bidding on a competitor's brand name as a keyword is allowed, but the owner can file a complaint that restricts use of the mark in ad text. Trademark law still applies on top of platform policy; check with counsel.
 
 ## Plays That Usually Transfer
 

@@ -46,6 +46,8 @@ Load this pack when the target sells physical products online, direct to consume
 | TikTok Shop | ScrapeCreators TikTok Shop endpoints, the shop page | Creator affiliate sales and product rank on TikTok |
 | Affiliate and creator codes | Searches for "[brand] code", coupon sites, creator link pages | Which creators and sites drive sales, and the standard discount |
 | Shopping ads | Google Shopping results for their category terms | Whether they compete on Google, and on which products |
+| ★ Discount depth over time | `shopify` compare-at prices, plus the sale calendar | Whether growth is bought with discounting; rising sale share often precedes margin trouble |
+| ★ Wholesale and retail shift | A `/wholesale` page, Faire listing, or stockist page, and retailer announcements | The move from DTC-only to retail, which changes the growth story (load the retail or CPG pack too) |
 
 ## Going Inside
 
@@ -61,8 +63,9 @@ With approval, under the user's real identity, and with a purchase budget the us
 
 - **FTC Endorsement Guides (US):** creator and affiliate content needs clear disclosure. Copy the creator program, with disclosures.
 - **FTC rule on fake reviews and testimonials (2024):** no buying, faking, or suppressing reviews. Review incentives must follow platform rules.
-- **SMS:** TCPA in the US requires express written consent for marketing texts, and carriers enforce their own rules. Copy the flow, with compliant opt-in.
-- **Pricing claims:** "was" prices and "compare at" prices must reflect real prior prices under FTC guidance and state law; check with counsel before copying reference pricing.
+- **SMS:** the TCPA in the US requires prior express written consent for automated marketing texts, some states (Florida, Oklahoma) add their own rules, and carriers enforce messaging standards. Copy the flow, with compliant opt-in.
+- **Subscriptions:** the FTC's 2024 click-to-cancel rule was vacated by the Eighth Circuit in July 2025, but ROSCA and state automatic renewal laws (California's amended law took effect July 1, 2025) still require clear terms, consent, and easy cancellation for subscribe-and-save.
+- **Pricing claims:** "was" and "compare at" prices must reflect real prior prices under the FTC Guides Against Deceptive Pricing (16 CFR Part 233) and state law, and California and other states have sued over fictitious reference prices. Check with counsel before copying reference pricing.
 - **Product claims:** health, supplement, and cosmetic claims fall under FTC and FDA rules. Don't copy a competitor's claim without your own substantiation.
 - **Platform policies:** Meta and TikTok ad policies restrict before-and-after images and some product categories.
 

@@ -26,6 +26,7 @@ Load this pack when the target is a brokerage or agent team, a proptech company,
 - **Agents are the growth engine for brokerages.** Many brokerages grow by recruiting agents, not by generating consumer leads. Check agent count and recruiting pages before judging consumer marketing.
 - **Portals own search.** Zillow, Realtor.com, Redfin, and Homes.com dominate listing searches. Independents win on local content, neighborhood pages, and long-tail searches portals don't cover well.
 - **Rates and inventory drive cycles.** Lead volume swings with mortgage rates and listing supply. Check the macro curve before crediting a move.
+- **The rules of the game changed in 2024-2025.** After the NAR settlement, offers of buyer-agent compensation came off the MLS and written buyer agreements are required before touring (from August 17, 2024). In March 2025 NAR kept Clear Cooperation but added delayed-marketing exempt listings, and portals set their own standards on privately marketed listings. Many recent moves (flat-fee buyer offers, private listing networks, buyer-agreement funnels) are responses to these changes.
 - **Seller leads are worth more than buyer leads.** Valuation tools and "sell your home" offers target sellers because a listing creates many buyer leads.
 - **Builders and property managers market like product companies:** paid social for communities, interest lists, and incentives for builders; owner acquisition and resident retention for property managers.
 
@@ -34,7 +35,7 @@ Load this pack when the target is a brokerage or agent team, a proptech company,
 | Signal | Where or how | What it shows |
 |---|---|---|
 | ★ Agent count over time | Wayback captures of the agent directory; brokerage recruiting pages | Whether growth comes from recruiting; jumps are moves in moves.csv |
-| Recruiting offers | "Join us" pages, revenue share and stock plans, `history` on them | The agent value proposition and when it changed |
+| Recruiting offers | "Join us" pages, revenue share and stock plans, read in Wayback captures (`teardown.mjs history <url>` catches fee and cap changes) | The agent value proposition and when it changed |
 | Neighborhood and city page rollout | `teardown.mjs site` and `sitemap-growth` | Their local SEO engine; each wave is a move |
 | Listing count and freshness | Their own search pages and portal profiles, read by hand | Market share signal and how current their IDX feed is |
 | ★ Valuation and seller tools | "Home value", "instant offer", and cash-offer pages | How they capture seller leads before a portal does |
@@ -45,6 +46,7 @@ Load this pack when the target is a brokerage or agent team, a proptech company,
 | Builder community launches | Community pages and interest lists via Wayback and `subdomains` | Launch timing; each community is a move |
 | ★ Public filings | `teardown.mjs filings <company>` for public brokerages, builders, and REITs | Agent counts, closings, orders, and marketing spend |
 | Lead routing tools | `teardown.mjs stack <domain>` | How leads reach agents and how fast |
+| ★ Private and exclusive listing programs | "Coming soon", "private exclusive", or off-market pages, dated in Wayback | Whether they use listing control to recruit agents and win sellers; launch dates are moves |
 
 ## Going Inside
 
@@ -55,11 +57,12 @@ Load this pack when the target is a brokerage or agent team, a proptech company,
 
 ## Rules That Limit Copying
 
-- **Fair Housing Act:** ads can't express a preference or limit based on protected classes. HUD and the courts have applied this to ad targeting. Meta restricts targeting options for housing ads under its special ad category rules.
+- **Fair Housing Act:** ads can't express a preference or limit based on protected classes, and HUD and the Justice Department have applied this to ad targeting and delivery. Meta runs housing ads as a special ad category with limited targeting, and Google restricts targeting by age, gender, parental status, marital status, and ZIP code for housing ads in the US and Canada.
 - **MLS and IDX rules:** each MLS sets display rules for listing data, attribution, and refresh. You can't copy another site's listing data.
-- **RESPA:** restricts referral fees and kickbacks among settlement service providers. Joint marketing with lenders and title companies has limits. Check with counsel.
+- **RESPA Section 8:** restricts referral fees and kickbacks among settlement service providers. Joint marketing and marketing services agreements with lenders and title companies have drawn CFPB scrutiny. Check with counsel.
 - **State license rules:** most states require the brokerage name and license details in ads, and regulate team names.
-- **Telemarketing and texting:** TCPA consent rules apply to lead follow-up.
+- **Buyer agreements and compensation:** since August 2024, MLS participants need a written agreement with a buyer before touring, and compensation offers can't appear on the MLS. Copying a pre-2024 buyer funnel may not work.
+- **Telemarketing and texting:** TCPA consent rules apply to lead follow-up. The FCC's one-to-one consent rule was struck down in January 2025, but written consent for marketing calls and texts still applies.
 
 ## Plays That Usually Transfer
 

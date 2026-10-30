@@ -2,6 +2,8 @@
 
 Load this pack for fintech apps, banks and credit unions, lenders, card issuers, insurers, and wealth or brokerage firms. Growth in finance runs on trust, regulated offers, and paid distribution through comparison sites, and regulators publish more hard data about these companies than about almost any other industry.
 
+Insurance carriers and agencies should also load [insurance.md](insurance.md).
+
 ## Contents
 - How to recognize it
 - What drives growth here
@@ -18,9 +20,9 @@ Load this pack for fintech apps, banks and credit unions, lenders, card issuers,
 - Footer disclosures: "Member FDIC", "Equal Housing Lender", "NMLS ID", "Securities offered through", "Member SIPC", "Banking services provided by [partner bank]"
 - A partner bank named in the footer means a fintech on a banking-as-a-service sponsor bank. Growth then depends on what the sponsor allows
 - Pages for rates, APY, APR, "check your rate", "get a quote", and calculators
-- Identity and verification scripts on sign-up (Plaid, Socure, Persona, Alloy, Onfido) found with `teardown.mjs stack`
+- Identity, verification, and account-linking tools in the sign-up flow (Plaid, Socure, Persona, Alloy, Onfido). They usually load on the sign-up page, not the homepage, so check that page's source; `teardown.mjs stack` doesn't track them
 - App store listings in the Finance category, often with a web app that only handles sign-up
-- `teardown.mjs detect <domain>` flags the disclosure language and verification scripts
+- `teardown.mjs detect <domain>` flags the disclosure language (Member FDIC, NMLS, APY, SIPC)
 
 ## What Drives Growth Here
 
@@ -34,9 +36,11 @@ Load this pack for fintech apps, banks and credit unions, lenders, card issuers,
 
 | Signal | Where or how | What it shows |
 |---|---|---|
-| ★ Complaint volume by month | `teardown.mjs cfpb <company>` (CFPB consumer complaint database) | A growth proxy (complaints rise with customers) and a weakness map by product and issue. Spikes become moves in moves.csv |
-| ★ Bank deposits and assets by quarter | `teardown.mjs fdic <bank>` (FDIC BankFind); NCUA call report data for credit unions | Real growth numbers for banks and credit unions, not estimates. For a fintech, check the sponsor bank |
-| ★ SEC filings | `teardown.mjs filings <company>` | For public companies: customer or account counts, marketing spend, CAC and payback language, funded accounts. S-1s often describe the growth playbook in plain words |
+| ★ Complaint volume by month | `teardown.mjs cfpb <company>` (CFPB consumer complaint database). It lists the names the database uses; rerun with `--exact "Name"` if the top match is wrong | A growth proxy (complaints rise with customers) and a weakness map by product and issue. Spikes become moves in moves.csv |
+| ★ Bank deposits and assets by quarter | `teardown.mjs fdic <bank>` (FDIC BankFind, FDIC-insured banks only); NCUA quarterly call report data for credit unions | Real growth numbers for banks and credit unions, not estimates. For a fintech, check the sponsor bank |
+| ★ SEC filings | `teardown.mjs filings <company>` | For public companies: customer or account counts, marketing spend, CAC and payback language, funded accounts. S-1s often describe the growth playbook in plain words. Form D filings date private rounds |
+| ★ Sponsor bank disclosures | The fintech's footer, terms, and deposit agreement, then `teardown.mjs fdic <partner bank>` | Which bank holds the deposits, when they added or switched banks, and the sponsor bank's own deposit growth |
+| Adviser and broker records | SEC Investment Adviser Public Disclosure (Form ADV) and FINRA BrokerCheck | Assets under management, client counts, and registration dates for advisers and broker-dealers |
 | ★ Sign-up and referral bonus history | Bonus-tracking blogs such as Doctor of Credit, plus Wayback captures of the promo page | Every bonus launch, increase, and end, dated. Each change becomes a move |
 | Rate and APY history | `teardown.mjs history <url>` on the rates page, plus Wayback | When they raised or cut rates relative to competitors |
 | Comparison site placement | Search "best [product]" on the major comparison sites; Wayback of those list pages | Which lists they're on, their position over time, and when they entered or dropped off |
@@ -53,7 +57,7 @@ Load this pack for fintech apps, banks and credit unions, lenders, card issuers,
 - Never apply for credit, insurance, or an account in anyone else's name. Never enter false income, employment, or identity details. That's fraud, not research.
 - Screenshot the pre-qualification flow, the disclosures shown at each step, and how the offer is presented (rate ranges, "as low as" language, terms).
 - Log the onboarding emails and the referral program prompt: when they ask you to refer, and the reward.
-- For insurance, request a quote under the user's real details only if the user approves sharing them. Quote forms often sell leads to other carriers.
+- For insurance, request a quote under the user's real details only if the user approves sharing them. Quote forms on comparison and lead-generation sites often pass details to several carriers and agents, so read the consent text first.
 
 ## Rules That Limit Copying
 
@@ -61,8 +65,8 @@ Load this pack for fintech apps, banks and credit unions, lenders, card issuers,
 - **UDAAP:** the CFPB polices unfair, deceptive, or abusive acts. Bonus terms and "free" claims are frequent targets.
 - **FINRA Rule 2210 and SEC marketing rules** govern broker-dealer and adviser communications, including testimonials and performance claims.
 - **State insurance regulations** and licensing limit who can quote and sell in each state.
-- **Platform policies:** Google Ads and Meta require certification or restrict ads for financial services, lending, and certain products by country.
-- **Fair lending rules** (ECOA, Fair Housing Act) limit audience targeting for credit and housing ads. Meta restricts targeting for these categories.
+- **Platform policies:** Google Ads requires financial services verification in many countries and restricts some products (for example, short-term loans). Meta treats credit, insurance, banking, investment, and payment ads as the Financial Products and Services special ad category (it replaced the Credit category in January 2025), which limits age, gender, and location targeting and lookalike audiences.
+- **Fair lending rules** (ECOA, and the Fair Housing Act for mortgage and housing-related credit) limit audience targeting for credit ads.
 - Check with counsel before copying an offer, a claim, or an ad structure in a regulated product.
 
 ## Plays That Usually Transfer

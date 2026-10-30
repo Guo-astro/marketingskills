@@ -16,8 +16,8 @@ Load this pack for dealers and dealer groups, automakers (OEMs), EV brands, auto
 ## How to Recognize It
 
 - Inventory pages with VINs, stock numbers, "new", "used", and "certified pre-owned" filters
-- Dealer website platforms (Dealer.com, DealerOn, Dealer Inspire, Dealer eProcess) found with `teardown.mjs stack` or in the footer
-- Chat and lead tools common to dealers (CarNow, Gubagoo, ActivEngage), plus trade-in tools
+- Dealer website platforms (Dealer.com, DealerOn, Dealer Inspire, Dealer eProcess), named in the footer. `teardown.mjs stack` flags Dealer.com and Dealer Inspire
+- Chat and lead tools common to dealers (CarNow, Gubagoo, ActivEngage), plus trade-in tools, in the page source
 - "Schedule service", "Value your trade", "Get pre-approved", and "Build and price" pages
 - Phone tracking on every page, often per department (sales, service, parts); check with `teardown.mjs phones <url>`
 - `teardown.mjs detect <domain>` flags dealer platforms and inventory patterns
@@ -45,6 +45,8 @@ Load this pack for dealers and dealer groups, automakers (OEMs), EV brands, auto
 | Test-drive and event programs | Events pages, local event listings | Direct-to-consumer demand generation |
 | Recall and service campaigns | NHTSA recall database | Service-lane opportunities and brand risk, dated |
 | Local search pages | `teardown.mjs site` for model, city, and service page families | Programmatic pages per model and location |
+| ★ Vehicle listing ads | Google search results for "[model] for sale near [city]" (vehicle ads carousel) and Meta automotive inventory ads in the ad library | Whether their live inventory feeds paid listings, and on which platforms |
+| Incentive and lease specials | `teardown.mjs history <url>` on the specials page; OEM incentive pages | Which offers come from the OEM and which the dealer adds, by month |
 | Hiring | Careers pages | BDC (business development center) staffing, digital roles, new stores |
 
 ## Going Inside
@@ -56,7 +58,7 @@ Load this pack for dealers and dealer groups, automakers (OEMs), EV brands, auto
 
 ## Rules That Limit Copying
 
-- **FTC rules on auto advertising:** the FTC enforces truth-in-advertising for auto ads, including advertised prices, add-ons, and financing claims. Check the current FTC guidance before copying price language.
+- **FTC rules on auto advertising:** the FTC's CARS Rule was vacated by the Fifth Circuit on January 27, 2025, before it took effect, but the FTC still enforces Section 5 against misleading prices, junk add-on fees, and financing claims, and several states have their own rules on advertised and offered prices. Check current guidance before copying price language.
 - **State dealer advertising laws** often require specific disclosures for advertised prices, fees, and incentives.
 - **Truth in Lending (Regulation Z) and the Consumer Leasing Act (Regulation M):** payment and lease ads trigger disclosure requirements.
 - **OEM co-op rules** limit what dealers can say and show if they want reimbursement.

@@ -34,7 +34,7 @@ Load this pack when the target sells a service delivered at the customer's addre
 
 | Signal | Where or how | What it shows |
 |---|---|---|
-| Local Services Ads and Google Guaranteed or Screened badge | Search "[service] [city]" for each market, by hand or with a SERP API | Whether they pay per lead on Google, and in which cities |
+| Local Services Ads and the Google Verified badge | Search "[service] [city]" for each market, by hand or with a SERP API | Whether they pay per lead on Google, and in which cities. Google replaced the Google Guaranteed and Google Screened badges with one Google Verified badge on October 20, 2025, so older captures show the old badges |
 | Business Profile reviews per location | Official Places API or manual reads, monthly | Review velocity and reply rate; a spike is a review campaign, a move in moves.csv |
 | ★ Call-tracking number swaps | `teardown.mjs phones <url>`, then open the UTM test URLs in a browser | Which channels they track separately, and the tool they use; its first-seen date from `stack` becomes a move |
 | Service-area page rollout | `teardown.mjs sitemap-growth <domain>` | When city pages launched and how fast they scaled; each wave is a move |
@@ -47,6 +47,7 @@ Load this pack when the target sells a service delivered at the customer's addre
 | Field-service and booking tools | `teardown.mjs stack <domain>` | Online booking vs call-only, and how they capture leads after hours |
 | Truck wraps, yard signs, direct mail | Their social posts and job photos | Offline channels you can't measure but can see |
 | Hiring for techs vs marketing | Careers page and job boards | Whether capacity or demand is the constraint |
+| ★ Contractor license records | State contractor license lookups (for example, California's CSLB) | License issue dates, classifications added, bonds, and complaints. A new classification (adding solar or HVAC) dates a service-line launch |
 
 ## Going Inside
 
@@ -57,12 +58,12 @@ Load this pack when the target sells a service delivered at the customer's addre
 
 ## Rules That Limit Copying
 
-- **Google Local Services Ads** require background checks and licensing for many categories, and Google verifies them. You can't copy the badge, only qualify for it.
+- **Google Local Services Ads** require business verification, insurance, and, in many categories, license and background checks. The Google Verified badge replaced Google Guaranteed in October 2025, along with its money-back guarantee. You can't copy the badge, only qualify for it, and copy that still says "Google Guaranteed" is out of date.
 - **Google Business Profile guidelines** ban keyword-stuffed business names, fake addresses, and virtual offices as service locations. Copying a competitor's stuffed name risks a suspension.
-- **Reviews:** the FTC's rule on fake reviews and testimonials (effective 2024) bans buying, faking, or suppressing reviews. Google bans review gating. Copy their request cadence, not shortcuts.
+- **Reviews:** the FTC's rule on consumer reviews and testimonials (effective October 21, 2024) bans fake reviews, buying positive or negative reviews, and suppressing negative ones. Google also bans selectively asking only happy customers for reviews. Copy their request cadence, not shortcuts.
 - **Licensing and advertising rules** vary by state and trade. Many states require a license number in ads. Check with counsel.
 - **Financing ads** fall under the Truth in Lending Act. "0% financing" needs the required terms. Check with counsel.
-- **Telemarketing and texting** follow TCPA consent rules.
+- **Telemarketing and texting** follow TCPA consent rules. The FCC's one-to-one consent rule for lead generators was struck down in January 2025, but prior express written consent is still required for marketing calls and texts, and some states add their own rules.
 
 ## Plays That Usually Transfer
 

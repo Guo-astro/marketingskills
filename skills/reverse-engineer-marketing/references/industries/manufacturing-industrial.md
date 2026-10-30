@@ -34,13 +34,14 @@ Load this pack for manufacturers, industrial B2B suppliers, component makers, an
 
 | Signal | Where or how | What it shows |
 |---|---|---|
-| ★ US import records | Bill-of-lading databases such as ImportYeti (free) or Panjiva (paid) | Shipments over time, their suppliers, and for some companies, their buyers. Volume changes are moves in moves.csv |
+| ★ US import records | Bill-of-lading databases such as ImportYeti (free) or Panjiva (paid) | Ocean shipments into the US over time, their overseas suppliers, and for some companies, their buyers. Air freight, domestic sourcing, and shippers who file for confidentiality don't show. Volume changes are moves in moves.csv |
 | ★ Distributor and dealer locator over time | Wayback captures of the locator page; count entries per capture | When the channel grew, and in which regions |
 | ★ CAD and spec downloads | Product pages, CAD platforms, gating on downloads | Whether they capture engineers as leads, and how |
 | Catalog and page families | `teardown.mjs site` and `teardown.mjs sitemap-growth` | Product, material, and application page rollout by month |
 | Trade show presence | Exhibitor lists on show websites, their events page | Which shows, how often, and launches timed to them |
 | Industrial directory listings | Thomasnet, GlobalSpec, industry association directories | Paid placement and categories they compete in |
-| ★ Government contracts | SAM.gov and USAspending.gov | Federal contract awards, dated, with amounts |
+| ★ Distributor catalog presence | Their part numbers on the big catalog distributors for their category (Grainger, McMaster-Carr, MSC for MRO; Digi-Key, Mouser, Arrow for electronics) | Which distributors stock them, when listings appeared, and how many SKUs each carries |
+| ★ Government contracts | USAspending.gov for awards; SAM.gov for registrations and open opportunities | Federal contract awards, dated, with amounts and the buying agency |
 | ★ Patents | Google Patents and the USPTO | Product direction, dated by filing |
 | Certifications added | Wayback of the quality or certifications page | New markets opened (aerospace, medical, defense) |
 | Job posts for plants and territories | Careers page and job boards | New plants, lines, sales territories, and channel managers |
@@ -57,9 +58,9 @@ Load this pack for manufacturers, industrial B2B suppliers, component makers, an
 ## Rules That Limit Copying
 
 - **Export controls:** ITAR and EAR limit what technical data can be published or sent abroad. Don't copy a CAD-download play for controlled items. Check with counsel.
-- **Product claims:** safety, performance, and certification claims need evidence. UL, CE, and other marks have usage rules.
+- **Product claims:** safety, performance, and certification claims need evidence. UL, CE, and other marks have usage rules. "Made in USA" claims fall under the FTC's Made in USA Labeling Rule, which requires all or virtually all of the product to be made in the US.
 - **Distributor agreements** may restrict direct online sales or pricing, so a competitor's direct-to-buyer tactic might break the user's own channel terms.
-- **Government contracting rules** limit how federal contracts can be marketed and disclosed.
+- **Government contracts:** agencies don't endorse vendors, and many contracts have publicity clauses that limit naming the agency or using its logo. Read the clause before copying a "trusted by the US Air Force" claim.
 
 ## Plays That Usually Transfer
 

@@ -42,9 +42,10 @@ Load this pack when the target sells through physical stores, alone or alongside
 | Loyalty program | The loyalty page and its archived versions | Rewards structure and when it changed |
 | App store rank and reviews | App Store and Google Play pages (see **aso**) | How hard they push the app and how it's received |
 | Local inventory ads | Google Shopping results with "in store" labels | Whether they push store pickup through search |
+| ★ Store closures | Locator captures and FDD Item 20 tables | Closures hide behind net store counts; gross openings and closures show the real pace |
 | ★ Retail media network | A "media" or "advertise with us" page aimed at brands | Whether they run a retail media business, which funds discounts |
 | Events and in-store experiences | Store event pages and social posts | Traffic drivers beyond price |
-| Franchise recruitment | The franchise page, franchise expos, and franchise disclosure details | The franchise sales engine and unit economics they publish |
+| ★ Franchise disclosure documents | The franchise page, plus the FDD from state franchise databases (California, Wisconsin, Minnesota, and others publish them) | Item 19 financial performance representations (if included), unit counts and openings and closures by year (Item 20), and fees. Real numbers, often for years back |
 | Real estate and expansion news | Press, local news on new leases, real estate job posts | Where they're heading next |
 
 ## Going Inside
@@ -62,7 +63,7 @@ With approval, under the user's real identity:
 - **Loyalty and data:** state privacy laws (CCPA and CPRA in California, and others) cover loyalty data and financial-incentive notices. Copy the program with the notices.
 - **SMS and app push:** TCPA rules apply to marketing texts.
 - **Franchise sales:** the FTC Franchise Rule requires a disclosure document, and some states require registration. A competitor's franchise marketing can't be copied without the same disclosures.
-- **Accessibility:** store pages and apps fall under ADA expectations in the US.
+- **Accessibility:** US courts have applied the ADA to retail websites and apps, and accessibility lawsuits against retailers are common. Build to WCAG; check with counsel.
 
 ## Plays That Usually Transfer
 

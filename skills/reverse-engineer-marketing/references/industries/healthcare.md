@@ -26,7 +26,7 @@ Load this pack when the target is a clinic, dental or dermatology practice, med 
 - **Who decides varies.** In clinics, patients choose. In specialty care, referring doctors choose. In pharma, prescribers and payers choose. Find which one the target markets to before judging its channels.
 - **Insurance and price shape demand.** Cash-pay businesses (med spas, telehealth, cosmetic dental) market like ecommerce. In-network practices grow through payer directories, referrals, and local search.
 - **Trust signals convert.** Provider credentials, reviews, before/after galleries where allowed, and condition content written or reviewed by clinicians.
-- **Tracking is constrained.** Since the HHS guidance on tracking technologies, many providers removed pixels from sensitive pages. Missing pixels may be compliance, not a lack of paid ads.
+- **Tracking is constrained.** After HHS issued guidance on tracking technologies (December 2022, revised March 2024), many providers removed pixels. A federal court vacated part of that guidance in June 2024 (*AHA v. Becerra*), but HIPAA still bars sending patient information to ad platforms, and the FTC has acted against health apps for the same thing. Meta also restricts lower-funnel conversion events for many health and wellness advertisers. Missing pixels or missing purchase events may be compliance, not a lack of paid ads.
 - **Telehealth grows like DTC with a clinical gate:** paid social, influencers, quizzes, and subscriptions, limited by state licensing and prescribing rules.
 
 ## Signals to Collect
@@ -44,6 +44,8 @@ Load this pack when the target is a clinic, dental or dermatology practice, med 
 | State availability changes | Wayback of the "where we're available" page | Licensing expansion; each new state is a move |
 | Influencer and creator content | Search social for the brand and #ad or #sponsored | Telehealth and aesthetics creator programs |
 | Clinical trials and approvals | ClinicalTrials.gov, FDA announcements, press releases | Pipeline and launch timing for medtech and pharma |
+| ★ Provider records | The NPPES NPI Registry (public search and API) by organization name and location | Providers tied to the organization and when each was enumerated, a check on provider-count claims and new-location hiring |
+| State licensing for telehealth | State medical board license lookups for the target's clinicians | Which states they can actually serve, and when each license was issued |
 | ★ Open payments to physicians | CMS Open Payments database | Which doctors a pharma or device company pays for speaking and consulting, a proxy for prescriber marketing |
 
 ## Going Inside
@@ -57,9 +59,10 @@ Load this pack when the target is a clinic, dental or dermatology practice, med 
 
 - **HIPAA and HHS tracking guidance:** covered entities can't send protected health information to ad platforms through pixels. Copying a competitor's tracking setup can create violations. Check with counsel.
 - **FTC Health Breach Notification Rule** applies to many health apps that aren't covered by HIPAA.
-- **FDA rules** govern drug and device advertising: fair balance, Important Safety Information, and approved indications only.
+- **FDA and FTC split the work.** The FDA governs prescription drug and restricted device advertising: fair balance, Important Safety Information, and approved indications only. The FTC covers over-the-counter drugs, supplements, most devices, and health claims in general. In September 2025 the FDA began a broad enforcement push on drug ads, including social media and influencer posts, and it has warned telehealth companies against marketing compounded drugs as if they were approved products.
 - **FTC substantiation:** health claims need competent and reliable scientific evidence. Before/after claims need typical-result context.
 - **Platform policies:** Google's healthcare and medicines policy requires certification for some categories (online pharmacies, addiction services). Meta restricts targeting and personal health assertions ("Are you struggling with...").
+- **Controlled substances:** prescribing them through telehealth falls under DEA rules whose temporary flexibilities have been extended several times. Check the current status before copying a telehealth model.
 - **State rules:** medical advertising, corporate practice of medicine, and telehealth licensing vary by state. Check with counsel.
 
 ## Plays That Usually Transfer

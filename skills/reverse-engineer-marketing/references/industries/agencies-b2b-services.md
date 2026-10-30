@@ -17,10 +17,10 @@ Load this pack for marketing, design, and development agencies, IT services and 
 
 - "Work", "Case studies", "Services", "Industries", and "Book a call" pages, with no pricing or "starting at" pricing
 - Partner badges in the footer (HubSpot, Shopify, Webflow, Salesforce, Google, Microsoft, AWS partner tiers)
-- Scheduling tools on the main CTA (Calendly, SavvyCal, Chili Piper, HubSpot meetings)
+- Scheduling tools on the main CTA (Calendly, SavvyCal, Chili Piper, HubSpot meetings), visible in the button links
 - Productized services pages with fixed scopes and prices ("Website in 30 days", "$X per month")
 - For MSPs: service area pages, support portals, and remote monitoring tools named
-- `teardown.mjs detect <domain>` flags services patterns and scheduling tools
+- `teardown.mjs detect <domain>` flags services language (our work, case studies, clients, partner badges)
 
 ## What Drives Growth Here
 
@@ -39,7 +39,9 @@ Load this pack for marketing, design, and development agencies, IT services and 
 | Case study cadence and mix | Wayback of the work page; `teardown.mjs sitemap-growth` | Which industries and client sizes they win over time |
 | Client logos over time | Wayback captures of the homepage | Upmarket moves and big wins |
 | Productized offers | Services and pricing pages; `teardown.mjs history <url>` | Fixed-price packages and price changes |
-| Review platforms | Clutch, G2 services categories, and partner directory reviews | Review velocity and the themes clients mention |
+| Review platforms | Clutch, G2 services categories, and partner directory reviews | Review velocity and the themes clients mention. Clutch rankings weigh review count and recency, so a burst of reviews is often a deliberate campaign and a move |
+| ★ Freelance marketplace profiles | Agency profiles on Upwork, Contra, and similar platforms | Job counts, earnings badges, and rates over time; some agencies run their first pipeline through these |
+| White-label and referral partnerships | "Partners" pages, other agencies' partner lists, platform co-marketing posts | Work sent to them by other agencies or software vendors, which never shows as marketing |
 | Founder content | The founder's X, YouTube, podcast, and newsletter | Audience-led pipeline and the topics that bring clients |
 | Awards and rankings | Partner awards, industry rankings, Inc. 5000 lists | Reported revenue growth for listed firms, labeled reported |
 | Outbound signals | Cold emails the user has received from them; sending tools from `teardown.mjs dns` | Whether outbound is part of their engine |
@@ -58,7 +60,7 @@ Load this pack for marketing, design, and development agencies, IT services and 
 - **Client confidentiality:** case studies need client permission. Don't copy a competitor's case study format with your own client's details unless you have consent.
 - **Partner program rules:** platform partner programs control how badges and tiers can be shown.
 - **Testimonial rules:** the FTC's Endorsement Guides and its rule on fake reviews and testimonials apply to services firms too.
-- **Staffing and recruiting** have employment law limits on job ads and candidate data.
+- **Staffing and recruiting:** job ads must follow anti-discrimination law (in the US, enforced by the EEOC), and several states require salary ranges in job posts. Candidate data falls under privacy laws such as GDPR and CCPA.
 
 ## Plays That Usually Transfer
 

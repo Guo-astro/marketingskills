@@ -15,11 +15,11 @@ Load this pack for exchanges, wallets, DeFi protocols, layer-1 and layer-2 netwo
 
 ## How to Recognize It
 
-- Wallet connection scripts and libraries (WalletConnect, RainbowKit, wagmi, ethers, web3.js) found with `teardown.mjs stack`
+- Wallet connection libraries (WalletConnect, RainbowKit, wagmi, ethers, web3.js) in the app's scripts. `teardown.mjs stack` flags WalletConnect; check the app page's source for the others
 - "Connect wallet" buttons, `app.` subdomains for the protocol interface, and links to block explorers
 - Token tickers, contract addresses, audits, docs on GitBook or Mintlify, and governance forums (often Discourse at `gov.` or `forum.`)
 - Community links to Discord, Telegram, and X before any email signup
-- `teardown.mjs detect <domain>` flags wallet libraries and explorer links; `teardown.mjs subdomains <domain>` shows `app.`, `gov.`, `bridge.`, `stake.` launches by date
+- `teardown.mjs detect <domain>` flags WalletConnect and wallet and on-chain language; `teardown.mjs subdomains <domain>` shows `app.`, `gov.`, `bridge.`, `stake.` launches by date
 
 ## What Drives Growth Here
 
@@ -42,6 +42,8 @@ Load this pack for exchanges, wallets, DeFi protocols, layer-1 and layer-2 netwo
 | Integration listings | Wallet app directories, aggregators, partner pages | Where they get distribution, and when each listing started |
 | Exchange listings | Exchange announcement pages | Dated listings that changed liquidity and reach |
 | Referral and affiliate codes | Their referral page; creator links with codes | The reward structure and who promotes them |
+| ★ Token unlocks and treasury moves | The token's vesting schedule in docs, and treasury addresses on explorers | Dated supply unlocks and treasury spending; growth pushes often cluster around unlocks |
+| Paid attention programs | Creator or KOL rounds, posting leaderboards that reward mentions, ambassador programs | Whether reach on X was bought; label these posts as paid, not organic |
 | Community size over time | Discord and Telegram member counts, X followers (Wayback for older counts) | Community growth around launches and incentives |
 | Audits and incidents | Audit reports, post-mortems, incident trackers | Exploits and outages that stalled growth |
 | Licensing by region | Their legal or regions page; regulator registers | Countries added or exited, dated |
@@ -56,8 +58,9 @@ Load this pack for exchanges, wallets, DeFi protocols, layer-1 and layer-2 netwo
 
 ## Rules That Limit Copying
 
-- **Securities rules:** the SEC and regulators in other countries treat some tokens and yield products as securities. Copying a token incentive or a yield claim can carry legal risk. Check with counsel.
-- **Ad platform policies:** Google Ads and Meta require certification for crypto ads and limit them by country and product type.
+- **Securities rules:** regulators in the US and elsewhere can treat some tokens, yield products, and staking programs as securities, and the US position has been shifting. Copying a token incentive or a yield claim can carry legal risk. Check with counsel.
+- **Stablecoins:** the US GENIUS Act (signed July 18, 2025) set federal rules for payment stablecoin issuers, including limits on marketing them as government-backed or insured.
+- **Ad platform policies:** Google Ads requires certification for crypto exchange and wallet ads in many countries and bans some products outright. Meta requires prior written permission or a qualifying license for most crypto ads. Both vary by country.
 - **Regional rules:** the EU's MiCA framework, the UK FCA's financial promotions regime, and others limit how crypto can be marketed to retail users.
 - **Sanctions and KYC rules** limit where exchanges can operate and who they can serve.
 - **Influencer disclosure:** paid promotion must be disclosed under FTC rules in the US and similar rules elsewhere.

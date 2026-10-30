@@ -37,6 +37,7 @@ Load this pack when the target makes consumer packaged goods sold mainly through
 | ★ Retailer announcements | Press releases, LinkedIn and X posts from founders ("now in 2,000 Target stores"), trade press | Dated retailer wins, the real inflection points. Founder claims are "reported" |
 | Retailer list on the site | Homepage logos and "Where to buy" retailer list over time | Which channels they won, in what order |
 | Retail media ads | Sponsored listings on retailer sites and Instacart for their category terms | Where they pay for the digital shelf |
+| ★ Shelf resets and line reviews | Retailer category review timing in trade press, and new SKUs appearing on retailer sites | Wins usually land on a retailer's reset calendar, so distribution steps cluster at reset dates |
 | Product launches and flavors | Product pages and `teardown.mjs sitemap-growth <domain>` | Line extensions, which retailers often request for resets; dated moves |
 | ★ Retailer reviews and ratings | Ratings shown on Walmart, Target, and Amazon product pages, over time | A velocity proxy per retailer, and review sampling programs |
 | Price and promotion frequency | Retailer product pages and circulars, checked over time | How much trade spend goes to price promotions |
@@ -56,9 +57,9 @@ With approval, under the user's real identity:
 
 ## Rules That Limit Copying
 
-- **FDA labeling rules (US):** nutrition facts, ingredient lists, allergen labeling, and health claims are regulated. Don't copy a "healthy", structure-function, or health claim without checking the rules.
+- **FDA labeling rules (US):** nutrition facts, ingredient lists, allergen labeling, and claims are regulated. The FDA updated the "healthy" nutrient content claim in a final rule in December 2024, and structure-function claims on supplements need a disclaimer. Don't copy a claim without checking the current rules.
 - **FTC substantiation:** taste, sustainability, and "natural" claims need evidence. "Green" claims fall under the FTC Green Guides.
-- **Alcohol:** TTB rules govern labels and advertising in the US, and the three-tier system limits direct sales; state rules vary. Check with counsel.
+- **Alcohol:** TTB rules govern labels and advertising in the US, the three-tier system limits direct sales, and state rules vary. Platform ad policies also restrict alcohol targeting by age and country. Check with counsel.
 - **Retailer agreements:** slotting and promotion terms are private contracts. You can see the result (price, placement), not the terms.
 - **Creator disclosure:** FTC Endorsement Guides apply to paid and gifted creator posts.
 
