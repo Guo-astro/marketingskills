@@ -110,16 +110,30 @@ export const SIGNATURES = [
   { tool: 'Indiegogo', group: 'hardware', patterns: [/indiegogo\.com/i] },
 ];
 
-// Only script blocks and resource URLs are scanned, so a tool named in page copy isn't mistaken for an installed one.
+// Only executable scripts and resource URLs are scanned, so a tool named in page copy, JSON-LD, or a plain link
+// isn't mistaken for an installed one.
 export function scriptSurface(html) {
-  const scripts = [...html.matchAll(/<script\b[^>]*>[\s\S]*?<\/script>/gi)].map(m => m[0]);
-  const urls = [...html.matchAll(/\b(?:src|href|data-src|action)=["']([^"']+)["']/gi)].map(m => m[1]);
+  const scripts = [...html.matchAll(/<script\b([^>]*)>[\s\S]*?<\/script>/gi)]
+    .filter(m => !/\btype=["']?(?:application\/(?:ld\+)?json|text\/(?:template|html|x-template))/i.test(m[1]))
+    .map(m => m[0]);
+  const urls = [...html.matchAll(/<(?!a\b)[a-z][\w-]*\b[^>]*?\b(?:src|href|data-src|action)=["']([^"']+)["']/gi)].map(m => m[1]);
   return [...scripts, ...urls].join('\n');
+}
+
+export function linkSurface(html) {
+  return [...html.matchAll(/<a\b[^>]*?\bhref=["']([^"']+)["']/gi)].map(m => m[1]).join('\n');
 }
 
 export function detectTools(html) {
   const surface = scriptSurface(html);
   return SIGNATURES.filter(s => s.patterns.some(p => p.test(surface))).map(s => s.tool);
+}
+
+// Tools reached only through ordinary links, such as a reservation or ticket button. A link is not an installation.
+export function detectLinkedTools(html) {
+  const installed = new Set(detectTools(html));
+  const surface = linkSurface(html);
+  return SIGNATURES.filter(s => !installed.has(s.tool) && s.patterns.some(p => p.test(surface))).map(s => s.tool);
 }
 
 // SPF includes and MX hosts name the services allowed to send or receive mail for the domain.
@@ -240,7 +254,9 @@ export function parseCertificates(rows, domain) {
   for (const row of rows) {
     const date = String(row.not_before || row.entry_timestamp || '').slice(0, 10);
     for (const raw of String(row.name_value || '').split('\n')) {
-      const name = raw.trim().toLowerCase().replace(/^\*\./, '');
+      // A wildcard certificate doesn't show that any one host under it exists.
+      if (raw.trim().startsWith('*')) continue;
+      const name = raw.trim().toLowerCase();
       if (!name.endsWith(`.${domain}`) || name === domain) continue;
       if (!firstSeen[name] || date < firstSeen[name]) firstSeen[name] = date;
     }
@@ -250,7 +266,8 @@ export function parseCertificates(rows, domain) {
     .sort((a, b) => a.first_seen.localeCompare(b.first_seen));
 }
 
-const NOISE_LABEL = /^(pr-?\d+|preview|staging|stage|stg|dev|test|qa|uat|sandbox|internal|canary|deploy-preview)/i;
+// Whole labels or label prefixes followed by a digit or hyphen, so dev-2 is noise but developers is not.
+const NOISE_LABEL = /^(pr-?\d+|preview|staging|stage|stg|dev|test|qa|uat|sandbox|internal|canary|deploy-preview)(?:$|[-\d])/i;
 
 // Drops preview, staging, and other machine-generated names, and groups the rest by the label under the domain.
 export function filterSubdomains(subs, domain) {
@@ -275,8 +292,8 @@ const stripTags = s => decodeEntities(s.replace(/<[^>]+>/g, ' ')).replace(/\s+/g
 export function extractHero(html) {
   const title = stripTags(html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1] || '');
   const description = decodeEntities(
-    html.match(/<meta[^>]+name=["']description["'][^>]*content=["']([^"']*)["']/i)?.[1] ||
-    html.match(/<meta[^>]+content=["']([^"']*)["'][^>]*name=["']description["']/i)?.[1] || ''
+    html.match(/<meta[^>]+name=["']description["'][^>]*content=(["'])([\s\S]*?)\1/i)?.[2] ||
+    html.match(/<meta[^>]+content=(["'])([\s\S]*?)\1[^>]*name=["']description["']/i)?.[2] || ''
   ).trim();
   const h1 = stripTags(html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i)?.[1] || '');
   return { title, description, h1 };
@@ -328,6 +345,7 @@ export function parseCsv(text) {
       row = [];
     } else field += c;
   }
+  if (quoted) throw new Error(`CSV has an unclosed quote in row ${rows.length + 1}`);
   row.push(field);
   if (row.some(v => v !== '')) rows.push(row);
   if (!rows.length) return [];
@@ -339,28 +357,57 @@ export function toCsv(rows) {
   if (!rows.length) return '';
   const cols = Object.keys(rows[0]);
   const esc = v => {
-    const s = v == null ? '' : String(v);
-    return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+    let s = v == null ? '' : String(v);
+    // Scraped text that starts like a formula is prefixed so spreadsheets show it as text.
+    if (/^[=+\-@\t\r]/.test(s) && !/^[-+]?\d[\d.,]*$/.test(s)) s = `'${s}`;
+    return /[",\n\r]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
   };
   return [cols.join(','), ...rows.map(r => cols.map(c => esc(r[c])).join(','))].join('\n') + '\n';
 }
 
 const monthKey = d => d.slice(0, 7);
 const mean = xs => (xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : null);
-const round1 = x => (x == null ? null : Math.round(x * 10) / 10);
+const round1 = x => (x == null ? null : Math.round(x * 10) / 10 + 0);
+
+// Blank cells are missing data, not zero.
+const cell = v => (v == null || String(v).trim() === '' ? NaN : Number(v));
+
+// One row per calendar month from first to last, so a missing month is a gap rather than two months glued together.
+export function fillMonths(traffic) {
+  const byMonth = new Map();
+  for (const t of traffic) {
+    const m = monthKey(t.month);
+    if (byMonth.has(m)) throw new Error(`traffic.csv has month ${m} more than once`);
+    byMonth.set(m, t);
+  }
+  const keys = [...byMonth.keys()].sort();
+  if (!keys.length) return [];
+  const out = [];
+  let [y, mo] = keys[0].split('-').map(Number);
+  const last = keys[keys.length - 1];
+  for (;;) {
+    const key = `${y}-${String(mo).padStart(2, '0')}`;
+    out.push(byMonth.get(key) || { month: key, visits: '', brand_searches: '' });
+    if (key >= last) break;
+    if (++mo > 12) { mo = 1; y++; }
+  }
+  return out;
+}
 
 function growthSeries(traffic, col) {
   return traffic.map((t, i) => {
-    const prev = i > 0 ? Number(traffic[i - 1][col]) : NaN;
-    const cur = Number(t[col]);
+    const prev = i > 0 ? cell(traffic[i - 1][col]) : NaN;
+    const cur = cell(t[col]);
     return i > 0 && prev > 0 && Number.isFinite(cur) ? ((cur - prev) / prev) * 100 : null;
   });
 }
 
+// Needs all three months on both sides; a partial window returns null instead of a misleading number.
 function windowLift(growth, i) {
-  const before = growth.slice(Math.max(i - 3, 0), i).filter(x => x != null);
-  const after = growth.slice(i, i + 3).filter(x => x != null);
-  if (!before.length || !after.length) return null;
+  if (i < 3 || i + 3 > growth.length) return null;
+  const before = growth.slice(i - 3, i);
+  const after = growth.slice(i, i + 3);
+  if (before.includes(null) || after.includes(null)) return null;
   return round1(mean(after) - mean(before));
 }
 
@@ -397,10 +444,10 @@ export const MIN_MONTHS = 18;
 export const MIN_MOVES = 6;
 
 export function analyzeMoves(moves, traffic) {
-  traffic = [...traffic].sort((a, b) => a.month.localeCompare(b.month));
+  traffic = fillMonths(traffic);
   const months = traffic.map(t => monthKey(t.month));
   const growth = growthSeries(traffic, 'visits');
-  const brandGrowth = traffic.some(t => t.brand_searches) ? growthSeries(traffic, 'brand_searches') : null;
+  const brandGrowth = traffic.some(t => Number.isFinite(cell(t.brand_searches))) ? growthSeries(traffic, 'brand_searches') : null;
 
   const sorted = [...moves].sort((a, b) => a.date.localeCompare(b.date));
   const clusters = [];
@@ -443,8 +490,9 @@ export function analyzeMoves(moves, traffic) {
   return { clusters: clusterRows, top, leading };
 }
 
+// The date is part of the key, so a second price change at the same /pricing URL is a new move.
 export function moveKey(m) {
-  return [m.channel, m.kind, (m.link || m.move || '').toLowerCase().replace(/\/+$/, '')].join('|');
+  return [m.date, m.channel, m.kind, (m.link || m.move || '').toLowerCase().replace(/\/+$/, '')].join('|');
 }
 
 export function diffMoves(oldMoves, newMoves) {
@@ -463,6 +511,13 @@ export function adLibraryLinks(name, domain) {
 }
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+export function posInt(value, fallback, name) {
+  if (value == null) return fallback;
+  const n = typeof value === 'string' ? Number(value) : NaN;
+  if (!Number.isInteger(n) || n < 1) throw new Error(`--${name} needs a whole number of 1 or more`);
+  return n;
+}
 
 async function get(url, { binary = false } = {}) {
   const res = await fetch(url, { headers: { 'user-agent': UA }, redirect: 'follow' });
@@ -508,7 +563,7 @@ async function waybackMonthly(url, months) {
 }
 
 async function cmdSite(domain, opts) {
-  const urls = await sitemapUrls(domain, Number(opts.limit || 20000));
+  const urls = await sitemapUrls(domain, posInt(opts.limit, 20000, 'limit'));
   const families = {};
   for (const u of urls) families[pathFamily(u)] = (families[pathFamily(u)] || 0) + 1;
   const locales = [...new Set(urls.map(localeOf).filter(Boolean))].sort();
@@ -518,7 +573,7 @@ async function cmdSite(domain, opts) {
 }
 
 async function cmdStack(domain, opts) {
-  const months = Number(opts.months || 24);
+  const months = posInt(opts.months, 24, 'months');
   const snaps = await waybackMonthly(`${domain}/`, months);
   const firstSeen = {};
   const lastSeen = {};
@@ -560,7 +615,7 @@ async function cmdStack(domain, opts) {
 }
 
 async function cmdHistory(url, opts) {
-  const months = Number(opts.months || 24);
+  const months = posInt(opts.months, 24, 'months');
   const snaps = await waybackMonthly(url, months);
   const changes = [];
   const noPrices = [];
@@ -571,9 +626,9 @@ async function cmdHistory(url, opts) {
       const text = html.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/gi, ' ').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
       const prices = [...new Set(text.match(/[$€£]\s?\d[\d,.]*(?:\s?\/\s?(?:mo|month|yr|year|user|seat))?/gi) || [])];
       const month = `${s.timestamp.slice(0, 4)}-${s.timestamp.slice(4, 6)}`;
-      if (!prices.length) { noPrices.push(month); continue; }
       const sig = prices.join(' ');
-      if (sig !== prev) {
+      if (!prices.length) noPrices.push(month);
+      else if (sig !== prev) {
         changes.push({ month, capture: `https://web.archive.org/web/${s.timestamp}/${s.original}`, prices: prices.slice(0, 20) });
         prev = sig;
       }
@@ -584,7 +639,7 @@ async function cmdHistory(url, opts) {
 }
 
 async function cmdHero(url, opts) {
-  const months = Number(opts.months || 24);
+  const months = posInt(opts.months, 24, 'months');
   const snaps = await waybackMonthly(url, months);
   const changes = [];
   let prev = null;
@@ -642,7 +697,7 @@ async function cmdSubdomains(domain, opts = {}) {
 }
 
 async function cmdSitemapGrowth(domain, opts) {
-  const months = Number(opts.months || 24);
+  const months = posInt(opts.months, 24, 'months');
   const sitemapUrl = opts.sitemap || `${domain}/sitemap.xml`;
   const snaps = await waybackMonthly(sitemapUrl.replace(/^https?:\/\//, ''), months);
   const rows = [];
@@ -652,18 +707,24 @@ async function cmdSitemapGrowth(domain, opts) {
       const xml = await get(`https://web.archive.org/web/${s.timestamp}id_/${s.original}`);
       let urls = countLocs(xml);
       let children = 0;
+      let failed = 0;
       if (/<sitemapindex/i.test(xml)) {
         const childUrls = urls.slice(0, 25);
         children = childUrls.length;
         urls = [];
         for (const child of childUrls) {
-          try { urls.push(...countLocs(await get(`https://web.archive.org/web/${s.timestamp}id_/${child}`))); } catch {}
+          try { urls.push(...countLocs(await get(`https://web.archive.org/web/${s.timestamp}id_/${child}`))); } catch { failed++; }
           await sleep(WAYBACK_DELAY_MS);
         }
       }
-      const families = {};
-      for (const u of urls) families[pathFamily(u)] = (families[pathFamily(u)] || 0) + 1;
-      rows.push({ month, urls: urls.length, child_sitemaps: children, families });
+      if (children && failed === children) {
+        rows.push({ month, urls: null, child_sitemaps: children, error: 'no child sitemap readable' });
+      } else {
+        const families = {};
+        for (const u of urls) families[pathFamily(u)] = (families[pathFamily(u)] || 0) + 1;
+        // A partial count is a floor, not a drop in pages.
+        rows.push({ month, urls: urls.length, child_sitemaps: children, ...(failed ? { failed_children: failed, incomplete: true } : {}), families });
+      }
     } catch {
       rows.push({ month, urls: null, error: 'capture unreadable' });
     }
@@ -762,19 +823,22 @@ export const INDUSTRY_RULES = [
   { pack: 'media-creators', tools: ['Piano', 'Memberful'], text: [/become a (member|subscriber)/i, /\bepisodes?\b/i], weakText: [/subscribe to (our|the) newsletter/i, /\bpodcast\b/i], schema: ['NewsMediaOrganization', 'PodcastSeries'], weakSchema: ['NewsArticle'] },
 ];
 
-export function detectIndustry({ html = '', tools = [], cnames = [] }) {
+export function detectIndustry({ html = '', tools = [], linked = [], cnames = [] }) {
   const types = schemaTypes(html);
   const text = html.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/gi, ' ');
   const scores = INDUSTRY_RULES.map(rule => {
     const reasons = [];
-    for (const t of rule.tools) if (tools.includes(t)) reasons.push(`script: ${t}`);
+    for (const t of rule.tools) {
+      if (tools.includes(t)) reasons.push(`script: ${t}`);
+      else if (linked.includes(t)) reasons.push(`link: ${t}`);
+    }
     const label = re => re.source.replace(/\\b|\\/g, '');
     for (const re of rule.text) if (re.test(text) || re.test(html)) reasons.push(`page: ${label(re)}`);
     for (const re of rule.weakText || []) if (re.test(text) || re.test(html)) reasons.push(`weak page: ${label(re)}`);
     for (const s of rule.schema) if (types.includes(s)) reasons.push(`schema: ${s}`);
     for (const s of rule.weakSchema || []) if (types.includes(s)) reasons.push(`weak schema: ${s}`);
     // Scripts and specific schema types count double; generic words and types count half.
-    const weight = r => (r.startsWith('weak') ? 0.5 : r.startsWith('page') ? 1 : 2);
+    const weight = r => (r.startsWith('weak') ? 0.5 : r.startsWith('page') || r.startsWith('link') ? 1 : 2);
     const score = reasons.reduce((n, r) => n + weight(r), 0);
     return { pack: rule.pack, score, reasons };
   });
@@ -787,7 +851,8 @@ export function detectIndustry({ html = '', tools = [], cnames = [] }) {
 }
 
 export function extractPhones(html) {
-  const tel = [...html.matchAll(/href=["']tel:([^"']+)["']/gi)].map(m => decodeURIComponent(m[1]).replace(/[^\d+]/g, ''));
+  const decode = s => { try { return decodeURIComponent(s); } catch { return s; } };
+  const tel = [...html.matchAll(/href=["']tel:([^"']+)["']/gi)].map(m => decode(m[1]).replace(/[^\d+]/g, ''));
   const text = stripTags(html.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/gi, ' '));
   const shown = [...text.matchAll(/(?:\+?1[\s.-]?)?\(?\b\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}\b/g)].map(m => m[0].replace(/[^\d+]/g, ''));
   return [...new Set([...tel, ...shown])];
@@ -836,7 +901,8 @@ export function monthRanges(months, now = new Date()) {
   const out = [];
   for (let i = months - 1; i >= 0; i--) {
     const start = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - i, 1));
-    const end = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth() + 1, 1));
+    // CFPB's date_received_max is inclusive, so the range ends on the month's last day.
+    const end = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth() + 1, 0));
     out.push({ month: start.toISOString().slice(0, 7), min: start.toISOString().slice(0, 10), max: end.toISOString().slice(0, 10) });
   }
   return out;
@@ -864,8 +930,9 @@ async function getJson(url, headers = {}) {
 async function cmdDetect(domain) {
   const { html, source } = await getPageOrArchive(`https://${domain}/`);
   const tools = detectTools(html);
+  const linked = detectLinkedTools(html);
   const dnsInfo = await cmdDns(domain);
-  const packs = detectIndustry({ html, tools, cnames: dnsInfo.subdomains.map(s => s.cname) });
+  const packs = detectIndustry({ html, tools, linked, cnames: dnsInfo.subdomains.map(s => s.cname) });
   return {
     domain,
     pulled: new Date().toISOString().slice(0, 10),
@@ -873,26 +940,29 @@ async function cmdDetect(domain) {
     note: 'Heuristic. Confirm the industry with the user, then load references/industries/<pack>.md. A company can fit two packs (a marketplace for local services).',
     packs,
     tools,
+    linked_tools: linked,
     schema_types: schemaTypes(html),
   };
 }
 
 async function cmdShopify(domain, opts) {
-  const maxPages = Number(opts.pages || 20);
+  const maxPages = posInt(opts.pages, 20, 'pages');
   const products = [];
+  let complete = false;
+  let stoppedAt = null;
   for (let page = 1; page <= maxPages; page++) {
     let json;
     try { json = await getJson(`https://${domain}/products.json?limit=250&page=${page}`); } catch (err) {
       if (page === 1) throw new Error(`products.json not available (${err.message}). The store may not be on Shopify or may block it.`);
+      stoppedAt = { page, error: err.message };
       break;
     }
-    if (!json.products?.length) break;
+    if (!json.products?.length) { complete = true; break; }
     products.push(...json.products);
     await sleep(500);
   }
   const rows = products.map(p => {
     const prices = (p.variants || []).map(v => Number(v.price)).filter(Number.isFinite);
-    const compare = (p.variants || []).map(v => Number(v.compare_at_price)).filter(x => Number.isFinite(x) && x > 0);
     return {
       handle: p.handle,
       title: p.title,
@@ -902,7 +972,7 @@ async function cmdShopify(domain, opts) {
       published: (p.published_at || '').slice(0, 10),
       min_price: prices.length ? Math.min(...prices) : '',
       max_price: prices.length ? Math.max(...prices) : '',
-      on_sale: compare.length > 0 && prices.length > 0 && Math.max(...compare) > Math.min(...prices),
+      on_sale: (p.variants || []).some(v => Number(v.compare_at_price) > Number(v.price)),
       variants: (p.variants || []).length,
       tags: (Array.isArray(p.tags) ? p.tags : String(p.tags || '').split(',')).join('|'),
     };
@@ -923,6 +993,9 @@ async function cmdShopify(domain, opts) {
     domain,
     pulled: new Date().toISOString().slice(0, 10),
     products: rows.length,
+    complete,
+    ...(stoppedAt ? { stopped_at: stoppedAt } : {}),
+    ...(!complete && !stoppedAt ? { truncated_at_pages: maxPages } : {}),
     on_sale: rows.filter(r => r.on_sale).length,
     created_by_month: Object.fromEntries(Object.entries(byMonth).sort()),
     product_types: Object.fromEntries(Object.entries(types).sort((a, b) => b[1] - a[1]).slice(0, 20)),
@@ -982,7 +1055,7 @@ async function cmdFilings(name, opts) {
     const r = sub.filings.recent;
     out.company = sub.name;
     out.filings = r.form.map((form, i) => ({ form, date: r.filingDate[i], url: edgarDocUrl(cik, r.accessionNumber[i], r.primaryDocument[i]) }))
-      .filter(f => SEC_FORMS.has(f.form)).slice(0, Number(opts.limit || 40));
+      .filter(f => SEC_FORMS.has(f.form)).slice(0, posInt(opts.limit, 40, 'limit'));
   }
   try {
     const fts = await getJson(`https://efts.sec.gov/LATEST/search-index?q=${encodeURIComponent(`"${name}"`)}&forms=D`, headers);
@@ -998,7 +1071,7 @@ async function cmdFilings(name, opts) {
 const CFPB = 'https://www.consumerfinance.gov/data-research/consumer-complaints/search/api/v1/';
 
 async function cmdCfpb(name, opts) {
-  const months = Number(opts.months || 24);
+  const months = posInt(opts.months, 24, 'months');
   let company = opts.exact;
   const candidates = (await getJson(`${CFPB}?${new URLSearchParams({ search_term: name, field: 'company', size: '0' })}`))
     .aggregations?.company?.company?.buckets?.map(b => ({ company: b.key, complaints: b.doc_count })) || [];
@@ -1027,12 +1100,16 @@ async function cmdCfpb(name, opts) {
 
 async function cmdFdic(name, opts) {
   const base = 'https://api.fdic.gov/banks';
-  const inst = await getJson(`${base}/institutions?${new URLSearchParams({ search: `NAME:${name}`, fields: 'NAME,CERT,ASSET,DEP,ACTIVE,CITY,STALP,ESTYMD', limit: '10', sort_by: 'ASSET', sort_order: 'DESC' })}`);
+  const inst = await getJson(`${base}/institutions?${new URLSearchParams({ search: `NAME:${name}`, fields: 'NAME,CERT,ASSET,DEP,ACTIVE,CITY,STALP,ESTYMD', limit: '25', sort_by: 'ASSET', sort_order: 'DESC' })}`);
   const banks = (inst.data || []).map(d => d.data);
-  const cert = opts.cert || banks.find(b => b.ACTIVE === 1)?.CERT;
+  // FDIC search also matches former names, so only an active bank whose current name starts with the query is picked.
+  const norm = s => String(s).toLowerCase().replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim();
+  const named = banks.filter(b => b.ACTIVE === 1 && norm(b.NAME).startsWith(norm(name)));
+  const cert = opts.cert || (named.find(b => norm(b.NAME) === norm(name)) || (named.length === 1 ? named[0] : null))?.CERT;
   const out = { query: name, pulled: new Date().toISOString().slice(0, 10), matches: banks };
+  if (!cert) out.needs_cert = 'No single active bank matched the name. Pick a CERT from matches and rerun with --cert.';
   if (cert) {
-    const fin = await getJson(`${base}/financials?${new URLSearchParams({ filters: `CERT:${cert}`, fields: 'REPDTE,ASSET,DEP,NUMEMP', sort_by: 'REPDTE', sort_order: 'DESC', limit: String(opts.quarters || 12) })}`);
+    const fin = await getJson(`${base}/financials?${new URLSearchParams({ filters: `CERT:${cert}`, fields: 'REPDTE,ASSET,DEP,NUMEMP', sort_by: 'REPDTE', sort_order: 'DESC', limit: String(posInt(opts.quarters, 12, 'quarters')) })}`);
     out.cert = cert;
     out.quarterly = (fin.data || []).map(d => d.data).map(q => ({ quarter: q.REPDTE, assets_thousands: q.ASSET, deposits_thousands: q.DEP, employees: q.NUMEMP })).reverse();
   }
@@ -1136,6 +1213,7 @@ async function main() {
     case 'diff': result = cmdDiff(opts); break;
     default:
       console.log(USAGE);
+      if (cmd) process.exitCode = 1;
       return;
   }
   console.log(JSON.stringify(result, null, 2));

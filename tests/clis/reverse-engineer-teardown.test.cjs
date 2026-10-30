@@ -38,8 +38,8 @@ test('parseCsv handles quotes, commas, and newlines', async () => {
 
 test('analyzeMoves clusters nearby moves and scores lift', async () => {
   const { analyzeMoves } = await load();
-  const traffic = ['2025-01', '2025-02', '2025-03', '2025-04', '2025-05', '2025-06', '2025-07', '2025-08']
-    .map((month, i) => ({ month, visits: String([100, 105, 110, 115, 200, 300, 330, 340][i]), brand_searches: '' }));
+  const traffic = ['2024-11', '2024-12', '2025-01', '2025-02', '2025-03', '2025-04', '2025-05', '2025-06', '2025-07', '2025-08']
+    .map((month, i) => ({ month, visits: String([90, 95, 100, 105, 110, 115, 200, 300, 330, 340][i]), brand_searches: '' }));
   const moves = [
     { date: '2025-04-20', channel: 'x', kind: 'founder-post', move: 'ARR post' },
     { date: '2025-05-10', channel: 'product-loop', kind: 'loop-first-seen', move: 'Badge' },
@@ -48,7 +48,9 @@ test('analyzeMoves clusters nearby moves and scores lift', async () => {
   const { clusters, top, leading } = analyzeMoves(moves, traffic);
   assert.equal(clusters.length, 2);
   assert.equal(clusters[0].moves, 'ARR post | Badge');
-  assert.ok(clusters[0].visit_lift_pts > 0);
+  assert.equal(clusters[0].visit_lift_pts, 37.8);
+  assert.equal(clusters[0].brand_lift_pts, null);
+  assert.equal(clusters[1].visit_lift_pts, null);
   assert.equal(top[0].cluster, 1);
   assert.ok(leading.every(l => l.note === 'too few to call'));
 });
@@ -179,7 +181,7 @@ test('edgarDocUrl and monthRanges build filing links and month windows', async (
   assert.equal(edgarDocUrl('0001795586', '0001193125-26-385383', 'd948605d8k.htm'), 'https://www.sec.gov/Archives/edgar/data/1795586/000119312526385383/d948605d8k.htm');
   const ranges = monthRanges(3, new Date(Date.UTC(2026, 0, 15)));
   assert.deepEqual(ranges.map(r => r.month), ['2025-11', '2025-12', '2026-01']);
-  assert.deepEqual(ranges[2], { month: '2026-01', min: '2026-01-01', max: '2026-02-01' });
+  assert.deepEqual(ranges[2], { month: '2026-01', min: '2026-01-01', max: '2026-01-31' });
 });
 
 test('detectTools ignores tools named only in page copy', async () => {
@@ -187,4 +189,57 @@ test('detectTools ignores tools named only in page copy', async () => {
   assert.deepEqual(detectTools('<p>We moved off Klarna and Toast last year. See dealer.com for more.</p>'), []);
   assert.deepEqual(detectTools('<script src="https://js.klarna.com/web-sdk/v1/klarna.js"></script>'), ['Klarna']);
   assert.deepEqual(parseCsv(''), []);
+});
+
+test('analyzeMoves treats blank cells and missing months as gaps, not zeros', async () => {
+  const { analyzeMoves, fillMonths } = await load();
+  const steady = ['2025-01', '2025-02', '2025-03', '2025-04', '2025-05', '2025-06', '2025-07', '2025-08']
+    .map((month, i) => ({ month, visits: String(100 * 1.1 ** i), brand_searches: i === 3 ? '' : '50' }));
+  const move = [{ date: '2025-05-01', channel: 'x', kind: 'launch', move: 'Launch' }];
+  const { clusters } = analyzeMoves(move, steady);
+  assert.equal(clusters[0].brand_lift_pts, null);
+  assert.equal(clusters[0].visit_lift_pts, 0);
+  const gappy = steady.filter(t => t.month !== '2025-04');
+  assert.equal(fillMonths(gappy).length, 8);
+  assert.equal(analyzeMoves(move, gappy).clusters[0].visit_lift_pts, null);
+  assert.throws(() => fillMonths([{ month: '2025-01' }, { month: '2025-01' }]), /more than once/);
+});
+
+test('diffMoves keeps a second change at the same URL', async () => {
+  const { diffMoves } = await load();
+  const old = [{ date: '2025-08-01', channel: 'pricing', kind: 'pricing-change', link: 'https://a.com/pricing', move: '$10' }];
+  const fresh = [...old, { date: '2025-10-01', channel: 'pricing', kind: 'pricing-change', link: 'https://a.com/pricing', move: '$20' }];
+  assert.deepEqual(diffMoves(old, fresh).map(m => m.move), ['$20']);
+});
+
+test('CSV helpers guard formulas, carriage returns, and unclosed quotes', async () => {
+  const { toCsv, parseCsv } = await load();
+  assert.equal(toCsv([{ title: '=1+1', n: '-5' }]), "title,n\n'=1+1,-5\n");
+  assert.deepEqual(parseCsv(toCsv([{ a: 'one\rtwo', b: 'x' }])), [{ a: 'one\rtwo', b: 'x' }]);
+  assert.throws(() => parseCsv('a,b\n"open,1\n'), /unclosed quote/);
+});
+
+test('detectTools ignores JSON-LD and plain links, which detectLinkedTools reports', async () => {
+  const { detectTools, detectLinkedTools } = await load();
+  const html = '<script type="application/ld+json">{"description":"We moved off Klarna"}</script><a href="https://www.opentable.com/r/acme">Book</a>';
+  assert.deepEqual(detectTools(html), []);
+  assert.deepEqual(detectLinkedTools(html), ['OpenTable']);
+});
+
+test('subdomain helpers keep real labels and skip nested wildcards', async () => {
+  const { parseCertificates, filterSubdomains } = await load();
+  const subs = parseCertificates([{ name_value: '*.shop.acme.com\ndevelopers.acme.com\ntestimonials.acme.com\ndev-2.acme.com', not_before: '2025-01-01' }], 'acme.com');
+  assert.ok(!subs.some(s => s.subdomain === 'shop.acme.com'));
+  const { subdomains, dropped } = filterSubdomains(subs, 'acme.com');
+  assert.deepEqual(subdomains.map(s => s.subdomain).sort(), ['developers.acme.com', 'testimonials.acme.com']);
+  assert.equal(dropped, 1);
+});
+
+test('extractHero keeps apostrophes, extractPhones survives bad escapes, posInt rejects bad values', async () => {
+  const { extractHero, extractPhones, posInt } = await load();
+  assert.equal(extractHero(`<meta name="description" content="We're fast">`).description, "We're fast");
+  assert.deepEqual(extractPhones('<a href="tel:555%">x</a>'), ['555']);
+  assert.equal(posInt(undefined, 24, 'months'), 24);
+  assert.equal(posInt('6', 24, 'months'), 6);
+  for (const bad of ['0', '-1', 'abc', true]) assert.throws(() => posInt(bad, 24, 'months'), /whole number/);
 });
