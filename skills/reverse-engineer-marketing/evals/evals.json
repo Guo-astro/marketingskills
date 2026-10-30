@@ -176,6 +176,18 @@
         "Gets explicit approval and explains credit or account consequences before opening an account"
       ],
       "files": []
+    },
+    {
+      "id": 14,
+      "prompt": "How is OrangeBox Fitness adding so many franchise locations?",
+      "expected_output": "Should run detect and load both the franchising and fitness-wellness packs. Should pull the brand's Franchise Disclosure Document from a state regulator database where available and read Item 20 for unit openings, transfers, and closures by year and Item 19 for any financial performance representation, labeling figures by FDD year. Should date franchise development moves (franchise portal listings, discovery days, broker presence, the franchise. subdomain from certificate logs) against location growth from Wayback captures of the locator, and read local marketing requirements and the brand fund. Should not pose as a prospective franchisee, and should only request franchise materials under the user's real identity with approval.",
+      "assertions": [
+        "Loads both the franchising and fitness-wellness packs",
+        "Uses Franchise Disclosure Documents, Item 20 for units and Item 19 for financials",
+        "Dates franchise development moves against location growth",
+        "Does not pose as a prospective franchisee"
+      ],
+      "files": []
     }
   ]
 }
