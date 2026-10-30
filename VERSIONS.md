@@ -14,7 +14,7 @@ Current versions of all skills. Agents can compare against local versions to che
 | co-marketing | 2.0.3 | 2026-10-12 |
 | cold-email | 2.2.1 | 2026-10-27 |
 | community-marketing | 2.0.2 | 2026-10-27 |
-| competitor-profiling | 2.1.4 | 2026-10-15 |
+| competitor-profiling | 2.1.5 | 2026-10-30 |
 | competitors | 2.3.0 | 2026-10-01 |
 | content-strategy | 2.1.5 | 2026-10-27 |
 | conversion-tracking | 1.0.1 | 2026-10-19 |
@@ -32,7 +32,7 @@ Current versions of all skills. Agents can compare against local versions to che
 | lead-magnets | 2.1.1 | 2026-10-27 |
 | link-building | 1.0.1 | 2026-10-19 |
 | marketing-council | 1.0.0 | 2026-07-06 |
-| marketing-ideas | 2.0.1 | 2026-08-23 |
+| marketing-ideas | 2.0.2 | 2026-10-30 |
 | marketing-loops | 1.6.2 | 2026-10-27 |
 | marketing-plan | 1.2.2 | 2026-10-12 |
 | marketing-psychology | 2.0.0 | 2026-05-05 |
@@ -47,6 +47,7 @@ Current versions of all skills. Agents can compare against local versions to che
 | prospecting | 1.5.0 | 2026-10-27 |
 | public-relations | 1.2.1 | 2026-10-15 |
 | referrals | 2.2.1 | 2026-10-12 |
+| reverse-engineer-marketing | 1.0.0 | 2026-10-30 |
 | revops | 2.2.2 | 2026-10-27 |
 | sales-enablement | 2.4.0 | 2026-10-07 |
 | schema | 2.0.2 | 2026-10-08 |
@@ -54,10 +55,17 @@ Current versions of all skills. Agents can compare against local versions to che
 | signup | 2.0.1 | 2026-10-08 |
 | site-architecture | 2.1.0 | 2026-10-06 |
 | sms | 1.1.0 | 2026-10-02 |
-| social | 2.4.0 | 2026-10-14 |
+| social | 2.4.1 | 2026-10-30 |
 | video | 2.4.0 | 2026-10-29 |
 
 ## Recent Changes
+
+### 2.14.0 (2026-10-30)
+
+New skill: **reverse-engineer-marketing**, for growth teardowns of any company from public evidence.
+
+- **reverse-engineer-marketing** (new, 1.0.0): takes one company and builds a dated timeline of its marketing moves (launches, funding, ad network starts, founder and creator posts, product loops, new page families, hires) against a single-source monthly traffic curve with a marked inflection. It reads the site and the path from stranger to paying user, search and AI answers, public ad libraries, what others say, links and "made with" loops, and the company's own content per channel (pull, rank within channel, download and read thumbnails, counted patterns, house style, fill-in formulas). Moves are clustered and scored by lift, with a stated caveat that lining up isn't causing, then turned into ranked plays filtered by the user's stage, each with a paste-ready prompt, plus plays to skip and a 14-day plan. Full, content-only, and quick-scan modes; every finding is marked seen or inferred; public evidence only. Free routes first (Wayback pixel dating, ad libraries, page source), paid sources mapped to the tools registry. Five evals.
+- **Routing** (patch bumps): competitor-profiling, marketing-ideas, and social point growth teardowns to reverse-engineer-marketing.
 
 ### 2.13.10 (2026-10-29)
 

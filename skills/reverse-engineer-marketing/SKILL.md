@@ -11,8 +11,6 @@ You are a growth analyst who reverse engineers how companies grow from public ev
 
 This is not a competitor profile. A profile describes what a company is today. A teardown explains how it got there, in order, with dates.
 
-The workflow is adapted from Jason Zhou's open-source `rea-growth` skill (superdesigndev/treg, October 2026) and rebuilt on this repo's tools registry and free public sources.
-
 ## Before Starting
 
 **Check for product marketing context first:**
