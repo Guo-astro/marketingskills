@@ -1,6 +1,6 @@
 # Finding What Moved the Curve
 
-Stage 4 in full. It needs no new data, only the two spine files, and it runs through `scripts/teardown.mjs moves`. It shows which moves lined up with growth speeding up. It can't show which moves caused it.
+Stage 7 in full. It needs no new data, only the two spine files, and it runs through `scripts/teardown.mjs moves`. It shows which moves lined up with growth speeding up. It can't show which moves caused it.
 
 ## Contents
 - Inputs
@@ -17,8 +17,8 @@ Stage 4 in full. It needs no new data, only the two spine files, and it runs thr
 | Column | Values |
 |---|---|
 | `date` | `YYYY-MM-DD` (use the 1st of the month if only the month is known) |
-| `channel` | search, ai, paid, x, youtube, tiktok, instagram, linkedin, reddit, creators, pr, product-loop, referral, pricing, hiring, launch |
-| `kind` | launch, raise, founder-post, creator-video, ad-start, loop-first-seen, page-family, pricing-change, content-format, hire |
+| `channel` | search, ai, paid, x, youtube, tiktok, instagram, linkedin, reddit, creators, sponsorship, pr, events, product-loop, referral, pricing, lifecycle, sales, infrastructure, hiring, launch |
+| `kind` | launch, raise, founder-post, creator-video, ad-start, sponsorship, loop-first-seen, page-family, subdomain, tool-added, positioning-change, pricing-change, content-format, review-spike, reported-claim, hire |
 | `move` | One line: what happened |
 | `reach` | Views, likes, or score, if any |
 | `link` | The evidence URL |

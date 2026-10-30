@@ -36,6 +36,15 @@ Every play in a teardown names the skill that runs it and, for repeat work, the 
 | Lifecycle email or in-app nudges | **emails** | The lifecycle-email-refresh loop |
 | A lead magnet or gated asset | **lead-magnets** | The lead-capture-asset loop |
 | Outbound to a defined account list | **prospecting**, **cold-email** | The signal-sweep loop |
+| An onboarding email sequence that converts (stage 3) | **emails** | The lifecycle-email-refresh loop |
+| Save offers in the cancel flow (stage 3) | **churn-prevention** | The churn-signal loop |
+| A fast, well-run sales process (stage 3) | **sales-enablement**, **revops** | (none; one-off build) |
+| A positioning shift that came before growth (stage 5) | **product-marketing** for positioning, **copywriting** for the homepage | The claim-drift loop |
+| Newsletter, podcast, or YouTube sponsorships (stage 5) | **influencer-marketing** | The creator-scouting loop |
+| Coupon or lifetime-deal distribution (stage 5) | **offers** | (none; one-off test) |
+| Events, virtual events, or conference sponsorships (stage 5) | **events** | (none; per event) |
+| A review campaign (stage 5 review spike) | **referrals** (review programs) | The review-site-management loop |
+| A marketplace or integration listing (stage 5) | **co-marketing**, **directory-submissions** | The partner-pipeline loop |
 
 Every play also needs its metric tracked. If the user can't measure it today, add an **analytics** step to the prompt.
 
@@ -48,7 +57,7 @@ A good prompt gives the skill everything it would otherwise ask for:
 1. **The skill:** "Use the programmatic-seo skill."
 2. **The evidence:** what the target did and the link.
 3. **The user's version:** the specific asset, scaled to the user's stage.
-4. **The formula or house style** from stage 3, if it's a content play.
+4. **The formula or house style** from stage 6, if it's a content play.
 5. **The metric** and when to check it.
 
 ## Example

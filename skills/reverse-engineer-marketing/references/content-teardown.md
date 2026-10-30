@@ -1,6 +1,6 @@
 # Content Teardown, Channel by Channel
 
-Stage 3 in full: how to work out what a company's best posts have in common, and turn that into formulas the user can reuse. This covers what the company publishes. What others say about it belongs to stage 2's social and creators row.
+Stage 6 in full: how to work out what a company's best posts have in common, and turn that into formulas the user can reuse. This covers what the company publishes. What others say about it belongs to stage 2's social and creators row.
 
 ## Contents
 - Sampling

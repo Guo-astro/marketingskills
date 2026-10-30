@@ -35,6 +35,31 @@ Labels: Observed (linked evidence), Inferred (reasoned from evidence), Not found
 | Retention signals | [lifecycle tools, changelog cadence] | |
 | Hiring | [channels being scaled] | |
 
+## Inside the Product
+
+| Step | What we saw | Screenshot |
+|---|---|---|
+| Sign-up | | `inside/screens/01-...png` |
+| First result | [minutes, steps] | |
+| Emails | [n emails in 30 days; the day-by-day pattern] | `inside/emails.csv` |
+| Upgrade wall | | |
+| Cancel flow | [save offers] | |
+| Sales | [booking tool, response time, follow-up cadence] | |
+| Chat probe | [their answer to "how are you different from us?", verbatim] | |
+
+## What the Team Says
+
+| Said on | Who | Claim (reported) | About when | Matches the data? | Link |
+|---|---|---|---|---|---|
+
+## Hidden Signals
+
+- **Infrastructure:** [mail tools, verifications, new subdomains with dates]
+- **Positioning shifts:** [headline changes by month]
+- **Page rollout:** [sitemap growth and family first-seen dates]
+- **Paid promotion:** [sponsorships, affiliates, coupons, events]
+- **Counters:** [review spikes, marketplace listings, community size]
+
 ## Content
 
 ### [Channel]
@@ -77,6 +102,7 @@ Labels: Observed (linked evidence), Inferred (reasoned from evidence), Not found
 - **Sources and pull dates:**
 - **Blocked or unavailable:**
 - **Images not read:**
+- **Accounts created and demos booked:** [with dates, under whose name]
 - **Inferred claims:**
 - **Data cost:** [total, and per stage]
 ```
