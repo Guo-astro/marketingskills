@@ -1,103 +1,107 @@
 # Playbook Template
 
-The output of a full teardown, `teardowns/<target>/playbook.md`. A quick scan uses the same sections, shorter: five plays, no channel-by-channel section.
+The teardown's main deliverable, `teardowns/<target>/playbook.md`. Quick mode uses the same sections, trimmed: five plays, headline findings only, no content section.
 
 ---
 
 ```markdown
-# How [Target] Grew: [Month Year] → [Month Year]
+# [Target]: How It Grew, [Month Year] to [Month Year]
 
-Prepared [date] for [user's company]. Public evidence only; no affiliation with [Target].
-Every finding is marked SEEN (linked evidence) or INFERRED (reasoned from what was seen).
+For [user's company], [date]. Built from public evidence; no affiliation with [Target].
+Labels: Observed (linked evidence), Inferred (reasoned from evidence), Not found.
 
-## Summary
+## In Short
 
-- **The curve:** [~X → ~Y monthly US visits, source, dates]. Inflection: [month], [growth before → after].
-- **What lined up with it:** [the top 1-3 clusters, one line each]
-- **The loop:** [the product loop, if found, e.g. "Made with" badge on every free app, first seen [month]]
-- **What to copy first:** [play #1 in one line]
+- **Curve:** [~X → ~Y monthly visits, vendor, pull date]. Inflection: [month(s)].
+- **Lined up with growth:** [top 1-3 clusters, one line each, with lift]
+- **Biggest gap for you:** [one line]
+- **Start this week:** [play #1 in one line]
 
-## The Path
+## The Curve and the Moves
 
-| Stage | What [Target] does | Evidence |
-|---|---|---|
-| Get noticed | [founder posts, ads, search, AI answers, creators] | SEEN/INFERRED + links |
-| Sign up | [SSO, no card, waitlist, invite codes] | |
-| First win | [first action, time to it] | |
-| Pay | [plans, trial end rule, free limits] | |
-| Share | [what reaches non-users: badges, shared outputs, invites, referrals] | |
+[Chart or month-by-month table of the curve with each move pinned to its month]
 
-## Timeline
-
-| Date | Channel | Move | Reach | Lift (visits / brand) | Evidence |
+| Date | Channel | Move | Reach | Lift (visits / brand) | Label |
 |---|---|---|---|---|---|
-| 2024-12 | product-loop | "Edit with [Target]" badge first seen on user sites | 4,100 domains | +18 / +9 pts (cluster) | SEEN [link] |
 
-[Chart or table of the monthly curve with each move pinned to its month]
+## The Funnel
 
-## By Channel
+| Stage | What [Target] does | Label + link |
+|---|---|---|
+| Acquisition | [search families, AI answers, paid networks, social, PR] | |
+| Activation | [sign-up method, first action, time to first result] | |
+| Revenue | [plans, trial rule, pricing changes and dates] | |
+| Referral | [badges, shared outputs, invites, affiliate program] | |
+| Retention signals | [lifecycle tools, changelog cadence] | |
+| Hiring | [channels being scaled] | |
+
+## Content
 
 ### [Channel]
-- **Moves:** [what Target did here, dated]
-- **Pattern:** [counted traits of the top quarter vs the bottom half]
-- **House style:** [colors with hex values, fonts, templates, formats]
-- **Formulas:** [2-3 fill-in templates, one real example each]
-- **What worked:** [the number that moved, SEEN, linked]
-- **What didn't:** [flat or complained about, linked]
+- **Sample:** [n posts, date range]
+- **What the winners share:** [counted traits, top third vs bottom third]
+- **House style:** [colors with hex, type, templates]
+- **Formulas:** [fill-in templates with one real example each]
+- **Contact sheet:** [link]
 
-[Repeat for X, YouTube, TikTok, Instagram, LinkedIn, Reddit, ads, search and AI answers, product loop. Write "not seen" for channels with no activity.]
+## Your Gap
 
-## The Plays
+| Funnel stage | [Target] | You | Gap |
+|---|---|---|---|
 
-### 1. [Play name] (stage: [pre-launch / early revenue / scaling])
-- **The play:** [one line]
-- **Evidence:** [SEEN/INFERRED, with links; started before or after the inflection; lift]
-- **Effort:** [a day / a week / a quarter]
-- **First result:** [time] — watch [metric]
-- **Cost to try:** [$]
+[Note whether the comparison is estimate vs estimate or uses your own data.]
+
+## Plays
+
+### 1. [Play name]
+- **Evidence:** [Observed/Inferred, links; before or after the inflection; lift]
+- **Your gap:** [from the gap table]
+- **Run it with:** [skill] · **Keep it going with:** [loop, or "one-off"]
+- **Effort:** [a day / a week / a quarter] · **First result:** [time] · **Watch:** [metric] · **Cost to try:** [$]
 - **Prompt:**
-  > [Paste-ready prompt for the user's agent, written for the user's company. Concrete: the pages to build, the posts to write with the formula filled in, the events to track, the list to find. Name the skill to use if one fits, e.g. "Use the programmatic-seo skill to..."]
-
-[Plays 2-10]
+  > Use the [skill] skill. [Evidence in one sentence.] [The user's version, concrete.] [Formula or house style, for content plays.] [Metric and when to check it.]
 
 ## Plays to Skip
 
-- **[Play]:** [why the evidence doesn't support it, or what Target had that the user doesn't]
+- **[Play]:** [why: weak evidence, or it depended on something you don't have]
 
-## 14-Day Plan
+## 14-Day Start
 
-Per channel the user will run:
-
-| Day | Do | Formula / asset |
+| Day | Do | Skill |
 |---|---|---|
-| 1 | [set up / post / test] | |
-| ... | | |
-| 14 | Check: [the one number] | |
-
-## This Week
-
-[The single play to start now, and its prompt again.]
+| 1 | | |
+| 14 | Check [metric] | |
 
 ## Method Notes
 
-- **Sources:** [each source and what it was used for]
-- **Dates:** [when each count was pulled]
-- **Blocked or unavailable:** [pages and endpoints]
-- **Images not read:** [count and channels]
-- **Inferred claims:** [list]
-- **Data cost:** [total, and per step]
+- **Sources and pull dates:**
+- **Blocked or unavailable:**
+- **Images not read:**
+- **Inferred claims:**
+- **Data cost:** [total, and per stage]
 ```
 
 ---
 
-## Writing Good Plays
+## Watch Report Template
 
-A play is only useful if the user can start it today.
+`teardowns/<target>/watch-<YYYY-MM>.md`:
+
+```markdown
+# [Target]: New Moves, [Month Year]
+
+Compared with the log from [previous date].
+
+| Date | Channel | Move | Label + link | Changes a play? | Hand to |
+|---|---|---|---|---|---|
+
+[Or: "No new moves this month."]
+```
+
+## Weak vs Strong Plays
 
 | Weak | Strong |
 |---|---|
-| "Post on LinkedIn more" | "Post your weekly signup number every Monday as a single metric card, using Target's format: one big number, the date, a one-line why" |
-| "Do SEO" | "Build 30 `/templates/[use-case]` pages, the page family that carried 41% of Target's non-brand traffic before the inflection" |
-| "Add virality" | "Add a removable 'Made with [Product]' link to every public output on the free plan, linking to a signup page that pre-fills the template" |
-
-Every prompt names the specific asset to build, the formula or example to follow, and the metric to watch. Route to the skill that does the work: **programmatic-seo** for page families, **social** for posts, **ad-creative** for ads, **referrals** for affiliate programs, **free-tools** for calculators, **ai-seo** for AI answer visibility.
+| "Post more on LinkedIn" | "Use the social skill: post your weekly signup number every Monday as a one-number card, the format behind 6 of [Target]'s top 8 LinkedIn posts" |
+| "Do SEO" | "Use the programmatic-seo skill: build `/templates/[use-case]` pages, the family behind ~41% of [Target]'s non-brand traffic" |
+| "Make it viral" | "Use the referrals skill: add a removable 'Made with [Product]' link on free-plan outputs, pointing to a sign-up page that opens the same template" |

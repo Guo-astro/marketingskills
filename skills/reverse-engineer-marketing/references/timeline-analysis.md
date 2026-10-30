@@ -1,90 +1,62 @@
-# Moves vs Growth: Timeline Analysis
+# Finding What Moved the Curve
 
-Step 9 of the teardown. It uses no new data calls: every input was pulled in steps 2-8. The goal is to see which moves lined up with growth speeding up. It can't prove which moves caused it.
+Stage 4 in full. It needs no new data, only the two spine files, and it runs through `scripts/teardown.mjs moves`. It shows which moves lined up with growth speeding up. It can't show which moves caused it.
 
 ## Contents
 - Inputs
-- Method
-- Script
-- Reading the results
+- What the script computes
+- Reading the output
+- Confounders to name
 
 ---
 
 ## Inputs
 
-**`moves.csv`**: one row per dated move.
+**`moves.csv`**, one row per dated move:
 
-| Column | Example |
+| Column | Values |
 |---|---|
-| date | 2025-03-11 |
-| channel | x, youtube, tiktok, instagram, linkedin, reddit, ads, search, ai, product-loop, pr, funding, launch, hiring |
-| move | Founder posts "1,500 customers a day" |
-| kind | launch, raise, founder-post, creator-video, ad-start, loop-first-seen, page-family, content-format, hire |
-| reach | 376000 (views, likes, or score; blank if none) |
-| link | URL |
-| evidence | SEEN or INFERRED |
+| `date` | `YYYY-MM-DD` (use the 1st of the month if only the month is known) |
+| `channel` | search, ai, paid, x, youtube, tiktok, instagram, linkedin, reddit, creators, pr, product-loop, referral, pricing, hiring, launch |
+| `kind` | launch, raise, founder-post, creator-video, ad-start, loop-first-seen, page-family, pricing-change, content-format, hire |
+| `move` | One line: what happened |
+| `reach` | Views, likes, or score, if any |
+| `link` | The evidence URL |
+| `evidence` | Observed or Inferred |
 
-**`traffic.csv`**: one row per month from step 3: `month, visits, brand_searches` (one vendor for the whole series).
+**`traffic.csv`**: `month,visits,brand_searches`, one row per month, from one vendor for the whole series. Leave `brand_searches` blank if you don't have it.
 
-## Method
+## What the Script Computes
 
-1. **Growth speed.** Month-over-month growth % for visits and for brand searches, then the change in growth (speeding up or slowing down).
-2. **Lift per move.** Average growth in the 2 months before the move vs the move's month and the 2 after. Lift = after minus before, in percentage points. Compute it for visits and for brand searches.
-3. **Clusters.** Moves less than 30 days apart form one cluster. Report lift per cluster and list its moves. Never credit one move inside a cluster.
-4. **Spread speed.** For posts, engagement ÷ days since posting, ranked within its channel. The top quarter are fast spreaders.
-5. **Leading channel.** Per channel: monthly count of moves vs growth 0, 1, and 2 months later, using Spearman correlation. Report the coefficient and how many months it rests on. Under 12 months or under 5 moves on a channel → list the rows and call no relationship.
-
-## Script
-
-```python
-import pandas as pd
-
-moves = pd.read_csv("moves.csv", parse_dates=["date"])
-traffic = pd.read_csv("traffic.csv", parse_dates=["month"]).sort_values("month")
-traffic["growth"] = traffic["visits"].pct_change() * 100
-traffic["brand_growth"] = traffic["brand_searches"].pct_change() * 100
-
-# Cluster moves less than 30 days apart
-moves = moves.sort_values("date").reset_index(drop=True)
-moves["cluster"] = (moves["date"].diff().dt.days.fillna(999) >= 30).cumsum()
-
-def lift(month, col):
-    idx = traffic.index[traffic["month"] == month]
-    if len(idx) == 0:
-        return None
-    i = traffic.index.get_loc(idx[0])
-    before = traffic[col].iloc[max(i - 2, 0):i].mean()
-    after = traffic[col].iloc[i:i + 3].mean()
-    return round(after - before, 1)
-
-clusters = moves.groupby("cluster").agg(
-    start=("date", "min"), moves=("move", list), channels=("channel", lambda c: sorted(set(c)))
-)
-clusters["month"] = clusters["start"].dt.to_period("M").dt.to_timestamp()
-clusters["visit_lift_pts"] = clusters["month"].apply(lambda m: lift(m, "growth"))
-clusters["brand_lift_pts"] = clusters["month"].apply(lambda m: lift(m, "brand_growth"))
-print(clusters.sort_values("visit_lift_pts", ascending=False).head(3))
-
-# Leading channel: monthly move counts vs growth k months later
-monthly = moves.assign(month=moves["date"].dt.to_period("M").dt.to_timestamp())
-counts = monthly.pivot_table(index="month", columns="channel", values="move", aggfunc="count").fillna(0)
-merged = traffic.set_index("month")[["growth"]].join(counts, how="left").fillna(0)
-for channel in counts.columns:
-    n_moves = int(counts[channel].sum())
-    if len(merged) < 12 or n_moves < 5:
-        print(f"{channel}: {n_moves} moves over {len(merged)} months, too few to call")
-        continue
-    for k in (0, 1, 2):
-        rho = merged[channel].corr(merged["growth"].shift(-k), method="spearman")
-        print(f"{channel} -> growth +{k}mo: rho={rho:.2f} over {len(merged) - k} months")
-
-clusters.to_csv("moves-vs-growth.csv")
+```bash
+node scripts/teardown.mjs moves --moves moves.csv --traffic traffic.csv --out moves-vs-growth.csv
 ```
 
-## Reading the Results
+- **Growth:** month-over-month change in visits (and brand searches), in percent.
+- **Clusters:** a move within 42 days of the previous one joins its cluster. Credit goes to the cluster as a whole.
+- **Lift per cluster:** average growth over the three months starting with the cluster's month, minus the average over the three months before, in percentage points. Calculated for visits and brand searches separately.
+- **Top clusters:** the three with the largest visit lift.
+- **Leading channel:** for each channel, Spearman rank correlation between its monthly move count and growth in the same month, one month later, and two months later. Under 18 months of data or under 6 moves on the channel, the script returns "too few to call" instead.
 
-- **Largest lift**: the three clusters with the biggest visit lift. Name every move in each. The lift is SEEN, as numbers. That the moves caused it is INFERRED.
-- **Leading channel**: the channel whose move counts correlate with growth one or two months later. Monthly data and overlapping moves make this weak evidence; say so.
-- **Fast spreaders that moved nothing**: posts in the top quarter for spread speed with no lift after. These are the plays to skip, because they look good on a timeline and did nothing for growth.
-- **Brand searches vs visits**: if brand searches jump and organic visits don't, the move created demand that came in through other channels (direct, AI answers, word of mouth). If visits jump and brand searches don't, look at non-brand SEO or paid.
-- **Confounders to name**: funding announcements, press waves, a category-wide surge (check two peers' curves), seasonality, and vendor estimate changes.
+Output is JSON: `clusters`, `top`, and `leading`. `--out` also writes the clusters as CSV.
+
+## Reading the Output
+
+- **Top clusters:** name every move in each. The lift is Observed, as numbers. The claim that the moves drove it is Inferred.
+- **Leading channel:** a channel whose activity correlates with growth one or two months later is a lead worth testing, not a finding. Monthly data and overlapping moves make it weak evidence.
+- **Visits vs brand searches:**
+  - Brand searches up, visits flat → the move created demand that arrived some other way (direct, AI answers, word of mouth).
+  - Visits up, brand searches flat → look at non-brand search pages or paid.
+  - Both up → demand and capture moved together, which is typical after a launch or a viral moment.
+- **High reach, no lift:** posts or campaigns that spread widely and moved nothing. They're good candidates for the plays-to-skip list.
+- **Before vs after the inflection:** moves that started before it are stronger candidates than moves that started after, which may be a result of growth (more budget, more hires).
+
+## Confounders to Name
+
+Every report of lift lists the ones that apply:
+
+- A funding round or press wave in the same months
+- A category-wide surge (check the curves of two peers with the same vendor)
+- Seasonality (compare the same month a year earlier)
+- A vendor estimate change (a sudden jump across many domains at once)
+- A domain move, a redesign, or a big site migration

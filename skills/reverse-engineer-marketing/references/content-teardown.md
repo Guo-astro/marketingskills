@@ -1,89 +1,97 @@
 # Content Teardown, Channel by Channel
 
-Step 7 of the teardown in full: how to read what a company publishes on each channel and turn it into formulas the user can reuse. Step 6 covers what others say about the company. This covers what the company makes.
+Stage 3 in full: how to work out what a company's best posts have in common, and turn that into formulas the user can reuse. This covers what the company publishes. What others say about it belongs to stage 2's social and creators row.
 
 ## Contents
-- Pull and rank
-- Look
+- Sampling
+- Splitting into thirds
+- Reading the images
 - Channel checklists
 - Write-up
 - Contact sheets
 
 ---
 
-## Pull and Rank
+## Sampling
 
-1. **Pull** the latest 60 posts or the past 6 months per handle, whichever comes first. Save rows to `teardowns/<target>/<channel>/posts.csv` with the date pulled.
-2. **Engagement metric per channel**:
+- **Handles:** only accounts linked from the target's site, or whose bio links back to it. Founders' personal accounts count when the site or press links them.
+- **Window:** up to 100 posts from the last 180 days per channel. Save them to `teardowns/<target>/<channel>/posts.csv` with the pull date.
+- **Settle time:** skip posts younger than 10 days. Their numbers are still moving.
+- **Source:** ScrapeCreators or Apify social actors (see [data-sources.md](data-sources.md)). LinkedIn is read by hand.
 
-| Channel | Rank by |
+| Channel | Score each post by |
 |---|---|
-| YouTube, TikTok, X | Views |
-| Instagram | Likes + comments |
+| YouTube | Views (score long-form and Shorts separately) |
+| TikTok | Views, with saves and shares as a tiebreak |
+| Instagram | Likes + comments (views for reels when available) |
+| X | Views |
 | LinkedIn | Reactions + comments |
 | Reddit | Score |
 
-3. **Drop posts under 7 days old.** Their numbers haven't settled.
-4. **With code**, mark the top quarter and the bottom half. Compare within a channel only, never across.
-5. **Under 20 posts** on a channel: report them, but call no pattern ("too few posts to call a pattern").
+## Splitting into Thirds
 
-## Look
+With code, rank posts within one channel and split them into thirds. Compare the top third with the bottom third, and leave the middle out, since it blurs the contrast. Never compare scores across channels: a weak TikTok often outscores a strong LinkedIn post.
 
-Download the thumbnail, cover, first slide, or image of every top-quarter post and five bottom-half posts in one batch (TikTok and Instagram links expire within hours). Then open each file and read it.
+Fewer than 24 settled posts on a channel → list them with their numbers and call no pattern.
 
-- What the image shows is SEEN. Why it might work is INFERRED.
-- An image that didn't download is "not read". Never describe it from its caption or title.
+## Reading the Images
+
+Download the thumbnail, cover, or first slide for every top-third post and for a matching number of bottom-third posts, all in one batch. TikTok and Instagram media links expire within hours. Open each file before describing it.
+
+- What the image shows is **Observed**. Why it might work is **Inferred**.
+- A file that didn't download is "not read". Never describe an image from its caption or title.
 
 ## Channel Checklists
 
 ### YouTube
-- **Title**: length, a number or dollar amount, first person ("I built..."), a question, brackets, the promise
-- **Thumbnail**: a face and its emotion, words on it (count them; four or fewer is usual), product or outcome shown, a before/after split, contrast and main color, logo
-- Do the title and thumbnail repeat each other or add to each other?
-- Shorts vs long-form, and video length
+- **Title:** word count, a number or dollar figure, first person, a question, brackets or a tag, the promise
+- **Thumbnail:** a face and its expression, text on it (word count), the product or the outcome, a split or before/after, the dominant color, the logo
+- **Pairing:** does the thumbnail repeat the title or add a second idea?
+- **Format:** Shorts vs long-form, length, series or one-offs
 
 ### TikTok
-- **Cover**: which frame was chosen, and the words on it
-- **Hook**: the first line of the description and the on-screen text in the opening seconds
-- **Format**: talking head, screen recording, slideshow, skit, green screen
-- **Sound**: trending or original
+- **Cover:** which frame, and its text
+- **Opening:** the first line of the caption and the on-screen text in the first seconds
+- **Format:** talking head, screen recording, slideshow, skit, green screen, duet or stitch
+- **Sound:** trending or original
 - Length, hashtag count, posting rhythm
 
 ### Instagram
-- The mix of reels, carousels, and photos, and which kind wins
-- **Cover or first slide**: headline size, word count, template
-- **Carousels**: slide count, and what the last slide asks for
-- **Caption**: the line before "more"
-- **The grid as a whole**: repeated colors, fonts, frames, logo placement
+- **Mix:** reels vs carousels vs single images, and which wins
+- **Cover or first slide:** headline size, word count, template
+- **Carousels:** slide count, and what the final slide asks for
+- **Caption:** the line shown before "more"
+- **Grid:** recurring colors, type, frames, logo position
 
 ### X
-- **The first line** (before "Show more"), length, thread vs single post
-- **Media**: none, product screenshot, chart or metric card, video, meme
-- Founder vs brand account: which outperforms?
-- Do numbers (revenue, users, growth) drive the best posts?
+- **The first line**, shown before "Show more", and the total length
+- **Thread or single post**
+- **Media:** none, product screenshot, chart or metric card, video, meme
+- **Account:** founder vs brand, and which performs better
+- Whether the best posts share numbers (revenue, users, growth)
 
 ### LinkedIn
-- **The two lines before "see more"**
-- **Format**: text, image, document carousel, video
-- People vs product in the image
-- Company page vs staff posts, and whether staff posts match the company's LinkedIn ads (step 5)
+- **The opening two lines**, shown before "see more"
+- **Format:** text only, image, document carousel, video
+- People vs product in the visuals
+- Company page vs employee posts, and whether employee posts match the company's LinkedIn ads
 
 ### Reddit
-- **Title pattern**: question, story, "I made..."
-- Which subreddits, self vs link posts
-- Whether the account discloses who it works for
+- **Title pattern:** question, story, "I built..."
+- Subreddits, self vs link posts
+- Whether the account says who it works for
 
 ## Write-Up
 
 Per channel:
 
-- **Pattern**: three to five traits the top quarter shares and the bottom half lacks, each counted ("8 of 9 top thumbnails show a face; 2 of 12 bottom ones do"). The counts are SEEN; why the trait works is INFERRED.
-- **House style**: what repeats across every post. Colors (named, with hex values read off the images), fonts or lettering, templates, logo placement, recurring formats or series.
-- **Formulas**: the two or three fill-in templates behind the top titles, covers, or hooks, each with one real example. Example: "I built [outcome] in [short time] with [product]" → "I built a CRM in 20 minutes with Lovable".
-- **What changed**: before vs after the inflection from step 3, where the dates allow (full mode only).
+- **What the winners share:** three to five traits, each counted for both thirds ("7 of 10 top thumbnails show a face, 1 of 10 bottom ones"). The counts are Observed; the reason is Inferred.
+- **House style:** what holds across every post: named colors with hex values read off the images, type, templates, logo placement, recurring series.
+- **Formulas:** two or three fill-in templates behind the top titles, covers, or openings, with one real example each, e.g. "[Number] [audience] use [product] to [outcome]. Here's how."
+- **What changed:** before vs after the inflection, where the dates allow.
 
-For breaking down why one specific post went viral, see the reverse-engineering framework in **social**.
+For breaking down why one specific post spread, see the reverse-engineering framework in **social**.
 
 ## Contact Sheets
 
-One image per channel: top-quarter thumbnails in one row, bottom-half samples in the row below, each labeled with its engagement number and date. It's the quickest way for a person to check the pattern you claimed. Build it from the downloaded files with any image library (or ffmpeg's `tile` filter) and link it in the write-up.
+Per channel, one image with the top third in one row and the bottom-third sample in the row below, each labeled with its score and date. It's the fastest way for someone to check a claimed pattern. Build it from the downloaded files, for example with ffmpeg's `tile` filter, and link it in the write-up.
