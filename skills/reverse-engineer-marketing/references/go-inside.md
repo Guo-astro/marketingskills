@@ -51,7 +51,7 @@ Compare what you see with **onboarding** and **signup** best practice, and note 
 
 ## The Email Sequence
 
-Leave the account alone after sign-up and log every email for 30-60 days in `emails.csv`:
+Leave the account alone after sign-up and log every email for 30-60 days in `emails.csv`. Deliver the teardown on time with the sequence marked pending, and agree with the user how the rest gets collected: a rerun of this stage on a set date (a reminder or the watch loop), or the user forwarding the inbox export. Then update the playbook's Inside the Product section.
 
 `received_at,day,from,subject,preview,type,cta,offer,link`
 
