@@ -33,7 +33,7 @@ Current versions of all skills. Agents can compare against local versions to che
 | link-building | 1.0.1 | 2026-10-19 |
 | marketing-council | 1.0.0 | 2026-07-06 |
 | marketing-ideas | 2.0.2 | 2026-10-30 |
-| marketing-loops | 1.6.2 | 2026-10-27 |
+| marketing-loops | 1.7.0 | 2026-10-30 |
 | marketing-plan | 1.2.2 | 2026-10-12 |
 | marketing-psychology | 2.0.0 | 2026-05-05 |
 | offers | 1.0.3 | 2026-10-27 |
@@ -64,8 +64,10 @@ Current versions of all skills. Agents can compare against local versions to che
 
 New skill: **reverse-engineer-marketing**, for growth teardowns of any company from public evidence.
 
-- **reverse-engineer-marketing** (new, 1.0.0): takes one company and builds a dated timeline of its marketing moves (launches, funding, ad network starts, founder and creator posts, product loops, new page families, hires) against a single-source monthly traffic curve with a marked inflection. It reads the site and the path from stranger to paying user, search and AI answers, public ad libraries, what others say, links and "made with" loops, and the company's own content per channel (pull, rank within channel, download and read thumbnails, counted patterns, house style, fill-in formulas). Moves are clustered and scored by lift, with a stated caveat that lining up isn't causing, then turned into ranked plays filtered by the user's stage, each with a paste-ready prompt, plus plays to skip and a 14-day plan. Full, content-only, and quick-scan modes; every finding is marked seen or inferred; public evidence only. Free routes first (Wayback pixel dating, ad libraries, page source), paid sources mapped to the tools registry. Five evals.
+- **reverse-engineer-marketing** (new, 1.0.0): builds a spine of one-vendor monthly traffic and a dated move log, then reads the target's funnel stage by stage (search and AI answers, paid, social and creators, PR, activation, pricing history, referral loops, retention signals, hiring), its content per channel (top third vs bottom third, counted traits, house style, fill-in formulas), and which clusters of moves lined up with growth speeding up. A gap stage compares the target with the user's own Search Console, analytics, and ad data (same-vendor estimates only for cross-company numbers), and every play names the skill that runs it and the marketing loop that sustains it, with a paste-ready prompt. Teardown, Content, Quick, and Watch modes; findings labeled observed, inferred, or not found; public evidence only. Bundles `scripts/teardown.mjs` (zero dependencies, no keys): sitemap page families, ad pixels and affiliate scripts dated from Wayback captures, pricing-change history, ad library links, moves-vs-growth analysis, and a watch-mode diff, with contract tests. Seven evals.
+- **marketing-loops** (1.6.2 → 1.7.0): new growth-move watch loop, a monthly rerun of a teardown that reports only new moves. The catalog now has 59 loops.
 - **Routing** (patch bumps): competitor-profiling, marketing-ideas, and social point growth teardowns to reverse-engineer-marketing.
+- **Tools**: new ScrapeCreators integration guide for public social posts and ad libraries (TikTok, Instagram, YouTube, X, Reddit; Meta, Google, TikTok ads), registered as MCP-enabled. Not used for LinkedIn or people data.
 
 ### 2.13.10 (2026-10-29)
 
