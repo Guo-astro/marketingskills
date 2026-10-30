@@ -35,7 +35,7 @@
     {
       "id": 3,
       "prompt": "My competitor's traffic tripled in March right after their founder tweeted their revenue. So the tweet caused it, right? Build me a plan around posting revenue tweets.",
-      "expected_output": "Should not accept the causal claim. Should check what else happened around March: funding, press, launches, ad network starts (pixel first-seen from the stack command), a product loop, a category-wide surge (check peers). Should cluster moves less than a month apart and credit the cluster, not one move. Should compare brand-search growth to visit growth. Should label the founder's revenue figure as reported. Should present revenue posting as a candidate play with its evidence strength, and filter it by whether the user has numbers worth sharing and an audience.",
+      "expected_output": "Should not accept the causal claim. Should check what else happened around March: funding, press, launches, ad network starts (pixel first-seen from the stack command), a product loop, a category-wide surge (check peers). Should cluster moves within 42 days of each other and credit the cluster, not one move. Should compare brand-search growth to visit growth. Should label the founder's revenue figure as reported. Should present revenue posting as a candidate play with its evidence strength, and filter it by whether the user has numbers worth sharing and an audience.",
       "assertions": [
         "Does not treat timing as proof of cause",
         "Checks other moves and confounders around the same month",
@@ -154,7 +154,7 @@
     {
       "id": 12,
       "prompt": "Reverse engineer how BlueWave Plumbing grew from one truck to twelve locations.",
-      "expected_output": "Should run detect, confirm the industry is local services, and load the local-services pack. Should check Local Services Ads and Google Guaranteed status by city, Business Profile review velocity per location through the official Places API or manual reads (not a Maps scraper), call-tracking numbers per channel with the phones command plus a browser check, service-area page rollout with sitemap-growth, location count over time from Wayback, financing and membership offers, and acquisition signals. Should not submit fake quote requests or bookings, and should only contact them if the user is a genuine customer.",
+      "expected_output": "Should run detect, confirm the industry is local services, and load the local-services pack. Should check Local Services Ads and Google Verified status by city (the badge that replaced Google Guaranteed in October 2025), Business Profile review velocity per location through the official Places API or manual reads (not a Maps scraper), call-tracking numbers per channel with the phones command plus a browser check, service-area page rollout with sitemap-growth, location count over time from Wayback, financing and membership offers, and acquisition signals. Should not submit fake quote requests or bookings, and should only contact them if the user is a genuine customer.",
       "assertions": [
         "Runs detect and loads the local-services pack",
         "Checks Local Services Ads and review velocity per location",
