@@ -1,0 +1,73 @@
+{
+  "skill_name": "reverse-engineer-marketing",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Reverse engineer how Lovable grew. We're an early-revenue AI app builder and want to copy what worked.",
+      "expected_output": "Should check for product-marketing.md first. Should confirm the window, country, and a budget cap before paid calls. Should map the site and record the path from stranger to paying user, including every place non-users meet the product. Should build a monthly traffic curve from one source and mark the inflection. Should cover search and AI answers, ad libraries, what others say, own content per channel, and links and product loops (e.g. a 'made with' badge anchor). Should line moves up against the curve with lift per cluster and say that lining up isn't causing. Should deliver ranked plays filtered for early revenue, each with evidence, effort, metric, cost, and a paste-ready prompt, plus plays to skip and the one play to run this week.",
+      "assertions": [
+        "Checks for product-marketing.md",
+        "Asks for or confirms window, country, and budget cap before paid calls",
+        "Marks findings SEEN or INFERRED with links",
+        "Uses one traffic source for the whole curve and marks an inflection",
+        "Checks public ad libraries per network",
+        "Looks for a product loop through anchor text or badges",
+        "States that moves lining up with growth is not proof of cause",
+        "Each play includes a paste-ready prompt for the user's company",
+        "Includes plays to skip, filtered by the user's stage"
+      ],
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "What content works for Notion on YouTube and TikTok? I just want their thumbnail and hook patterns, nothing about their overall growth.",
+      "expected_output": "Should run content mode only: collect official handles from the site, then pull the latest 60 posts or 6 months per channel. Should rank within each channel only, drop posts under 7 days old, mark top quarter vs bottom half with code, and call no pattern under 20 posts. Should download and open thumbnails and covers right away (TikTok links expire) and mark undownloaded images as not read. Should read against the YouTube and TikTok checklists and write up counted patterns, house style with hex colors, and fill-in formulas with real examples. Should not run traffic, ads, or backlinks steps.",
+      "assertions": [
+        "Runs content mode, skipping traffic, ads, and link steps",
+        "Ranks posts within a channel, not across channels",
+        "Downloads and opens images rather than describing them from captions",
+        "Counts pattern traits in top vs bottom posts",
+        "Gives fill-in formulas with a real example each",
+        "Calls no pattern when a channel has fewer than 20 posts"
+      ],
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "My competitor's traffic tripled in March right after their founder tweeted their revenue. So the tweet caused it, right? Build me a plan around posting revenue tweets.",
+      "expected_output": "Should not accept the causal claim. Should check what else happened around March: funding, press, launches, ad network starts (pixel first-seen via Wayback), a product loop, a category-wide surge (check peers). Should cluster moves less than a month apart and credit the cluster, not one move. Should compare brand-search growth to visit growth. Should label the founder's revenue figure as reported. Should present revenue posting as a candidate play with its evidence strength, and filter it by whether the user has numbers worth sharing and an audience.",
+      "assertions": [
+        "Does not treat timing as proof of cause",
+        "Checks other moves and confounders around the same month",
+        "Clusters overlapping moves rather than crediting one",
+        "Labels founder-stated revenue as reported",
+        "Frames the tweet play as a candidate with stated evidence strength"
+      ],
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Do a growth teardown of acme-analytics.com but sign up for their trial and go through onboarding so we can see the emails they send.",
+      "expected_output": "Should decline to create an account in the target's product, explaining that the teardown uses public evidence only. Should offer public alternatives: their onboarding docs, getting-started pages, changelog, public help center, Wayback snapshots, and reviews or posts where users describe onboarding. Should suggest the user do a signup themselves under their own judgment if they want the emails, and should proceed with the rest of the teardown.",
+      "assertions": [
+        "Does not create an account or fill in forms on the target's product",
+        "Offers public sources for onboarding evidence",
+        "Continues the teardown with public evidence"
+      ],
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "Quick scan: how does Granola get customers? I have a call with a prospect in their space in an hour and $1 of budget.",
+      "expected_output": "Should run quick scan mode within the budget, favoring free sources: the site and path, stack via page source and Wayback, a traffic curve (free brand interest via Google Trends if paid data doesn't fit the cap), ad libraries, and moves vs growth. Should deliver one page: the curve, top moves, and three to five plays, with dated estimates and method notes listing what was skipped.",
+      "assertions": [
+        "Uses quick scan mode",
+        "Prioritizes free sources to stay within the budget",
+        "Dates every number and labels estimates",
+        "Delivers a one-page output with a few plays",
+        "Lists skipped steps or unavailable data in method notes"
+      ],
+      "files": []
+    }
+  ]
+}
