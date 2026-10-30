@@ -45,6 +45,11 @@ Every play in a teardown names the skill that runs it and, for repeat work, the 
 | Events, virtual events, or conference sponsorships (stage 5) | **events** | (none; per event) |
 | A review campaign (stage 5 review spike) | **referrals** (review programs) | The review-site-management loop |
 | A marketplace or integration listing (stage 5) | **co-marketing**, **directory-submissions** | The partner-pipeline loop |
+| An order bump, upsell, or downsell sequence (Funnel Hack) | **offers**, **cro** | The pricing-page-experiment loop |
+| An abandoned-cart or abandoned-opt-in flow (Funnel Hack) | **emails**, **sms** | The lifecycle-email-refresh loop |
+| A quiz or webinar funnel (Funnel Hack) | **lead-magnets**, **events** | The lead-capture-asset loop |
+| Conquesting ads on competitor names (Funnel Hack) | **ads**, **competitors** | The paid-search query-mining loop |
+| An industry-specific play from an industry pack | The skill the pack names | The loop the pack's play needs, if any |
 
 Every play also needs its metric tracked. If the user can't measure it today, add an **analytics** step to the prompt.
 

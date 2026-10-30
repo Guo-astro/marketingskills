@@ -1,6 +1,6 @@
 ---
 name: reverse-engineer-marketing
-description: "When the user wants to reverse engineer how another company grew and copy what worked. Also use when the user mentions 'reverse engineer,' 'how did X grow,' 'how does X get customers,' 'growth teardown,' 'marketing teardown,' 'GTM teardown,' 'growth blueprint,' 'what is X doing for marketing,' 'what made X take off,' 'copy X's playbook,' 'X's distribution strategy,' 'what content works for X,' or 'watch what X is doing.' Builds a dated log of a company's moves against its traffic curve from public data, sign-ups and demos, team interviews, and hidden signals (DNS, certificate logs, archives, sponsorships), compares it with the user's own data, and turns what lined up with growth into plays routed to the skill that runs each one. For a snapshot profile of a competitor's positioning, pricing, and features, see competitor-profiling. For comparison pages, see competitors. For why a single post went viral, see social."
+description: "When the user wants to reverse engineer how another company grew and copy what worked. Also use when the user mentions 'reverse engineer,' 'how did X grow,' 'how does X get customers,' 'growth teardown,' 'marketing teardown,' 'GTM teardown,' 'growth blueprint,' 'what is X doing for marketing,' 'what made X take off,' 'copy X's playbook,' 'X's distribution strategy,' 'what content works for X,' 'funnel hack,' 'map their funnel,' or 'watch what X is doing.' Builds a dated log of a company's moves against its traffic curve from public data, sign-ups and demos, team interviews, and hidden signals (DNS, certificate logs, archives, sponsorships), compares it with the user's own data, and turns what lined up with growth into plays routed to the skill that runs each one. For a snapshot profile of a competitor's positioning, pricing, and features, see competitor-profiling. For comparison pages, see competitors. For why a single post went viral, see social."
 metadata:
   version: 1.0.0
 ---
@@ -33,6 +33,7 @@ Gather this context (ask for anything missing before the first paid call):
 | **Teardown** (default) | "How did X grow," "what should we copy" | All nine stages; stage 3 only with approval |
 | **Content** | Only titles, thumbnails, hooks, carousels, "what content works for X" | Handles from stage 2, then stage 6 |
 | **Quick** | A first look, a small budget, prep for a call | Stage 1 and the free stage 5 commands, stage 2 headlines, stage 9 with five plays |
+| **Funnel Hack** | "Map their whole funnel," "what are their upsells," "how do they sell" | Stage 3 with purchases, using [references/funnel-hack.md](references/funnel-hack.md) |
 | **Watch** | Ongoing monitoring of a company already torn down | The monthly diff in the Watch Mode section |
 
 ## Evidence Standard
@@ -64,6 +65,38 @@ node scripts/teardown.mjs stack target.com --months 24                       # f
 node scripts/teardown.mjs history target.com/pricing --months 24             # months the pricing changed
 node scripts/teardown.mjs ads "Target" --domain target.com                   # ad library links per network
 ```
+
+Then identify the industry and load its pack:
+
+```bash
+node scripts/teardown.mjs detect target.com                 # likely industry packs, with the reasons
+```
+
+Confirm the industry with the user, then read the matching pack below. Each pack adds the signals, sources, first-hand checks, copying limits, plays, and metrics that matter in that industry. A company can need two packs (a marketplace for local services: load both).
+
+| Industry | Pack |
+|---|---|
+| SaaS (PLG, sales-led, dev tools, AI apps) | [industries/saas.md](references/industries/saas.md) |
+| Ecommerce and DTC | [industries/ecommerce-dtc.md](references/industries/ecommerce-dtc.md) |
+| CPG, food, and beverage | [industries/cpg-food-beverage.md](references/industries/cpg-food-beverage.md) |
+| Retail and omnichannel | [industries/retail.md](references/industries/retail.md) |
+| Local and home services | [industries/local-services.md](references/industries/local-services.md) |
+| Healthcare | [industries/healthcare.md](references/industries/healthcare.md) |
+| Legal and professional services | [industries/legal-professional-services.md](references/industries/legal-professional-services.md) |
+| Real estate | [industries/real-estate.md](references/industries/real-estate.md) |
+| Finance, banking, lending, insurance | [industries/finance.md](references/industries/finance.md) |
+| Crypto and web3 | [industries/crypto-web3.md](references/industries/crypto-web3.md) |
+| Manufacturing and industrial | [industries/manufacturing-industrial.md](references/industries/manufacturing-industrial.md) |
+| Automotive | [industries/automotive.md](references/industries/automotive.md) |
+| Agencies and B2B services | [industries/agencies-b2b-services.md](references/industries/agencies-b2b-services.md) |
+| Nonprofit | [industries/nonprofit.md](references/industries/nonprofit.md) |
+| Marketplaces | [industries/marketplaces.md](references/industries/marketplaces.md) |
+| Mobile apps and games | [industries/mobile-apps-games.md](references/industries/mobile-apps-games.md) |
+| Education | [industries/education.md](references/industries/education.md) |
+| Hospitality and travel | [industries/hospitality-travel.md](references/industries/hospitality-travel.md) |
+| Media and creators | [industries/media-creators.md](references/industries/media-creators.md) |
+
+Industry commands: `shopify` (public catalog with dates, bestseller order, apps), `phones` (call-tracking check), `filings` (SEC filings and Form D raises), `cfpb` (consumer complaints by month), and `fdic` (bank quarterly financials). The packs say when to run each.
 
 Each ad pixel's first month becomes a move (`kind: ad-start`, evidence: Inferred, since a pixel shows the channel was possible, not that ads ran). Each pricing change becomes a move. Then mark the **inflection**: the month where growth stepped up and stayed up for at least two months. There can be more than one.
 
@@ -112,7 +145,9 @@ With the user's approval for each action, use the product the way a new customer
 - **The sales process:** booking form, speed to response, demo story, follow-up cadence (only under the user's own name)
 - **The chat probe:** ask the bot how they compare with the user's company, and record the answer word for word
 
-Check their terms of service first. If they bar competitive sign-ups, tell the user and let them decide.
+Check their terms of service first. If they bar competitive sign-ups, tell the user and let them decide. The industry pack adds checks and guardrails for that industry (no fake quote requests to small businesses, no credit applications without the user understanding the credit pull).
+
+**Funnel Hack mode** goes further: with an approved budget, buy through a real entry point and map every step, including the order bump, upsells, downsells, abandoned-cart flow, popups, quiz and webinar funnels, live tests (`teardown.mjs experiments <domain>`), paid search conquesting, and whether their urgency is staged. It ends with a funnel map and a swipe file. Details in [references/funnel-hack.md](references/funnel-hack.md).
 
 ## Stage 4: Team Voices
 
@@ -225,16 +260,18 @@ In `teardowns/<target>/`:
 | Describing images from captions | Open the file or mark it "not read" |
 | A pixel = the company runs ads there | A pixel is Inferred; check the ad library for Observed ads |
 | Signing up under a made-up identity | Real name, real company, the user's domain, and approval first |
+| Skipping the industry pack | Run `detect`, confirm the industry, and load its pack before stage 2 |
+| Copying staged urgency | Check timers and stock counts in two sessions before treating them as a lever |
 | Taking a founder's story as the timeline | Label it "reported" and check it against the dated data |
 | Generic plays ("post more on LinkedIn") | Name the skill, the formula, the assets, and the metric |
 
 ## Task-Specific Questions
 
 1. Which company, and over what window?
-2. Teardown, content only, quick, or watch?
+2. Teardown, content only, quick, funnel hack, or watch?
 3. What's your company, stage, and which channels can you actually run?
 4. Is Search Console, analytics, a prompt tracker, or an ad account connected?
-5. Can the agent sign up or book a demo under your name, and which inbox should it use?
+5. Can the agent sign up, book a demo, or buy under your name, which inbox should it use, and what's the purchase budget?
 6. Which data tools do you have, and what's the budget cap?
 
 ## Related Skills

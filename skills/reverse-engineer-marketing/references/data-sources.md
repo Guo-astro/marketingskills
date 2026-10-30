@@ -30,12 +30,20 @@ Where each stage's evidence comes from. The skill is tool-agnostic for search an
 | `subdomains <domain>` | Subdomains from certificate logs with first-seen dates, preview and staging names filtered out |
 | `ads <name> --domain <domain>` | Links to the Meta, Google, LinkedIn, and TikTok ad libraries for the company |
 | `sc-ads <name> --domain <domain>` | Active Meta, Google, and TikTok ads through ScrapeCreators (needs `SCRAPECREATORS_API_KEY`; `--dry-run` shows the requests) |
+| `detect <domain>` | Likely industry packs with the reasons (scripts, page text, schema types) |
+| `shopify <domain>` | Public Shopify catalog: products with created dates, prices and sale flags, bestseller order, installed apps |
+| `experiments <domain>` | Client-side testing tools, plus readable Optimizely and GrowthBook config names |
+| `phones <url>` | Phone numbers in the page, call-tracking tools, and UTM test URLs for a browser check |
+| `filings <company>` | SEC filings for public companies and Form D fundraise filings (needs a contact in `--ua` or `SEC_USER_AGENT`) |
+| `cfpb <company>` | CFPB consumer complaints by month, with top products and issues |
+| `fdic <bank>` | FDIC quarterly assets, deposits, and employee counts |
 | `moves` | Lift per cluster of moves and leading channels (stage 7) |
 | `diff` | Moves in a new log that weren't in the old one (Watch mode) |
 
 Limits to state in the method notes:
 - `stack` only sees scripts in the page source. Tags loaded through a tag manager or after a consent banner won't show, so a missing pixel isn't proof the channel wasn't used.
 - `stack`'s first month is the first monthly capture with the script. If it equals the window's start month (`present_at_start`), the tool was already there.
+- When a site blocks scripted fetches, `detect`, `experiments`, and `phones` read its latest Wayback capture instead and say so in `source`. The script doesn't disguise itself to get past a block.
 - `history` reads prices from the HTML. Pages that render prices with JavaScript show up under `no_prices`. Open those captures by hand.
 
 ## Free Sources
