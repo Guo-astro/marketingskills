@@ -462,7 +462,9 @@ Traffic analytics, competitor benchmarking, and market research.
 | **similarweb** | Website traffic, competitor analysis | Traffic sources, keywords |
 | **scrapecreators** | Public social posts and ad libraries (TikTok, Instagram, YouTube, X, Reddit; Meta, Google, TikTok ads) | API + MCP; credit-based; not for LinkedIn or people data |
 
-**Agent recommendation**: Similarweb for competitor traffic analysis and market benchmarking. For what a competitor publishes and advertises, ScrapeCreators or Apify social actors; the reverse-engineer-marketing skill uses both.
+**Agent recommendation**: Similarweb for competitor traffic analysis and market benchmarking.
+
+**Social and ad data**: ScrapeCreators and Apify social actors both cover what a competitor publishes and advertises; the reverse-engineer-marketing skill works with either.
 
 ### Audience Research
 
