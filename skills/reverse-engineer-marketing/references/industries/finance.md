@@ -42,7 +42,7 @@ Insurance carriers and agencies should also load [insurance.md](insurance.md).
 | ★ Sponsor bank disclosures | The fintech's footer, terms, and deposit agreement, then `teardown.mjs fdic <partner bank>` | Which bank holds the deposits, when they added or switched banks, and the sponsor bank's own deposit growth |
 | Adviser and broker records | SEC Investment Adviser Public Disclosure (Form ADV) and FINRA BrokerCheck | Assets under management, client counts, and registration dates for advisers and broker-dealers |
 | ★ Sign-up and referral bonus history | Bonus-tracking blogs such as Doctor of Credit, plus Wayback captures of the promo page | Every bonus launch, increase, and end, dated. Each change becomes a move |
-| Rate and APY history | `teardown.mjs history <url>` on the rates page, plus Wayback | When they raised or cut rates relative to competitors |
+| Rate and APY history | Archived captures of the rates page, read by hand (`teardown.mjs history <url>` catches currency amounts, not percentages like APY) | When they raised or cut rates relative to competitors |
 | Comparison site placement | Search "best [product]" on the major comparison sites; Wayback of those list pages | Which lists they're on, their position over time, and when they entered or dropped off |
 | Affiliate program terms | Their partner page and affiliate network listings | Payout model and which partners they recruit |
 | Credentialed content | Author and reviewer bylines, editorial policy pages | Whether they invest in YMYL trust signals |

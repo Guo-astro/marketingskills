@@ -35,7 +35,7 @@ Load this pack when the target sells physical devices to consumers: electronics,
 |---|---|---|
 | ★ Crowdfunding campaign history | The Kickstarter or Indiegogo page (backers, total raised, updates, comments), and third-party trackers of daily pledges where available | Launch size, the pre-launch list that drove day one, the reward tiers that sold, and shipping delays from updates and comments |
 | ★ Pre-launch list | Archived "notify me" or reservation pages, and referral-for-early-access pages | How they built the day-one audience; launch dates become moves |
-| Pre-order and ship dates | `teardown.mjs history <url>` on product pages, watching "ships in" text, and archived captures | Backlogs and production ramps; each ship-date change is a move |
+| Pre-order and ship dates | Archived captures of product pages, read by hand for "ships in" text (`teardown.mjs history <url>` only tracks prices) | Backlogs and production ramps; each ship-date change is a move |
 | ★ Stockouts | Product page availability over time from archived captures, and `shopify` variant data | When demand outran supply, which hides growth in the curve |
 | Launch review coverage | Searches for "[product] review" on YouTube and tech sites, dated | Embargo dates and which reviewers they seeded; review dates become moves |
 | Creator seeding | Creator videos with gifted or sponsored disclosures, and affiliate links | The creator program behind the launch |

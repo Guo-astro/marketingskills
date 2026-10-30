@@ -38,7 +38,7 @@ Load this pack when the target sells physical products online, direct to consume
 | Installed apps | `teardown.mjs stack <domain>` and `shopify` | Their retention, reviews, upsell, and subscription stack, dated by first capture |
 | ★ Sale calendar | `teardown.mjs hero <domain>` and archived homepage captures | Every sale, discount depth, and free-shipping change by date. Becomes moves |
 | New creatives per week | `teardown.mjs sc-ads <brand>` or the Meta Ad Library, by start date | Creative velocity and the formats they keep (UGC, founder, static, partnership ads) |
-| Longest-running ads | Ad libraries sorted by start date | The proven hooks and offers |
+| Longest-running ads | Ad libraries sorted by start date | Hooks and offers they keep paying for: worth testing, though their performance is unknown |
 | Partnership and whitelisted ads | Meta "Paid partnership" labels and creator handles on ads | Creator-led paid social, and which creators they pay |
 | Review count per product | Product pages and review app widgets, over time | A sales proxy per product; spikes suggest review requests or sampling |
 | Email and SMS capture offer | The popup on first visit | The discount or gift they use to capture subscribers |

@@ -34,7 +34,7 @@ Load this pack for PC and console games and the studios and publishers behind th
 | Signal | Where or how | What it shows |
 |---|---|---|
 | ★ Follower and player history | Public Steam data sites such as SteamDB for follower counts, concurrent players, and price history by app ID | The real demand curve before and after launch; follower count is a common public proxy for wishlists, so label it Inferred |
-| ★ Store page history | `teardown.mjs hero <url>` and `teardown.mjs history <url>` on the Steam store page URL | When the capsule art, short description, tags, trailer, and price changed; each change becomes a move in moves.csv |
+| ★ Store page history | `teardown.mjs hero <url>` (title and short description) and `history <url>` (price) on the Steam store page, plus archived captures read by hand for capsule art, tags, and trailers | When the capsule art, short description, tags, trailer, and price changed; each change becomes a move in moves.csv |
 | Store page coming-soon date | Wayback captures of the Steam page, SteamDB's app history | How long the page collected wishlists before launch |
 | ★ Festival and event participation | Steam event pages, the game's own announcement posts on Steam, Next Fest demo listings | Which events they joined and what they shipped for each (a demo, a trailer, a discount); dated moves |
 | Demo and playtest | The Steam page's demo listing, playtest sign-ups, and their dates | When they opened the game to players, and the demo's own follower and review counts |

@@ -37,7 +37,7 @@ PC and console games should load [games-pc-console.md](games-pc-console.md) inst
 
 | Signal | Where or how | What it shows |
 |---|---|---|
-| ★ Store page history | Archived copies of the App Store and Google Play pages via `teardown.mjs history <url>` and `teardown.mjs hero <url>` | Title, subtitle, and screenshot changes by month; each change becomes a move in moves.csv |
+| ★ Store page history | Archived copies of the App Store and Google Play pages: `teardown.mjs hero <url>` for the title and description, `history` for price, and screenshots by hand | Title, subtitle, and screenshot changes by month; each change becomes a move in moves.csv |
 | Store keywords in title and subtitle | The current store listing compared with past versions | Which search terms they target in store search (see **aso**) |
 | Ratings and review counts | Store pages over time | Review velocity, a rough install-growth proxy, and when they added rating prompts |
 | Version history | The "What's New" release notes on store pages | Feature launch cadence; dated releases become moves |

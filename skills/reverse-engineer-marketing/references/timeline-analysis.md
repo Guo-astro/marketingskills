@@ -24,7 +24,7 @@ Stage 7 in full. It needs no new data, only the two spine files, and it runs thr
 | `link` | The evidence URL |
 | `evidence` | Observed or Inferred |
 
-**`traffic.csv`**: `month,visits,brand_searches`, one row per month, from one vendor for the whole series. Leave `brand_searches` blank if you don't have it.
+**`traffic.csv`**: `month,visits,brand_searches`, one row per month, from one vendor for the whole series. Leave `brand_searches` blank if you don't have it. Blank cells and missing months are treated as gaps, never as zero, and a month listed twice is an error.
 
 ## What the Script Computes
 
@@ -34,7 +34,7 @@ node scripts/teardown.mjs moves --moves moves.csv --traffic traffic.csv --out mo
 
 - **Growth:** month-over-month change in visits (and brand searches), in percent.
 - **Clusters:** a move within 42 days of the previous one joins its cluster. Credit goes to the cluster as a whole.
-- **Lift per cluster:** average growth over the three months starting with the cluster's month, minus the average over the three months before, in percentage points. Calculated for visits and brand searches separately.
+- **Lift per cluster:** average growth over the three months starting with the cluster's month, minus the average over the three months before, in percentage points. Calculated for visits and brand searches separately. It needs all six months: a cluster near either end of the series, or next to a gap, gets no lift rather than a partial one.
 - **Top clusters:** the three with the largest visit lift.
 - **Leading channel:** for each channel, Spearman rank correlation between its monthly move count and growth in the same month, one month later, and two months later. Under 18 months of data or under 6 moves on the channel, the script returns "too few to call" instead.
 

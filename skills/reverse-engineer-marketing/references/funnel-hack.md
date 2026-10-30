@@ -47,12 +47,12 @@ Then run the side paths:
 
 ### Check the Urgency
 
-Open each countdown timer, "only N left", and "offer ends tonight" message in two clean browser sessions, a few hours apart. If the timer restarts or the count never moves, the scarcity is staged. Record it as Observed, and don't copy it as if it's what converts. Fake scarcity also runs into the FTC's rules on deceptive practices.
+Open each countdown timer, "only N left", and "offer ends tonight" message in two clean browser sessions, a few hours apart, and again after the stated deadline. Record exactly what you saw as Observed: "the timer restarted in a new session", "the count stayed at 7 for three days". Whether the scarcity is staged is Inferred: a count that never moves can mean no sales, and a restarting timer can be a disclosed per-visitor offer. Either way, don't copy urgency as if it's what converts, and remember that false scarcity runs into the FTC's rules on deceptive practices.
 
 ## Find Their Tests
 
-- **`teardown.mjs experiments <domain>`** lists the client-side testing tools and, for Optimizely and GrowthBook, the readable names in their configs. Names like `pricing_annual_default_v3` or `checkout_bump_socks` show what they're testing now.
-- **Variant check:** load the landing page, pricing page, and checkout in three or four fresh sessions and compare. Different headlines, prices, or bumps mean a live test. Screenshot each variant.
+- **`teardown.mjs experiments <domain>`** lists the client-side testing tools and, for Optimizely and GrowthBook, the readable names in their configs. Names like `pricing_annual_default_v3` or `checkout_bump_socks` hint at what they test, though a name in a config can be paused or finished.
+- **Variant check:** load the landing page, pricing page, and checkout in three or four fresh sessions and compare. Different headlines, prices, or bumps suggest a live test or personalization, labeled Inferred. Screenshot each variant.
 - **Dynamic text:** change `?keyword=`, `?utm_term=`, or `?q=` on an ad landing page and see if the headline changes to match.
 - **Geo pricing:** if the browser tool supports country proxies, compare prices by country.
 

@@ -59,7 +59,7 @@ The spine is two files every later stage writes into:
 - **`traffic.csv`** (`month,visits,brand_searches`): the monthly curve from **one** source for the whole window. Mixing vendors creates jumps that never happened. Add brand search volume (or Google Trends interest) as a second demand signal that doesn't depend on SEO.
 - **`moves.csv`** (`date,channel,kind,move,reach,link,evidence`): one row per dated move. Every stage adds rows.
 
-Run the free collectors first:
+Run the free collectors first. `scripts/` is inside this skill's directory: call the script by its full path from the user's project (`node <skill-dir>/scripts/teardown.mjs ...`) so outputs land in the project.
 
 ```bash
 node scripts/teardown.mjs site target.com --out teardowns/target/urls.csv   # page families from the sitemap
@@ -124,7 +124,7 @@ Walk the target's funnel one stage at a time. Each finding goes in the write-up,
 |---|---|
 | **Search** | Ranked keywords by URL, from the user's SEO tool (DataForSEO, Semrush, Ahrefs, or Similarweb; without one, only page families from `site` are available). Map them to the page families from `site`. Report brand vs non-brand share and which families carry non-brand traffic. Check which families existed before the inflection (Wayback) and which came after. |
 | **AI answers** | The same prompt set for the target and the user in a connected prompt tracker (share of voice and citations over time), or by hand in ChatGPT, Perplexity, Gemini, and Google AI Overviews: the order brands are named and which pages are cited. Options in [references/data-sources.md](references/data-sources.md); method in **ai-seo**. |
-| **Paid** | Per network, from `sc-ads` (ScrapeCreators) or the ad library links: active ads, the longest-running ad (45+ days usually means it's working), the hook, the offer, and the landing page. No ads → Observed "no active ads". Read creative in depth with **ad-creative**. |
+| **Paid** | Per network, from `sc-ads` (ScrapeCreators) or the ad library links: active ads, the longest-running ad (45+ days suggests it's worth testing, though performance is unknown), the hook, the offer, and the landing page. No ads found → Observed "no ads found in [library, filter, date]", which is not proof they don't advertise. Read creative in depth with **ad-creative**. |
 | **Social and creators** | The founders' and brand's best posts, the most-viewed creator videos and threads about the company, and every contest, giveaway, launch-week, or invite drop. Label each item team, creator (paid if disclosed), user, or press. |
 | **PR and launches** | Funding announcements, launch days, press waves, and podcast runs, with dates. Founder-stated revenue is labeled "reported". |
 
