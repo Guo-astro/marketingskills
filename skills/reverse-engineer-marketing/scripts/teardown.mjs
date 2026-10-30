@@ -94,6 +94,16 @@ export const SIGNATURES = [
   { tool: 'Piano', group: 'media', patterns: [/piano\.io|tinypass/i] },
   { tool: 'Memberful', group: 'media', patterns: [/memberful/i] },
   { tool: 'WalletConnect', group: 'crypto', patterns: [/walletconnect/i] },
+  { tool: 'Mindbody', group: 'fitness', patterns: [/mindbodyonline|healcode/i] },
+  { tool: 'ClassPass', group: 'fitness', patterns: [/classpass/i] },
+  { tool: 'Glofox', group: 'fitness', patterns: [/glofox/i] },
+  { tool: 'Eventbrite', group: 'events', patterns: [/eventbrite/i] },
+  { tool: 'Ticketmaster', group: 'events', patterns: [/ticketmaster/i] },
+  { tool: 'AXS', group: 'events', patterns: [/\baxs\.com/i] },
+  { tool: 'DICE', group: 'events', patterns: [/dice\.fm/i] },
+  { tool: 'Steam', group: 'games', patterns: [/store\.steampowered\.com/i] },
+  { tool: 'Kickstarter', group: 'hardware', patterns: [/kickstarter\.com/i] },
+  { tool: 'Indiegogo', group: 'hardware', patterns: [/indiegogo\.com/i] },
 ];
 
 // Only script blocks and resource URLs are scanned, so a tool named in page copy isn't mistaken for an installed one.
@@ -708,8 +718,8 @@ export function schemaTypes(html) {
 
 // Each rule adds weight to an industry pack when its pattern appears in the page, its scripts, or its schema types.
 export const INDUSTRY_RULES = [
-  { pack: 'ecommerce-dtc', tools: ['Shopify', 'WooCommerce', 'BigCommerce', 'Klaviyo', 'Recharge', 'Yotpo', 'Okendo', 'Rebuy'], text: [/add to cart/i, /\/products\//, /free shipping/i], schema: ['Product', 'Offer'] },
-  { pack: 'saas', tools: ['Segment', 'Intercom', 'PostHog', 'Mixpanel', 'Amplitude'], text: [/start (your )?free trial/i, /book a demo/i, /sign up free/i, /per (user|seat)/i, /integrations/i], schema: ['SoftwareApplication', 'WebApplication'] },
+  { pack: 'ecommerce-dtc', tools: ['Shopify', 'WooCommerce', 'BigCommerce', 'Klaviyo', 'Recharge', 'Yotpo', 'Okendo', 'Rebuy'], text: [/add to cart/i, /\/products\//, /free shipping/i], schema: [], weakSchema: ['Product', 'Offer'] },
+  { pack: 'saas', tools: ['Segment', 'Intercom', 'PostHog', 'Mixpanel', 'Amplitude'], text: [/start (your )?free trial/i, /book a demo/i, /sign up free/i, /per (user|seat)/i], weakText: [/integrations/i], schema: ['SoftwareApplication', 'WebApplication'] },
   { pack: 'cpg-food-beverage', tools: ['PriceSpider', 'Destini'], text: [/where to buy/i, /find (us )?in stores/i, /nutrition facts/i, /ingredients/i], schema: [] },
   { pack: 'retail', tools: [], text: [/store locator/i, /find a store/i, /store hours/i, /pick ?up in store/i], schema: ['Store', 'ClothingStore', 'DepartmentStore'] },
   { pack: 'local-services', tools: ['CallRail', 'CallTrackingMetrics', 'ServiceTitan', 'Housecall Pro', 'Jobber', 'Podium', 'Birdeye'], text: [/free estimate/i, /service area/i, /licensed (and|&) insured/i, /24\/7 emergency/i, /financing available/i], schema: ['HomeAndConstructionBusiness', 'Plumber', 'HVACBusiness', 'RoofingContractor', 'Electrician', 'LocalBusiness'] },
@@ -720,13 +730,25 @@ export const INDUSTRY_RULES = [
   { pack: 'crypto-web3', tools: ['WalletConnect'], text: [/connect wallet/i, /tokenomics/i, /governance token/i, /on-?chain/i, /\bstaking\b/i], schema: [] },
   { pack: 'manufacturing-industrial', tools: [], text: [/request a quote/i, /\bRFQ\b/, /spec sheet/i, /\bCAD\b/, /ISO 9001/i, /find a distributor/i], schema: [] },
   { pack: 'automotive', tools: ['Dealer.com', 'DealerInspire'], text: [/new inventory/i, /used inventory/i, /\bVIN\b/, /schedule service/i, /trade-?in/i], schema: ['AutoDealer', 'AutoRepair', 'Car'] },
-  { pack: 'agencies-b2b-services', tools: [], text: [/our work/i, /case studies/i, /\bclients\b/i, /solutions partner/i, /get a proposal/i], schema: ['ProfessionalService'] },
+  { pack: 'agencies-b2b-services', tools: [], text: [/our work/i, /solutions partner/i, /get a proposal/i], weakText: [/case studies/i, /\bclients\b/i], schema: ['ProfessionalService'] },
   { pack: 'nonprofit', tools: ['Classy', 'Givebutter', 'Donorbox', 'Fundraise Up'], text: [/donate/i, /501\(c\)\(3\)/i, /tax-deductible/i], schema: ['NGO', 'NonprofitOrganization'] },
   { pack: 'marketplaces', tools: [], text: [/become a (seller|host|tasker|provider|driver)/i, /list your/i, /for (providers|sellers|hosts)/i], schema: [] },
-  { pack: 'mobile-apps-games', tools: [], text: [/apps\.apple\.com/, /play\.google\.com\/store/, /download (on|the) (the )?app/i], schema: ['MobileApplication', 'VideoGame'] },
+  { pack: 'mobile-apps-games', tools: [], text: [], weakText: [/apps\.apple\.com/, /play\.google\.com\/store/, /download (on|the) (the )?app/i], schema: ['MobileApplication'] },
   { pack: 'education', tools: [], text: [/\benroll\b/i, /admissions/i, /\bcohort\b/i, /bootcamp/i, /tuition/i], schema: ['EducationalOrganization', 'CollegeOrUniversity', 'Course'] },
   { pack: 'hospitality-travel', tools: ['OpenTable', 'Resy', 'SevenRooms', 'Toast', 'SynXis'], text: [/book (a table|your stay)/i, /make a reservation/i, /check-?in date/i, /order online/i, /view (our )?menu/i], schema: ['Hotel', 'LodgingBusiness', 'Restaurant', 'TouristTrip'] },
-  { pack: 'media-creators', tools: ['Piano', 'Memberful'], text: [/subscribe to (our|the) newsletter/i, /\bpodcast\b/i, /become a (member|subscriber)/i, /\bepisodes?\b/i], schema: ['NewsMediaOrganization', 'NewsArticle', 'PodcastSeries'] },
+  { pack: 'insurance', tools: [], text: [/get a (free )?quote/i, /policyholders?/i, /\bpremiums?\b/i, /file a claim/i, /find an agent/i], schema: ['InsuranceAgency'] },
+  { pack: 'fitness-wellness', tools: ['Mindbody', 'ClassPass', 'Glofox'], text: [/free (first )?class/i, /class schedule/i, /personal training/i, /intro offer/i, /find a studio/i, /book a class/i], weakText: [/\bworkouts?\b/i], schema: ['ExerciseGym', 'HealthClub', 'SportsActivityLocation'] },
+  { pack: 'consumer-hardware', tools: ['Kickstarter', 'Indiegogo'], text: [/pre-?order/i, /tech specs/i, /backed on kickstarter/i, /ships in/i], schema: [] },
+  { pack: 'solar-home-energy', tools: [], text: [/solar (panels?|energy)/i, /tax credit/i, /battery (storage|backup)/i, /heat pumps?/i, /\bkWh\b/], schema: [] },
+  { pack: 'care-services', tools: [], text: [/assisted living/i, /memory care/i, /home care/i, /senior living/i, /child ?care|daycare/i, /schedule a tour/i], schema: ['ChildCare'] },
+  { pack: 'franchising', tools: [], text: [/own a franchise/i, /franchise opportunit/i, /franchise fee/i, /\bFDD\b/, /territories available/i], schema: [] },
+  { pack: 'logistics-transportation', tools: [], text: [/\bLTL\b/, /\bFTL\b/, /freight/i, /\b3PL\b/, /\bUSDOT\b/i, /become a carrier/i, /drive for us/i], schema: [] },
+  { pack: 'govtech-public-sector', tools: [], text: [/public sector/i, /\bFedRAMP\b/, /\b(StateRAMP|GovRAMP)\b/, /cooperative (purchasing|contract)/i, /\bGSA\b/, /for government/i], schema: ['GovernmentOrganization'] },
+  { pack: 'regulated-goods', tools: [], text: [/are you (21|18) or older/i, /age verification/i, /\bdispensar(y|ies)\b/i, /\bTHC\b/, /\bCBD\b/, /\bFFL\b/, /contains nicotine/i], schema: ['LiquorStore'] },
+  { pack: 'gambling-betting', tools: [], text: [/sportsbook/i, /deposit match/i, /1-800-GAMBLER/i, /gambling problem/i, /\bsweepstakes\b/i, /odds boost/i], schema: [] },
+  { pack: 'games-pc-console', tools: ['Steam'], text: [/wishlist (on|now)/i, /playstation|xbox|nintendo switch/i, /\bplaytest\b/i, /press kit/i], schema: ['VideoGame'] },
+  { pack: 'events-entertainment', tools: ['Eventbrite', 'Ticketmaster', 'AXS', 'DICE'], text: [/buy tickets/i, /\blineup\b/i, /presale/i, /on sale (now|date)/i], schema: ['Event', 'MusicEvent', 'Festival', 'SportsEvent'] },
+  { pack: 'media-creators', tools: ['Piano', 'Memberful'], text: [/become a (member|subscriber)/i, /\bepisodes?\b/i], weakText: [/subscribe to (our|the) newsletter/i, /\bpodcast\b/i], schema: ['NewsMediaOrganization', 'PodcastSeries'], weakSchema: ['NewsArticle'] },
 ];
 
 export function detectIndustry({ html = '', tools = [], cnames = [] }) {
@@ -735,9 +757,14 @@ export function detectIndustry({ html = '', tools = [], cnames = [] }) {
   const scores = INDUSTRY_RULES.map(rule => {
     const reasons = [];
     for (const t of rule.tools) if (tools.includes(t)) reasons.push(`script: ${t}`);
-    for (const re of rule.text) if (re.test(text) || re.test(html)) reasons.push(`page: ${re.source.replace(/\\b|\\/g, '')}`);
+    const label = re => re.source.replace(/\\b|\\/g, '');
+    for (const re of rule.text) if (re.test(text) || re.test(html)) reasons.push(`page: ${label(re)}`);
+    for (const re of rule.weakText || []) if (re.test(text) || re.test(html)) reasons.push(`weak page: ${label(re)}`);
     for (const s of rule.schema) if (types.includes(s)) reasons.push(`schema: ${s}`);
-    const score = reasons.reduce((n, r) => n + (r.startsWith('page') ? 1 : 2), 0);
+    for (const s of rule.weakSchema || []) if (types.includes(s)) reasons.push(`weak schema: ${s}`);
+    // Scripts and specific schema types count double; generic words and types count half.
+    const weight = r => (r.startsWith('weak') ? 0.5 : r.startsWith('page') ? 1 : 2);
+    const score = reasons.reduce((n, r) => n + weight(r), 0);
     return { pack: rule.pack, score, reasons };
   });
   if (cnames.some(c => /substack|beehiiv|ghost\.io/i.test(c))) {
@@ -745,7 +772,7 @@ export function detectIndustry({ html = '', tools = [], cnames = [] }) {
     media.score += 2;
     media.reasons.push('dns: newsletter platform');
   }
-  return scores.filter(s => s.score > 0).sort((a, b) => b.score - a.score).slice(0, 3);
+  return scores.filter(s => s.score >= 1).sort((a, b) => b.score - a.score).slice(0, 3);
 }
 
 export function extractPhones(html) {
