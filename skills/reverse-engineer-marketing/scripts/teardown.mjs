@@ -36,6 +36,64 @@ export const SIGNATURES = [
   { tool: 'Intercom', group: 'lifecycle', patterns: [/widget\.intercom\.io/, /js\.intercomcdn\.com/] },
   { tool: 'HubSpot', group: 'lifecycle', patterns: [/js\.hs-scripts\.com/, /js\.hsforms\.net/] },
   { tool: 'Customer.io', group: 'lifecycle', patterns: [/assets\.customer\.io/] },
+  { tool: 'GrowthBook', group: 'testing', patterns: [/cdn\.growthbook\.io/, /growthbook/i] },
+  { tool: 'Statsig', group: 'testing', patterns: [/statsig/i] },
+  { tool: 'LaunchDarkly', group: 'testing', patterns: [/launchdarkly/i] },
+  { tool: 'AB Tasty', group: 'testing', patterns: [/abtasty/i] },
+  { tool: 'Convert', group: 'testing', patterns: [/convertexperiments\.com/] },
+  { tool: 'Kameleoon', group: 'testing', patterns: [/kameleoon/i] },
+  { tool: 'Shopify', group: 'ecommerce', patterns: [/cdn\.shopify\.com/, /Shopify\.theme/] },
+  { tool: 'WooCommerce', group: 'ecommerce', patterns: [/woocommerce/i] },
+  { tool: 'BigCommerce', group: 'ecommerce', patterns: [/bigcommerce\.com/] },
+  { tool: 'Klaviyo', group: 'ecommerce', patterns: [/klaviyo\.com/] },
+  { tool: 'Attentive', group: 'ecommerce', patterns: [/cdn\.attn\.tv/, /attentivemobile/i] },
+  { tool: 'Postscript', group: 'ecommerce', patterns: [/postscript\.io/] },
+  { tool: 'Yotpo', group: 'ecommerce', patterns: [/yotpo/i] },
+  { tool: 'Okendo', group: 'ecommerce', patterns: [/okendo/i] },
+  { tool: 'Judge.me', group: 'ecommerce', patterns: [/judge\.me/] },
+  { tool: 'Loox', group: 'ecommerce', patterns: [/loox\.io/] },
+  { tool: 'Rebuy', group: 'ecommerce', patterns: [/rebuyengine/i] },
+  { tool: 'Recharge', group: 'ecommerce', patterns: [/rechargeapps|rechargepayments|rechargecdn/i] },
+  { tool: 'Gorgias', group: 'ecommerce', patterns: [/gorgias/i] },
+  { tool: 'Smile.io', group: 'ecommerce', patterns: [/smile\.io/] },
+  { tool: 'Triple Whale', group: 'ecommerce', patterns: [/triplewhale|triple-whale/i] },
+  { tool: 'Northbeam', group: 'ecommerce', patterns: [/northbeam/i] },
+  { tool: 'Shop Pay', group: 'payments', patterns: [/shop\.app/] },
+  { tool: 'Klarna', group: 'payments', patterns: [/klarna/i] },
+  { tool: 'Afterpay', group: 'payments', patterns: [/afterpay/i] },
+  { tool: 'Affirm', group: 'payments', patterns: [/affirm\.com\/js|cdn1\.affirm\.com/] },
+  { tool: 'PriceSpider', group: 'retail', patterns: [/pricespider/i] },
+  { tool: 'Destini', group: 'retail', patterns: [/destini\.co/] },
+  { tool: 'CallRail', group: 'call-tracking', patterns: [/cdn\.callrail\.com/] },
+  { tool: 'CallTrackingMetrics', group: 'call-tracking', patterns: [/tctm\.co/] },
+  { tool: 'Invoca', group: 'call-tracking', patterns: [/invocacdn/i] },
+  { tool: 'WhatConverts', group: 'call-tracking', patterns: [/whatconverts/i] },
+  { tool: 'ServiceTitan', group: 'local', patterns: [/servicetitan/i] },
+  { tool: 'Housecall Pro', group: 'local', patterns: [/housecallpro/i] },
+  { tool: 'Jobber', group: 'local', patterns: [/getjobber\.com/] },
+  { tool: 'Podium', group: 'local', patterns: [/podium\.com/] },
+  { tool: 'Birdeye', group: 'local', patterns: [/birdeye/i] },
+  { tool: 'Zocdoc', group: 'healthcare', patterns: [/zocdoc/i] },
+  { tool: 'NexHealth', group: 'healthcare', patterns: [/nexhealth/i] },
+  { tool: 'Lawmatics', group: 'legal', patterns: [/lawmatics/i] },
+  { tool: 'Clio', group: 'legal', patterns: [/clio\.com|goclio/i] },
+  { tool: 'IDX Broker', group: 'real-estate', patterns: [/idxbroker/i] },
+  { tool: 'kvCORE', group: 'real-estate', patterns: [/kvcore/i] },
+  { tool: 'Follow Up Boss', group: 'real-estate', patterns: [/followupboss/i] },
+  { tool: 'Dealer.com', group: 'automotive', patterns: [/dealer\.com/] },
+  { tool: 'DealerInspire', group: 'automotive', patterns: [/dealerinspire/i] },
+  { tool: 'OpenTable', group: 'hospitality', patterns: [/opentable/i] },
+  { tool: 'Resy', group: 'hospitality', patterns: [/resy\.com/] },
+  { tool: 'SevenRooms', group: 'hospitality', patterns: [/sevenrooms/i] },
+  { tool: 'Toast', group: 'hospitality', patterns: [/toasttab/i] },
+  { tool: 'SynXis', group: 'hospitality', patterns: [/synxis/i] },
+  { tool: 'Classy', group: 'nonprofit', patterns: [/classy\.org/] },
+  { tool: 'Givebutter', group: 'nonprofit', patterns: [/givebutter/i] },
+  { tool: 'Donorbox', group: 'nonprofit', patterns: [/donorbox/i] },
+  { tool: 'Fundraise Up', group: 'nonprofit', patterns: [/fundraiseup/i] },
+  { tool: 'Piano', group: 'media', patterns: [/piano\.io|tinypass/i] },
+  { tool: 'Memberful', group: 'media', patterns: [/memberful/i] },
+  { tool: 'WalletConnect', group: 'crypto', patterns: [/walletconnect/i] },
 ];
 
 export function detectTools(html) {
@@ -629,6 +687,310 @@ export async function cmdScAds(name, opts, fetchImpl = fetch) {
   return out;
 }
 
+export function schemaTypes(html) {
+  const types = new Set();
+  for (const m of html.matchAll(/<script[^>]+application\/ld\+json[^>]*>([\s\S]*?)<\/script>/gi)) {
+    for (const t of m[1].matchAll(/"@type"\s*:\s*(\[[^\]]*\]|"[^"]+")/g)) {
+      for (const v of t[1].matchAll(/"([^"]+)"/g)) types.add(v[1]);
+    }
+  }
+  return [...types];
+}
+
+// Each rule adds weight to an industry pack when its pattern appears in the page, its scripts, or its schema types.
+export const INDUSTRY_RULES = [
+  { pack: 'ecommerce-dtc', tools: ['Shopify', 'WooCommerce', 'BigCommerce', 'Klaviyo', 'Recharge', 'Yotpo', 'Okendo', 'Rebuy'], text: [/add to cart/i, /\/products\//, /free shipping/i], schema: ['Product', 'Offer'] },
+  { pack: 'saas', tools: ['Segment', 'Intercom', 'PostHog', 'Mixpanel', 'Amplitude'], text: [/start (your )?free trial/i, /book a demo/i, /sign up free/i, /per (user|seat)/i, /integrations/i], schema: ['SoftwareApplication', 'WebApplication'] },
+  { pack: 'cpg-food-beverage', tools: ['PriceSpider', 'Destini'], text: [/where to buy/i, /find (us )?in stores/i, /nutrition facts/i, /ingredients/i], schema: [] },
+  { pack: 'retail', tools: [], text: [/store locator/i, /find a store/i, /store hours/i, /pick ?up in store/i], schema: ['Store', 'ClothingStore', 'DepartmentStore'] },
+  { pack: 'local-services', tools: ['CallRail', 'CallTrackingMetrics', 'ServiceTitan', 'Housecall Pro', 'Jobber', 'Podium', 'Birdeye'], text: [/free estimate/i, /service area/i, /licensed (and|&) insured/i, /24\/7 emergency/i, /financing available/i], schema: ['HomeAndConstructionBusiness', 'Plumber', 'HVACBusiness', 'RoofingContractor', 'Electrician', 'LocalBusiness'] },
+  { pack: 'healthcare', tools: ['Zocdoc', 'NexHealth'], text: [/book an appointment/i, /insurance (we )?accept/i, /new patients/i, /telehealth/i], schema: ['MedicalClinic', 'Dentist', 'Physician', 'MedicalBusiness', 'MedicalOrganization'] },
+  { pack: 'legal-professional-services', tools: ['Lawmatics', 'Clio'], text: [/free consultation/i, /attorney advertising/i, /practice areas/i, /\bCPA\b/], schema: ['LegalService', 'Attorney', 'AccountingService'] },
+  { pack: 'real-estate', tools: ['IDX Broker', 'kvCORE', 'Follow Up Boss'], text: [/\bMLS\b/, /homes for sale/i, /what'?s my home worth/i, /listings/i], schema: ['RealEstateAgent', 'RealEstateListing'] },
+  { pack: 'finance', tools: [], text: [/member FDIC/i, /\bNMLS\b/, /\bAPY\b/, /\bSIPC\b/, /credit score/i], schema: ['FinancialService', 'BankOrCreditUnion', 'InsuranceAgency'] },
+  { pack: 'crypto-web3', tools: ['WalletConnect'], text: [/connect wallet/i, /tokenomics/i, /governance token/i, /on-?chain/i, /\bstaking\b/i], schema: [] },
+  { pack: 'manufacturing-industrial', tools: [], text: [/request a quote/i, /\bRFQ\b/, /spec sheet/i, /\bCAD\b/, /ISO 9001/i, /find a distributor/i], schema: [] },
+  { pack: 'automotive', tools: ['Dealer.com', 'DealerInspire'], text: [/new inventory/i, /used inventory/i, /\bVIN\b/, /schedule service/i, /trade-?in/i], schema: ['AutoDealer', 'AutoRepair', 'Car'] },
+  { pack: 'agencies-b2b-services', tools: [], text: [/our work/i, /case studies/i, /\bclients\b/i, /solutions partner/i, /get a proposal/i], schema: ['ProfessionalService'] },
+  { pack: 'nonprofit', tools: ['Classy', 'Givebutter', 'Donorbox', 'Fundraise Up'], text: [/donate/i, /501\(c\)\(3\)/i, /tax-deductible/i], schema: ['NGO', 'NonprofitOrganization'] },
+  { pack: 'marketplaces', tools: [], text: [/become a (seller|host|tasker|provider|driver)/i, /list your/i, /for (providers|sellers|hosts)/i], schema: [] },
+  { pack: 'mobile-apps-games', tools: [], text: [/apps\.apple\.com/, /play\.google\.com\/store/, /download (on|the) (the )?app/i], schema: ['MobileApplication', 'VideoGame'] },
+  { pack: 'education', tools: [], text: [/\benroll\b/i, /admissions/i, /\bcohort\b/i, /bootcamp/i, /tuition/i], schema: ['EducationalOrganization', 'CollegeOrUniversity', 'Course'] },
+  { pack: 'hospitality-travel', tools: ['OpenTable', 'Resy', 'SevenRooms', 'Toast', 'SynXis'], text: [/book (a table|your stay)/i, /make a reservation/i, /check-?in date/i, /order online/i, /view (our )?menu/i], schema: ['Hotel', 'LodgingBusiness', 'Restaurant', 'TouristTrip'] },
+  { pack: 'media-creators', tools: ['Piano', 'Memberful'], text: [/subscribe to (our|the) newsletter/i, /\bpodcast\b/i, /become a (member|subscriber)/i, /\bepisodes?\b/i], schema: ['NewsMediaOrganization', 'NewsArticle', 'PodcastSeries'] },
+];
+
+export function detectIndustry({ html = '', tools = [], cnames = [] }) {
+  const types = schemaTypes(html);
+  const text = html.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/gi, ' ');
+  const scores = INDUSTRY_RULES.map(rule => {
+    const reasons = [];
+    for (const t of rule.tools) if (tools.includes(t)) reasons.push(`script: ${t}`);
+    for (const re of rule.text) if (re.test(text) || re.test(html)) reasons.push(`page: ${re.source.replace(/\\b|\\/g, '')}`);
+    for (const s of rule.schema) if (types.includes(s)) reasons.push(`schema: ${s}`);
+    const score = reasons.reduce((n, r) => n + (r.startsWith('page') ? 1 : 2), 0);
+    return { pack: rule.pack, score, reasons };
+  });
+  if (cnames.some(c => /substack|beehiiv|ghost\.io/i.test(c))) {
+    const media = scores.find(s => s.pack === 'media-creators');
+    media.score += 2;
+    media.reasons.push('dns: newsletter platform');
+  }
+  return scores.filter(s => s.score > 0).sort((a, b) => b.score - a.score).slice(0, 3);
+}
+
+export function extractPhones(html) {
+  const tel = [...html.matchAll(/href=["']tel:([^"']+)["']/gi)].map(m => decodeURIComponent(m[1]).replace(/[^\d+]/g, ''));
+  const text = stripTags(html.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/gi, ' '));
+  const shown = [...text.matchAll(/(?:\+?1[\s.-]?)?\(?\b\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}\b/g)].map(m => m[0].replace(/[^\d+]/g, ''));
+  return [...new Set([...tel, ...shown])];
+}
+
+export function utmTestUrls(url) {
+  const variants = [
+    ['(none)', {}],
+    ['google-ads', { utm_source: 'google', utm_medium: 'cpc', gclid: 'test' }],
+    ['google-organic', { utm_source: 'google', utm_medium: 'organic' }],
+    ['meta-ads', { utm_source: 'facebook', utm_medium: 'paid', fbclid: 'test' }],
+    ['bing-ads', { utm_source: 'bing', utm_medium: 'cpc', msclkid: 'test' }],
+    ['gbp', { utm_source: 'gbp', utm_medium: 'organic' }],
+  ];
+  return variants.map(([label, params]) => {
+    const u = new URL(url);
+    for (const [k, v] of Object.entries(params)) u.searchParams.set(k, v);
+    return { label, url: u.toString() };
+  });
+}
+
+export function optimizelyNames(js) {
+  return [...new Set([...js.matchAll(/"name"\s*:\s*"([^"]{3,120})"/g)].map(m => m[1]))].slice(0, 150);
+}
+
+export function growthbookKeys(html) {
+  const key = html.match(/["'](sdk-[A-Za-z0-9]{8,})["']/)?.[1] || null;
+  const host = html.match(/apiHost["']?\s*[:=]\s*["'](https:\/\/[^"']+)["']/)?.[1] || 'https://cdn.growthbook.io';
+  return { key, host };
+}
+
+export function summarizeGrowthbook(json) {
+  if (json.encryptedFeatures) return { encrypted: true, features: [] };
+  const features = Object.entries(json.features || {}).map(([key, f]) => ({
+    feature: key,
+    experiments: (f.rules || []).filter(r => r.variations).map(r => r.key || r.name || '(unnamed)'),
+  }));
+  return { encrypted: false, features };
+}
+
+export function edgarDocUrl(cik, accession, doc) {
+  return `https://www.sec.gov/Archives/edgar/data/${Number(cik)}/${accession.replace(/-/g, '')}/${doc}`;
+}
+
+export function monthRanges(months, now = new Date()) {
+  const out = [];
+  for (let i = months - 1; i >= 0; i--) {
+    const start = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - i, 1));
+    const end = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth() + 1, 1));
+    out.push({ month: start.toISOString().slice(0, 7), min: start.toISOString().slice(0, 10), max: end.toISOString().slice(0, 10) });
+  }
+  return out;
+}
+
+// Sites that block scripted fetches are read from their latest Wayback capture instead.
+async function getPageOrArchive(url) {
+  try {
+    return { html: await get(url), source: 'live' };
+  } catch (err) {
+    const snap = await getJson(`https://archive.org/wayback/available?url=${encodeURIComponent(url)}`);
+    const closest = snap.archived_snapshots?.closest;
+    if (!closest?.available) throw err;
+    const ts = closest.timestamp;
+    return { html: await get(`https://web.archive.org/web/${ts}id_/${url}`), source: `archive ${ts.slice(0, 4)}-${ts.slice(4, 6)}-${ts.slice(6, 8)} (live fetch: ${err.message.split(' ')[0]})` };
+  }
+}
+
+async function getJson(url, headers = {}) {
+  const res = await fetch(url, { headers: { 'user-agent': UA, accept: 'application/json', ...headers }, redirect: 'follow' });
+  if (!res.ok) throw new Error(`${res.status} ${url}`);
+  return res.json();
+}
+
+async function cmdDetect(domain) {
+  const { html, source } = await getPageOrArchive(`https://${domain}/`);
+  const tools = detectTools(html);
+  const dnsInfo = await cmdDns(domain);
+  const packs = detectIndustry({ html, tools, cnames: dnsInfo.subdomains.map(s => s.cname) });
+  return {
+    domain,
+    pulled: new Date().toISOString().slice(0, 10),
+    source,
+    note: 'Heuristic. Confirm the industry with the user, then load references/industries/<pack>.md. A company can fit two packs (a marketplace for local services).',
+    packs,
+    tools,
+    schema_types: schemaTypes(html),
+  };
+}
+
+async function cmdShopify(domain, opts) {
+  const maxPages = Number(opts.pages || 20);
+  const products = [];
+  for (let page = 1; page <= maxPages; page++) {
+    let json;
+    try { json = await getJson(`https://${domain}/products.json?limit=250&page=${page}`); } catch (err) {
+      if (page === 1) throw new Error(`products.json not available (${err.message}). The store may not be on Shopify or may block it.`);
+      break;
+    }
+    if (!json.products?.length) break;
+    products.push(...json.products);
+    await sleep(500);
+  }
+  const rows = products.map(p => {
+    const prices = (p.variants || []).map(v => Number(v.price)).filter(Number.isFinite);
+    const compare = (p.variants || []).map(v => Number(v.compare_at_price)).filter(x => Number.isFinite(x) && x > 0);
+    return {
+      handle: p.handle,
+      title: p.title,
+      type: p.product_type || '',
+      vendor: p.vendor || '',
+      created: (p.created_at || '').slice(0, 10),
+      published: (p.published_at || '').slice(0, 10),
+      min_price: prices.length ? Math.min(...prices) : '',
+      max_price: prices.length ? Math.max(...prices) : '',
+      on_sale: compare.length > 0 && prices.length > 0 && Math.max(...compare) > Math.min(...prices),
+      variants: (p.variants || []).length,
+      tags: (Array.isArray(p.tags) ? p.tags : String(p.tags || '').split(',')).join('|'),
+    };
+  });
+  if (opts.out) writeFileSync(opts.out, toCsv(rows));
+  const byMonth = {};
+  for (const r of rows) if (r.created) byMonth[r.created.slice(0, 7)] = (byMonth[r.created.slice(0, 7)] || 0) + 1;
+  const types = {};
+  for (const r of rows) types[r.type || '(none)'] = (types[r.type || '(none)'] || 0) + 1;
+  let bestsellers = [];
+  try {
+    const html = await get(`https://${domain}/collections/all?sort_by=best-selling`);
+    bestsellers = [...new Set([...html.matchAll(/\/products\/([a-z0-9][a-z0-9-]*)/gi)].map(m => m[1].toLowerCase()))].slice(0, 30);
+  } catch {}
+  let apps = [];
+  try { apps = detectTools(await get(`https://${domain}/`)).filter(t => SIGNATURES.find(s => s.tool === t && ['ecommerce', 'payments', 'testing', 'lifecycle'].includes(s.group))); } catch {}
+  return {
+    domain,
+    pulled: new Date().toISOString().slice(0, 10),
+    products: rows.length,
+    on_sale: rows.filter(r => r.on_sale).length,
+    created_by_month: Object.fromEntries(Object.entries(byMonth).sort()),
+    product_types: Object.fromEntries(Object.entries(types).sort((a, b) => b[1] - a[1]).slice(0, 20)),
+    bestsellers_in_order: bestsellers,
+    apps,
+    note: 'created is when the product was added to the store; published can be reset by relaunches. Bestseller order comes from the store\'s own best-selling sort, which some themes override. Hidden and unlisted products are not included.',
+  };
+}
+
+async function cmdExperiments(domain) {
+  const { html, source } = await getPageOrArchive(`https://${domain}/`);
+  const tools = detectTools(html).filter(t => SIGNATURES.find(s => s.tool === t && s.group === 'testing'));
+  const out = { domain, pulled: new Date().toISOString().slice(0, 10), source, tools };
+  const opt = html.match(/cdn\.optimizely\.com\/js\/(\d+)\.js/);
+  if (opt) {
+    try {
+      out.optimizely = { snippet: `https://cdn.optimizely.com/js/${opt[1]}.js`, names: optimizelyNames(await get(`https://cdn.optimizely.com/js/${opt[1]}.js`)) };
+    } catch (err) { out.optimizely = { error: err.message }; }
+  }
+  const gb = growthbookKeys(html);
+  if (gb.key) {
+    try { out.growthbook = { client_key: gb.key, ...summarizeGrowthbook(await getJson(`${gb.host}/api/features/${gb.key}`)) }; } catch (err) { out.growthbook = { error: err.message }; }
+  }
+  out.note = 'Optimizely names include experiments, pages, audiences, and events; read them for test themes. Other tools keep configs server-side or need a user context, so only their presence is reported. Many sites load these tools through a tag manager, so check in a browser too.';
+  return out;
+}
+
+async function cmdPhones(url) {
+  const { html, source } = await getPageOrArchive(url);
+  return {
+    url,
+    source,
+    pulled: new Date().toISOString().slice(0, 10),
+    numbers_in_html: extractPhones(html),
+    call_tracking: detectTools(html).filter(t => SIGNATURES.find(s => s.tool === t && s.group === 'call-tracking')),
+    browser_check: utmTestUrls(url),
+    note: 'Call tracking swaps numbers in the browser after the page loads, so the HTML shows only the default. Open each browser_check URL in a fresh session and record the number shown. A different number per source means that channel is tracked separately.',
+  };
+}
+
+const SEC_FORMS = new Set(['10-K', '10-Q', '8-K', 'S-1', 'S-1/A', 'F-1', '424B4', 'DEF 14A', '20-F', '6-K', 'D']);
+
+async function cmdFilings(name, opts) {
+  const ua = opts.ua || process.env.SEC_USER_AGENT;
+  if (!ua) throw new Error('SEC requires a contact in the User-Agent. Pass --ua "Your Name you@company.com" or set SEC_USER_AGENT.');
+  const headers = { 'user-agent': ua };
+  const out = { query: name, pulled: new Date().toISOString().slice(0, 10) };
+  const tickers = Object.values(await getJson('https://www.sec.gov/files/company_tickers.json', headers));
+  const q = name.toLowerCase();
+  const matches = tickers.filter(t => t.ticker.toLowerCase() === q || t.title.toLowerCase().includes(q)).slice(0, 5);
+  out.public_matches = matches.map(m => ({ cik: m.cik_str, ticker: m.ticker, name: m.title }));
+  const cik = opts.cik || matches[0]?.cik_str;
+  if (cik) {
+    const sub = await getJson(`https://data.sec.gov/submissions/CIK${String(cik).padStart(10, '0')}.json`, headers);
+    const r = sub.filings.recent;
+    out.company = sub.name;
+    out.filings = r.form.map((form, i) => ({ form, date: r.filingDate[i], url: edgarDocUrl(cik, r.accessionNumber[i], r.primaryDocument[i]) }))
+      .filter(f => SEC_FORMS.has(f.form)).slice(0, Number(opts.limit || 40));
+  }
+  try {
+    const fts = await getJson(`https://efts.sec.gov/LATEST/search-index?q=${encodeURIComponent(`"${name}"`)}&forms=D`, headers);
+    out.form_d = (fts.hits?.hits || []).slice(0, 20).map(h => {
+      const [adsh, file] = h._id.split(':');
+      return { filer: h._source.display_names?.[0], date: h._source.file_date, url: edgarDocUrl(h._source.ciks[0], adsh, file) };
+    });
+  } catch (err) { out.form_d = { error: err.message }; }
+  out.note = 'Public companies: 10-K and 10-Q for customers, revenue, and sales and marketing spend; S-1 for the growth story; 8-K for events. Form D filings record private fundraises (often filed by the company or an SPV), with amounts and dates. Name matches can be wrong; check the filer.';
+  return out;
+}
+
+const CFPB = 'https://www.consumerfinance.gov/data-research/consumer-complaints/search/api/v1/';
+
+async function cmdCfpb(name, opts) {
+  const months = Number(opts.months || 24);
+  let company = opts.exact;
+  const candidates = (await getJson(`${CFPB}?${new URLSearchParams({ search_term: name, field: 'company', size: '0' })}`))
+    .aggregations?.company?.company?.buckets?.map(b => ({ company: b.key, complaints: b.doc_count })) || [];
+  company ||= candidates[0]?.company;
+  if (!company) return { query: name, candidates, note: 'No company found in the CFPB database. Try another spelling, or --exact "Company Name".' };
+  const ranges = monthRanges(months);
+  const monthly = [];
+  for (const r of ranges) {
+    const json = await getJson(`${CFPB}?${new URLSearchParams({ company, size: '0', date_received_min: r.min, date_received_max: r.max })}`);
+    monthly.push({ month: r.month, complaints: json.hits?.total?.value ?? null });
+    await sleep(250);
+  }
+  const window = await getJson(`${CFPB}?${new URLSearchParams({ company, size: '0', date_received_min: ranges[0].min, date_received_max: ranges[ranges.length - 1].max })}`);
+  const top = key => (window.aggregations?.[key]?.[key]?.buckets || []).slice(0, 10).map(b => ({ [key]: b.key, complaints: b.doc_count }));
+  return {
+    query: name,
+    company,
+    candidates,
+    pulled: new Date().toISOString().slice(0, 10),
+    monthly,
+    top_products: top('product'),
+    top_issues: top('issue'),
+    note: 'Complaint volume tracks customer volume and problems together; read it next to growth, not as growth. The latest month is partial.',
+  };
+}
+
+async function cmdFdic(name, opts) {
+  const base = 'https://api.fdic.gov/banks';
+  const inst = await getJson(`${base}/institutions?${new URLSearchParams({ search: `NAME:${name}`, fields: 'NAME,CERT,ASSET,DEP,ACTIVE,CITY,STALP,ESTYMD', limit: '10', sort_by: 'ASSET', sort_order: 'DESC' })}`);
+  const banks = (inst.data || []).map(d => d.data);
+  const cert = opts.cert || banks.find(b => b.ACTIVE === 1)?.CERT;
+  const out = { query: name, pulled: new Date().toISOString().slice(0, 10), matches: banks };
+  if (cert) {
+    const fin = await getJson(`${base}/financials?${new URLSearchParams({ filters: `CERT:${cert}`, fields: 'REPDTE,ASSET,DEP,NUMEMP', sort_by: 'REPDTE', sort_order: 'DESC', limit: String(opts.quarters || 12) })}`);
+    out.cert = cert;
+    out.quarterly = (fin.data || []).map(d => d.data).map(q => ({ quarter: q.REPDTE, assets_thousands: q.ASSET, deposits_thousands: q.DEP, employees: q.NUMEMP })).reverse();
+  }
+  out.note = 'Dollar figures are in thousands. Fintechs that are not banks hold deposits at partner banks; look up the partner bank named in their disclosures. Credit unions report to the NCUA, not the FDIC.';
+  return out;
+}
+
 function cmdMoves(opts) {
   if (!opts.moves || !opts.traffic) throw new Error('moves needs --moves moves.csv --traffic traffic.csv');
   const result = analyzeMoves(parseCsv(readFileSync(opts.moves, 'utf8')), parseCsv(readFileSync(opts.traffic, 'utf8')));
@@ -671,6 +1033,14 @@ Commands:
                                                   common marketing subdomains, from DNS records
   subdomains <domain> [--all]                     Subdomains in certificate logs with first-seen dates,
                                                   preview and staging names filtered out unless --all
+  detect <domain>                                 Likely industry packs, with the reasons
+  shopify <domain> [--pages 20] [--out products.csv]
+                                                  Public Shopify catalog with dates, bestseller order, apps
+  experiments <domain>                            Client-side A/B testing tools and readable test configs
+  phones <url>                                    Phone numbers, call-tracking tools, and UTM URLs to check
+  filings <company> [--ua "Name email"] [--cik n] SEC filings for public companies and Form D raises
+  cfpb <company> [--months 24] [--exact "Name"]   CFPB consumer complaints by month, top products and issues
+  fdic <bank> [--cert n] [--quarters 12]          FDIC quarterly assets, deposits, and employees
   ads <name> [--domain example.com]               Public ad library links for each network
   sc-ads <name> [--domain example.com] [--page-id id] [--country US] [--dry-run]
                                                   Active Meta, Google, and TikTok ads via ScrapeCreators
@@ -690,7 +1060,7 @@ async function main() {
   const [cmd, ...rest] = process.argv.slice(2);
   const { pos, opts } = parseArgs(rest);
   const domain = (pos[0] || '').replace(/^https?:\/\//, '').replace(/\/.*$/, '');
-  if (['site', 'stack', 'history', 'hero', 'sitemap-growth', 'dns', 'subdomains', 'ads', 'sc-ads'].includes(cmd) && !pos[0]) {
+  if (['site', 'stack', 'history', 'hero', 'sitemap-growth', 'dns', 'subdomains', 'ads', 'sc-ads', 'detect', 'shopify', 'experiments', 'phones', 'filings', 'cfpb', 'fdic'].includes(cmd) && !pos[0]) {
     console.log(USAGE);
     process.exitCode = 1;
     return;
@@ -706,6 +1076,13 @@ async function main() {
     case 'subdomains': result = await cmdSubdomains(domain, opts); break;
     case 'ads': result = adLibraryLinks(pos[0], opts.domain); break;
     case 'sc-ads': result = await cmdScAds(pos[0], opts); break;
+    case 'detect': result = await cmdDetect(domain); break;
+    case 'shopify': result = await cmdShopify(domain, opts); break;
+    case 'experiments': result = await cmdExperiments(domain); break;
+    case 'phones': result = await cmdPhones(pos[0].startsWith('http') ? pos[0] : `https://${pos[0]}`); break;
+    case 'filings': result = await cmdFilings(pos[0], opts); break;
+    case 'cfpb': result = await cmdCfpb(pos[0], opts); break;
+    case 'fdic': result = await cmdFdic(pos[0], opts); break;
     case 'moves': result = cmdMoves(opts); break;
     case 'diff': result = cmdDiff(opts); break;
     default:

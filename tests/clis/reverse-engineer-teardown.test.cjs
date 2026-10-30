@@ -143,3 +143,41 @@ test('sc-ads builds ScrapeCreators requests and sends the API key', async () => 
   assert.deepEqual(out.tiktok_ads, { error: '500' });
   assert.ok(out.next_step);
 });
+
+test('detectIndustry scores packs from scripts, page text, and schema', async () => {
+  const { detectIndustry, schemaTypes } = await load();
+  const html = `<script type="application/ld+json">{"@type":["Plumber","LocalBusiness"]}</script>
+    <p>Free estimate. Licensed and insured. Financing available.</p><a href="tel:5551234567">Call</a>`;
+  assert.deepEqual(schemaTypes(html), ['Plumber', 'LocalBusiness']);
+  const packs = detectIndustry({ html, tools: ['CallRail'] });
+  assert.equal(packs[0].pack, 'local-services');
+  assert.ok(packs[0].reasons.includes('script: CallRail'));
+  assert.ok(packs[0].reasons.includes('schema: Plumber'));
+});
+
+test('extractPhones and utmTestUrls support the call-tracking check', async () => {
+  const { extractPhones, utmTestUrls } = await load();
+  const phones = extractPhones('<a href="tel:+1-555-123-4567">Call</a><p>Or (555) 765-4321</p><script>var x="555-000-0000"</script>');
+  assert.deepEqual(phones, ['+15551234567', '5557654321']);
+  const urls = utmTestUrls('https://acme.com/hvac?x=1');
+  assert.equal(urls[0].url, 'https://acme.com/hvac?x=1');
+  assert.ok(urls.find(u => u.label === 'google-ads').url.includes('gclid=test'));
+  assert.ok(urls.find(u => u.label === 'meta-ads').url.includes('utm_source=facebook'));
+});
+
+test('experiment config helpers read Optimizely names and GrowthBook features', async () => {
+  const { optimizelyNames, growthbookKeys, summarizeGrowthbook } = await load();
+  assert.deepEqual(optimizelyNames('{"experiments":[{"name":"pricing_annual_default"},{"name":"pricing_annual_default"},{"name":"hero_v2"}]}'), ['pricing_annual_default', 'hero_v2']);
+  assert.deepEqual(growthbookKeys('new GrowthBook({ apiHost: "https://gb.acme.com", clientKey: "sdk-abc123XYZ" })'), { key: 'sdk-abc123XYZ', host: 'https://gb.acme.com' });
+  const summary = summarizeGrowthbook({ features: { 'new-onboarding': { rules: [{ key: 'onboarding-test', variations: [true, false] }, { force: true }] }, banner: { rules: [] } } });
+  assert.deepEqual(summary.features, [{ feature: 'new-onboarding', experiments: ['onboarding-test'] }, { feature: 'banner', experiments: [] }]);
+  assert.equal(summarizeGrowthbook({ encryptedFeatures: 'x' }).encrypted, true);
+});
+
+test('edgarDocUrl and monthRanges build filing links and month windows', async () => {
+  const { edgarDocUrl, monthRanges } = await load();
+  assert.equal(edgarDocUrl('0001795586', '0001193125-26-385383', 'd948605d8k.htm'), 'https://www.sec.gov/Archives/edgar/data/1795586/000119312526385383/d948605d8k.htm');
+  const ranges = monthRanges(3, new Date(Date.UTC(2026, 0, 15)));
+  assert.deepEqual(ranges.map(r => r.month), ['2025-11', '2025-12', '2026-01']);
+  assert.deepEqual(ranges[2], { month: '2026-01', min: '2026-01-01', max: '2026-02-01' });
+});
