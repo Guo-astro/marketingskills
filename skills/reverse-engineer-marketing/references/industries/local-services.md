@@ -63,7 +63,7 @@ Load this pack when the target sells a service delivered at the customer's addre
 - **Reviews:** the FTC's rule on consumer reviews and testimonials (effective October 21, 2024) bans fake reviews, buying positive or negative reviews, and suppressing negative ones. Google also bans selectively asking only happy customers for reviews. Copy their request cadence, not shortcuts.
 - **Licensing and advertising rules** vary by state and trade. Many states require a license number in ads. Check with counsel.
 - **Financing ads** fall under the Truth in Lending Act. "0% financing" needs the required terms. Check with counsel.
-- **Telemarketing and texting** follow TCPA consent rules. The FCC's one-to-one consent rule for lead generators was struck down in January 2025, but prior express written consent is still required for marketing calls and texts, and some states add their own rules.
+- **Telemarketing and texting** follow TCPA consent rules. The FCC's one-to-one consent rule for lead generators was struck down in January 2025, but prior express written consent is still required for marketing calls and texts made with an autodialer or a prerecorded or artificial voice. Do-not-call rules and state laws add their own limits. Getting written opt-in for every marketing text is the safe practice.
 
 ## Plays That Usually Transfer
 

@@ -59,7 +59,7 @@ Load this pack for hotels, vacation rentals, restaurants and chains, and travel 
 
 - **Price display and fees:** the FTC's Rule on Unfair or Deceptive Fees, in effect since May 12, 2025, requires hotels, vacation rentals, and the platforms that sell them to show the total price, including mandatory fees such as resort fees, upfront. Some states (California, for example) have broader all-in pricing laws, and the EU and UK have their own price display rules.
 - **Rate parity clauses:** OTA contracts can limit how a property prices direct bookings. In the EU, the Digital Markets Act bans Booking.com's parity clauses (since late 2024), and some countries restricted them earlier; elsewhere they still appear in contracts. Check the user's own OTA contracts before copying a pricing tactic.
-- **Reviews:** platform policies and the FTC's rule on fake reviews bar incentivized or fake reviews, and review gating.
+- **Reviews:** the FTC's rule on consumer reviews bars fake reviews and incentives tied to a review's sentiment. Platforms go further: many, including Google and Tripadvisor, bar any incentive for a review, and review gating. Copy the request timing, not the incentive.
 - **Alcohol and food:** alcohol advertising rules and allergen labeling rules limit menu and promo copy.
 - **Short-term rentals:** many cities require registration and limit listings.
 

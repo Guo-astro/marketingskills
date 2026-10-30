@@ -27,7 +27,7 @@ Load this pack for alcohol, cannabis, hemp and CBD, tobacco and vaping, and fire
 - **The big ad platforms are mostly closed.** Google and Meta ban or tightly restrict ads for cannabis, tobacco and vapes, and firearms, and limit alcohol by country and audience age. Growth comes from owned channels, retail partners, and community.
 - **Distribution is the moat.** Alcohol runs through distributors and retailers under the three-tier system; cannabis through licensed dispensaries in each state; firearms through dealers. New distributors, states, and retail doors explain most growth.
 - **Retail menus and locators are the storefront.** For cannabis and alcohol, being on dispensary menus and retailer apps matters more than the brand's own site.
-- **Email and SMS are owned, but restricted.** Carriers treat these categories as restricted SMS content that needs age gating, so lists are built carefully and are valuable.
+- **Email and SMS are owned, but restricted.** Carriers treat these categories as restricted SMS content, and some messaging providers bar some of them outright, so the lists that do exist are valuable.
 - **Each state is a launch.** A new legal market, a new license, or a new shipping state is a dated move.
 
 ## Signals to Collect
@@ -61,7 +61,7 @@ Load this pack for alcohol, cannabis, hemp and CBD, tobacco and vaping, and fire
 - **Hemp and CBD:** a November 2025 federal law redefines hemp and bans most intoxicating hemp-derived THC products (more than 0.4 mg total THC per container) from November 12, 2026. FDA also limits health claims and CBD in food.
 - **Tobacco and vaping:** FDA requires premarket authorization for tobacco products, including e-cigarettes, and a nicotine addiction warning on covered products and their ads. The PACT Act, as extended to e-cigarettes in 2020, requires seller registration and age verification at delivery, and bars mailing vapes through USPS. Many states ban flavored products.
 - **Firearms:** online firearm sales must transfer through a licensed dealer (FFL). Ammunition and accessory rules vary by state. Google and Meta prohibit ads for firearms and ammunition and restrict many accessories.
-- **Platforms and SMS:** Google and Meta policies change often and differ by country. Wireless carriers treat alcohol, firearms, and tobacco as restricted SMS content that requires age gating.
+- **Platforms and SMS:** Google and Meta policies change often and differ by country. For SMS, age gating is the minimum, not a pass: carriers restrict alcohol, firearms, and tobacco content, and messaging providers such as Twilio prohibit some categories (cannabis and CBD among them) whatever the age gate, with rules that vary by number type. Check the provider's current forbidden-content policy before proposing an SMS play.
 - **Influencers:** creators must disclose paid posts under FTC rules, and alcohol and cannabis codes add audience-age rules.
 - Laws here change quickly. Check with counsel before copying any channel, claim, or shipping practice.
 
@@ -69,7 +69,7 @@ Load this pack for alcohol, cannabis, hemp and CBD, tobacco and vaping, and fire
 
 | Play | Run it with |
 |---|---|
-| An age-gated email and SMS program with a reason to join | **emails**, **sms** |
+| An age-gated email program with a reason to join, plus SMS only where the provider allows the category | **emails**, **sms** |
 | Retail and menu presence with a locator and retailer support | **co-marketing**, **sales-enablement** |
 | A membership club or loyalty program | **referrals**, **offers** |
 | State launch playbooks with retailer and press outreach | **launch**, **public-relations** |
@@ -80,7 +80,7 @@ Load this pack for alcohol, cannabis, hemp and CBD, tobacco and vaping, and fire
 ## Metrics to Ask About
 
 - **Doors and menus:** retail locations or dispensary menus carrying the product
-- **Depletions:** for alcohol, what retailers sell through, not what distributors buy
+- **Depletions:** for alcohol, what distributors sell to retailers. It sits between the producer's shipments to distributors and the retailer's sales to consumers, so it isn't consumer demand
 - **Velocity:** units sold per door per week
 - **Markets live:** states or countries open, and time to launch a new one
 - **Owned list size and growth:** age-verified email and SMS subscribers

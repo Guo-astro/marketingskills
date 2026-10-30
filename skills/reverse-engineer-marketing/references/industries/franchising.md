@@ -27,7 +27,7 @@ Load this pack when the target grows by selling franchises: restaurant, fitness,
 - **Signed is not open.** Brands announce units sold, but the development pipeline (signed but not open) can stall or fail. Openings, closures, and transfers tell the real story.
 - **Brokers and portals drive development.** Franchise brokers and consultant networks, franchise portals, and expos send many investor leads, usually for a fee on each sale.
 - **Brand funds pay for marketing.** Franchisees pay into a brand fund and often must spend a set amount locally. That fund decides national advertising, and local spend varies by franchisee.
-- **Unit economics sell franchises.** Financial performance figures, when the brand publishes them, are the main sales argument, and only the disclosure document can contain them.
+- **Unit economics sell franchises.** Financial performance figures, when the brand publishes them, are the main sales argument. Any such claim, wherever it appears, must have a reasonable basis and be included in Item 19 of the disclosure document.
 
 ## Signals to Collect
 

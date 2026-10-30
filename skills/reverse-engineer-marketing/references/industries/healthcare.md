@@ -75,7 +75,7 @@ Load this pack when the target is a clinic, dental or dermatology practice, med 
 | Intake quiz that segments and reveals price | **lead-magnets**, **cro** |
 | Compliant ad creative with claim substantiation | **ad-creative**, **ads** |
 | Server-side, consent-aware conversion tracking | **conversion-tracking**, **analytics** |
-| Referral program for referring providers | **co-marketing**, **sales-enablement** |
+| Referral relationships with referring providers, with no payment or gifts tied to referrals unless counsel clears them (Anti-Kickback Statute, Stark Law) | **co-marketing**, **sales-enablement** |
 
 ## Metrics to Ask About
 

@@ -62,7 +62,7 @@ Load this pack when the target is a brokerage or agent team, a proptech company,
 - **RESPA Section 8:** restricts referral fees and kickbacks among settlement service providers. Joint marketing and marketing services agreements with lenders and title companies have drawn CFPB scrutiny. Check with counsel.
 - **State license rules:** most states require the brokerage name and license details in ads, and regulate team names.
 - **Buyer agreements and compensation:** since August 2024, MLS participants need a written agreement with a buyer before touring, and compensation offers can't appear on the MLS. Copying a pre-2024 buyer funnel may not work.
-- **Telemarketing and texting:** TCPA consent rules apply to lead follow-up. The FCC's one-to-one consent rule was struck down in January 2025, but written consent for marketing calls and texts still applies.
+- **Telemarketing and texting:** TCPA consent rules apply to lead follow-up. The FCC's one-to-one consent rule was struck down in January 2025, but prior express written consent still applies to marketing calls and texts made with an autodialer or a prerecorded or artificial voice. Do-not-call rules and state laws add their own limits.
 
 ## Plays That Usually Transfer
 
