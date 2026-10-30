@@ -363,7 +363,7 @@ Loops are grouped by function. Naming follows the "The X loop" convention.
 - **Purpose**: Keep a teardown current, so the user's plays track what the company is doing now, not what it did a year ago.
 - **Skills used**: `reverse-engineer-marketing`, plus whichever skill a new move routes to
 - **Loop body**:
-  1. Rerun the teardown script's `stack`, `history`, and `site` commands, check the ad libraries, and pull the last month's posts.
+  1. Rerun the teardown script's `stack`, `history`, `hero`, `site`, `dns`, and `subdomains` commands plus the industry pack's commands, check the ad libraries and paid promotion, and pull the last month's posts and new interviews.
   2. Append new dated moves to a fresh move log.
   3. Run the script's `diff` against the previous month's log.
   4. For each new move, decide whether it changes a play, and name the skill to hand it to.

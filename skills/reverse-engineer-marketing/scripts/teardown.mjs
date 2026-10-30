@@ -96,8 +96,16 @@ export const SIGNATURES = [
   { tool: 'WalletConnect', group: 'crypto', patterns: [/walletconnect/i] },
 ];
 
+// Only script blocks and resource URLs are scanned, so a tool named in page copy isn't mistaken for an installed one.
+export function scriptSurface(html) {
+  const scripts = [...html.matchAll(/<script\b[^>]*>[\s\S]*?<\/script>/gi)].map(m => m[0]);
+  const urls = [...html.matchAll(/\b(?:src|href|data-src|action)=["']([^"']+)["']/gi)].map(m => m[1]);
+  return [...scripts, ...urls].join('\n');
+}
+
 export function detectTools(html) {
-  return SIGNATURES.filter(s => s.patterns.some(p => p.test(html))).map(s => s.tool);
+  const surface = scriptSurface(html);
+  return SIGNATURES.filter(s => s.patterns.some(p => p.test(surface))).map(s => s.tool);
 }
 
 // SPF includes and MX hosts name the services allowed to send or receive mail for the domain.
@@ -301,6 +309,7 @@ export function parseCsv(text) {
   }
   row.push(field);
   if (row.some(v => v !== '')) rows.push(row);
+  if (!rows.length) return [];
   const [header, ...body] = rows;
   return body.map(r => Object.fromEntries(header.map((h, i) => [h.trim(), (r[i] ?? '').trim()])));
 }
@@ -925,7 +934,9 @@ async function cmdFilings(name, opts) {
   const out = { query: name, pulled: new Date().toISOString().slice(0, 10) };
   const tickers = Object.values(await getJson('https://www.sec.gov/files/company_tickers.json', headers));
   const q = name.toLowerCase();
-  const matches = tickers.filter(t => t.ticker.toLowerCase() === q || t.title.toLowerCase().includes(q)).slice(0, 5);
+  const rank = t => (t.ticker.toLowerCase() === q ? 0 : t.title.toLowerCase().startsWith(q) ? 1 : 2);
+  const matches = tickers.filter(t => t.ticker.toLowerCase() === q || t.title.toLowerCase().includes(q))
+    .sort((a, b) => rank(a) - rank(b)).slice(0, 5);
   out.public_matches = matches.map(m => ({ cik: m.cik_str, ticker: m.ticker, name: m.title }));
   const cik = opts.cik || matches[0]?.cik_str;
   if (cik) {

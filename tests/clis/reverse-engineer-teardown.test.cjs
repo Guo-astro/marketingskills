@@ -181,3 +181,10 @@ test('edgarDocUrl and monthRanges build filing links and month windows', async (
   assert.deepEqual(ranges.map(r => r.month), ['2025-11', '2025-12', '2026-01']);
   assert.deepEqual(ranges[2], { month: '2026-01', min: '2026-01-01', max: '2026-02-01' });
 });
+
+test('detectTools ignores tools named only in page copy', async () => {
+  const { detectTools, parseCsv } = await load();
+  assert.deepEqual(detectTools('<p>We moved off Klarna and Toast last year. See dealer.com for more.</p>'), []);
+  assert.deepEqual(detectTools('<script src="https://js.klarna.com/web-sdk/v1/klarna.js"></script>'), ['Klarna']);
+  assert.deepEqual(parseCsv(''), []);
+});
